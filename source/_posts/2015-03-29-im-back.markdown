@@ -1,0 +1,13 @@
+---
+layout: post
+title: "I'm back!"
+date: 2015-03-29 21:35:41 +0300
+comments: true
+categories: 
+---
+## I'm back!
+
+Всем доброго время суток. Прошло уже много времени как я не писал ничего в блог... 
+![linux vs windows](http://itsfoss.itsfoss.netdna-cdn.com/wp-content/uploads/2013/07/Windows_Vs_Mac_Vs_Linux_10.jpg"Linux vs Windows vs Mac os")
+
+
