@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Администрирование и настройка | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/administrirovaniie-i-nastroika/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10]]></title>
+    <link href="http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/"/>
+    <updated>2012-04-21T17:31:09+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10</id>
+    <content type="html"><![CDATA[<p>Статья тестовая, незавершенная, исключительно для сохранения опыта.</p>
+
+<h4>LXC - LinuX Containers.</h4>
+
+<p>Контейнеры Linux - технология виртуализации программного обеспечения на уровне операционной системы. Контейнеры Linux поддерживаются на уровне ядра.</p>
+
+<p><strong>Преимущества контейнерной технологии lxc для меня лично.</strong></p>
+
+<ul>
+<li><p>Не требуется поддержка виртуализации vt-x процессором. Intel Atom CPU D525 ее не поддерживает.</p></li>
+<li><p>Легко устанавливается из репозиториев ubuntu.</p></li>
+<li><p>Легко формируется минимальный сервер ubuntu в контейнере.</p></li>
+<li><p>Работает</p></li>
+<li><p>В силу особенностей технологии, унифицирует программное окружение контейнеров и хост-системы. Условно говоря - &ldquo;везде ubuntu&rdquo;.</p></li>
+<li><p>Присутствуют решаемые трудности.</p></li>
+</ul>
+
+
+<p><strong>Что получиться в результате настройки</strong></p>
+
+<ul>
+<li><p>Будет установлена на хост-системе (домашнем компьютере) инфраструктура lxc</p></li>
+<li><p>Будет создан контейнер с минимальной версией ubuntu 11.10.</p></li>
+<li><p>Проведена локализация и первоначальная настройка контейнера.</p></li>
+<li><p>Управление контейнером будет осуществляться стандартными средствами lxc и ОС.</p></li>
+</ul>
+
+
+<!-- more -->
+
+
+<p><strong>Установка поддержки инфраструктуры LXC в хост-системе Ubuntu 11.10</strong></p>
+
+<pre><code>$ sudo apt-get update
+$ sudo apt-get install lxc
+</code></pre>
+
+<p><strong>Установка сопутствующих пакетов в хост-системе</strong>
+Комплект утилит для управления мостовыми(bridge) соединениями. Дело в том, что сетевое подключение контейнера к локальной сети и интернет, выполняется через сетевой мост.
+<code>
+$ sudo apt-get install bridge-utils
+</code></p>
+
+<p>Операции с контейнерами выполняются в пользовательском окружении root хост-системы.
+Перейти в пользовательское окружении суперпользователя root</p>
+
+<pre><code>$ sudo -s
+</code></pre>
+
+<p><strong>Создание контейнера, команда lxc-create</strong></p>
+
+<p>Создание контейнера с выбранным именем 1c_ubuntu, на основе встроенного шаблона ubuntu 11.10
+<code>$ sudo lxc-create -n 1c_ubuntu -t ubuntu</code>
+Более правильно, вначале создать файл конфигурации, а потом на его основе создать контейнер. Это часто используется для копирования настроек сети в конфигурационный файл контейнера.
+Конфигурационный файл config, относящийся к создаваемому контейнеру, создается в папке /var/lib/lxc/1c_ubuntu/
+Корневая файловая система контейнера создается в папке /var/lib/lxc/1c_ubuntu/rootfs</p>
+
+<p>Производится загрузка пакетов минимальной версии Ubuntu 11.10 (или текущей версии) и сохранение ее в кэше, дополнительно в хост-систему установился пакет lxcguest. Были какие-то трудности с локализацией.
+Возможно мелкая трудность, решится, с помощью генерации &ldquo;C&rdquo; локали.
+В некоторых системах, исправляется следующим образом:
+<code>
+$ sudo locale-gen ru_RU.UTF-8
+$ sudo dpkg-reconfigure locales
+</code>
+и еще
+<code>
+$ export LC_ALL=ru_RU.UTF-8
+</code>
+Также можно отредактировать /etc/default/locale и внести строку вида LC_ALL=ru_RU.UTF-8
+это можно сделать перед генерацией сервера.</p>
+
+<p>Файл конфигурации контейнера 1c_ubuntu.conf у меня выглядел так:</p>
+
+<pre><code>lxc.network.type = veth 
+lxc.network.flags = up 
+lxc.network.link = br0 
+lxc.network.hwaddr = 00:11:22:33:55:44 
+lxc.network.name = eth0 
+lxc.network.ipv4 = 0.0.0.0 
+lxc.cgroup.cpu.shares = 512 
+lxc.cgroup.memory.limit_in_bytes = 1024M 
+lxc.cgroup.memory.memsw.limit_in_bytes = 3072M 
+</code></pre>
+
+<p>Опционально. Удаление контейнера, команда lxc-destroy
+Если какие-то настройки неудачны, то можно удалить созданный контейнер
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lxc-destroy -n 1c_ubuntu&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'>
+</span><span class='line'>**Первая правка конфигурации контейнера для подключение к локальной сети**
+</span><span class='line'>Выбор способа сетевого подключения.  Настройка локальной сети контейнеров, самая сложная часть в данном изложении.
+</span><span class='line'>Мостовое подключение, при наличии собственной внутренней домашней локальной сети за роутером, позволяет обращаться к контейнеру как обычному компьютеру, с любых домашних компьютеров. 
+</span><span class='line'>
+</span><span class='line'>Для того что бы это стало возможно редактируем /etc/network/interfaces
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;auto lo
+</span><span class='line'>iface lo inet loopback&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;auto br0
+</span><span class='line'>iface br0 inet static
+</span><span class='line'>address 192.168.1.100
+</span><span class='line'>netmask 255.255.255.0
+</span><span class='line'>gateway 192.168.1.1
+</span><span class='line'>bridge_ports eth0
+</span><span class='line'>bridge_stp off
+</span><span class='line'>bridge_maxwait 5
+</span><span class='line'>post-up /usr/sbin/brctl setfd br0 0
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>после того как файл будет отредактирован выполнете команду
+</span><span class='line'>&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;ifup br0&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code class=""&gt;или
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;sudo /etc/init.d/networking restart&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;также необходимо добавить несколько правил в таблицу iptables
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;iptables -A FORWARD -d 192.168.1.0/24 -i br0 -j ACCEPT
+</span><span class='line'>iptables -A FORWARD -s 192.168.1.0/24 -i br0 -j ACCEPT
+</span><span class='line'>-A INPUT -p udp -m udp &ndash;sport 67 &ndash;dport 68 -j ACCEPT
+</span><span class='line'>-A INPUT -p udp -m udp &ndash;dport 67 &ndash;sport 68 -j ACCEPT
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>проверяем что всё работает
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>$ping ya.ru
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>если сразу не заработало то пробуем отключить фаервол на хосте и пробуем ещё раз. Если с отключёным фаервол работает, тогда надо или разбиратся что имено блокирует выход в сеть, или прописать
+</span><span class='line'>&lt;/code&gt;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;sysctl net.bridge.bridge-nf-call-iptables=0&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;sysctl net.bridge.bridge-nf-call-arptables=0&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;в терминале. Последние две команды небходимы для того чтобы виртуальные мосты работали более приближенно к простому железу, поэтому нужно отключить применение правил iptables на самом мосту. 
+</span><span class='line'>
+</span><span class='line'>Локализация (поддержка русского языка) в консоли контейнера
+</span><span class='line'>После появления интернета в контейнере, выполнить обновление репозиториев ubuntu и доустановить локализацию сервера.
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install language-pack-ru-base
+</span><span class='line'>$ sudo nano /etc/default/locale
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>Добавляем строку, если нет: LANG=ru_RU.UTF-8
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>$ sudo dpkg-reconfigure locales&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;Выходим и входим заново в контейнере. По идее, перезагружаться не надо.
+</span><span class='line'>Команда покажет текущие настройки локали:
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;$ locale</span></code></pre></td></tr></table></div></figure></p>
+
+<p><strong>Справочно. Перезагрузка lxc-контейнера изнутри</strong>
+<code>
+$ sudo shutdown -r now
+</code></p>
+
+<p>Первый запуск, команда запуска контейнера lxc-start
+<code>
+$ sudo lxc-start -n 1c_ubuntu -d
+</code>
+Параметр -d вернёт нам ввод командной строки хост-системы вместо запуска сеанса гостевой машины в текущем терминале.</p>
+
+<p><strong>Первоначальная настройка изнутри контейнера</strong></p>
+
+<p>Имя пользователя и пароль по умолчанию, при первом входе в консоль контейнера - root/root.
+Далее создаем главного пользователя с именем на выбор, - &ldquo;admin&rdquo; и добавляем его в группы sudousers.
+&#8220;`
+$ adduser admin</p>
+
+<pre><code>аккуратно заполняем поля.
+</code></pre>
+
+<p>$ adduser admin sudo</p>
+
+<pre><code>добавляем в группу sudo users.
+
+Изменяем пароль пользователя root, т.к. мы зашли под ним.
+</code></pre>
+
+<p>$ passwd</p>
+
+<pre><code>
+
+Проверка сетевого подключения изнутри контейнера
+</code></pre>
+
+<p>$ ping www.google.com</p>
+
+<pre><code>
+
+Выход пользователя из контейнера
+</code></pre>
+
+<p>$ exit</p>
+
+<pre><code>Выключение контейнера изнутри
+</code></pre>
+
+<p>$ sudo shutdown -h now</p>
+
+<pre><code>
+Безопасное выключение контейнера снаружи, из хост-системы
+Вход в консоль управления контейнером
+</code></pre>
+
+<p>$ sudo lxc-console -n 1c_ubuntu</p>
+
+<pre><code>Команда выключения
+</code></pre>
+
+<h1>1c_ubuntu > init 0</h1>
+
+<pre><code>
+Грубое выключение контейнера
+</code></pre>
+
+<p>$ sudo lxc-stop -n 1c_ubuntu</p>
+
+<pre><code>
+
+Чтобы не делать повторно такие настройки, базовую конфигурацию контейнера для местных условий можно сохранить в ... и создавать новые контейнеры на базе этой конфигурации
+Определения хранилища пользовательских данных
+Для удобного пользования контейнером и удобного резервирования пользовательских данных, можно выносить блочные устройства в другое место.
+
+
+
+**Резервное копирование контейнера**
+Сразу после установки и настройки, рекомендуется создать резервную копию с помощью tar
+Пример файла backup.sh:
+</code></pre>
+
+<h1>!/bin/bash</h1>
+
+<p>NAME=1c_ubuntu
+SRC_DIR=/var/lib/lxc/$NAME
+DEST_DIR=/media/vm/backups/$NAME
+cd $SRC_DIR
+mkdir -p $DEST_DIR
+tar &ndash;one-file-system -cf $DEST_DIR/$NAME-<code>date +%F</code>.tar .</p>
+
+<h1>tar &ndash;one-file-system -czf $DEST_DIR/$NAME-<code>date +%F</code>.tar.gz .</h1>
+
+<p>&#8220;`
+В несжатом состоянии структура создаётся очень быстро.</p>
+
+<p>Перенос контейнера в другое сетевое окружение (другая конфигурация сети)
+Например, перенос контейнера в сеть с роутером и динамическим присвоением &ldquo;серого&rdquo; IP-адреса. Операционная система хост-системы должна совпадать с исходной.
+Фактически, все определяется файлом конфигурации контейнера.</p>
+
+<p>Ресурсы</p>
+
+<ul>
+<li><p>Обстоятельная статья про виртуальные мосты в Linux <a href="http://xgu.ru/wiki/Linux_Bridge">http://xgu.ru/wiki/Linux_Bridge</a></p></li>
+<li><p>Тестовый SyncML сервер см. <a href="http://gimmor.blogspot.com/2012/03/syncml.html">http://gimmor.blogspot.com/2012/03/syncml.html</a></p></li>
+<li><p>LXC виртуализация, <a href="http://koder-ua.blogspot.com/">http://koder-ua.blogspot.com/</a></p></li>
+<li><p>Пояснение о виртуальных сетях lxc, в картинках на англ. языке  <a href="http://planet.gentoo.org/archives/2010/2010-09-06.html">http://planet.gentoo.org/archives/2010/2010-09-06.html</a></p></li>
+</ul>
+
+
+<p>По материалам статьи <a href="http://gimmor.blogspot.com/2012/03/lxc.html">Настройка LXC окружения на домашнем компьютере
+</a></p>
+]]></content>
+  </entry>
+  
+</feed>

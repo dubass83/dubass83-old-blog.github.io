@@ -1,0 +1,1623 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Общие команды Linux - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="1. Общие команды Linux Linux команды, которым не нашлось место ни в каком другом разделе. 1
+$ uname -a Показать версию ядра Linux; 1
+$ lsb_release -a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2012/04/13/obschye-komandyi-linux/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Общие команды Linux</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T14:29:32+03:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h4>1. Общие команды Linux</h4>
+
+<p>Linux команды, которым не нашлось место ни в каком другом разделе.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать версию ядра Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsb_release -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>На экран выводиться информация о версии операционной системы Debian и оснваных на ней дистрибутивах;</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ man hier</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Описание иерархии файловой системы (для чего нужна каждая директория в linux);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ clear</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Очищение экрана терминала;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wall Привет</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отправляет на терминалы других пользователей сообщение &ldquo;Привет&rdquo;;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ date</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает текущую дату и время;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cal -3</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает в удобной форме предыдущий, текущий и последующий месяц (типо календарь);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uptime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать текущее время и работу системы без перезагрузки и выключения;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ hostname
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать сетевое имя компьютера;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ whois linux.org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о доменом имени linux.org;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export http_proxy=http://your.proxy/:port</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменить переменной окружения http_proxy, для использования интернета через proxy-сервер;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget http://dubass83.org.ua/file</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скачать файл <a href="http://dubass83.org.ua/file">http://dubass83.org.ua/file</a> в текущую папку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget --convert-links -r http://www.linux.org/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование сайта целиком и конвертирование ссылок для автономной работы. Копирование происходит на 5 уровней в глубину;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pppconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание и настройка Dial-Up соединения для выхода в Интернет по модему;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pppoeconf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание и настройка выхода в Интернет через ADSL-модем;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ !!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выполнить последнюю команду;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ history | tail -50</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать последние 50 набранных команд;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Завершить сеанс текущего пользователя;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ passwd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Меняет пароль текущего пользователя;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ shutdown -h now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход из Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ poweroff</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход из Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ reboot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перезагрузка системы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ last reboot
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cтатистика перезагрузок;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ winecfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Настройка <a href="http://www.winehq.org/about/">Wine</a> - НЕэмулятор WinAPI;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ host dubass83.org.ua</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает IP-адрес введенного сайта;</p>
+
+<hr />
+
+<h4>2. Команды Linux: работы с файлами и директориями</h4>
+
+<p>В  этом разделе собраны команды Linux предназначенные для: создания и  удаления файлов и директорий, команды навигации между ними и команды для  назначения владельца и прав доступа.</p>
+
+<h5>2.1 Директории и файлы</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pwd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит текущий путь;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит список файлов и каталогов по порядку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls -laX</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит форматированный список всех файлов и директорий, включая скрытые;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переход в домашнюю директорию;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переход в директорию /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание пустого файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать содержимое файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tail /var/log/messages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит конец файла. Удобно при работе с логами и большими файлами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nano /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Редактирование файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gedit /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Вторая команда Linux для редактирования файла;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "Последняя строчка" | sudo tee -a /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление к концу файла &ldquo;Последняя строчка&rdquo; в файл /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cp /home/Mut@NT/primer.txt /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирует /home/Mut@NT/primer.txt в home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ln -s /home/Mut@NT/primer.txt /home/primer</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздает символическую ссылку /home/primer к файлу /home/Mut@NT/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание директории с именем shaman;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rmdir /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление директории с именем shaman;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rm -rf /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление директории с вложенными фалами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cp -la /dir1 /dir2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование директорий;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mv /dir1 /dir2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переименование директории;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ du -sh /home/maxim/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран размер заданной директории. Можно использовать для определения размера файлов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ locate primer</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Поиск всех файлов с именем primer;</p>
+
+<h5>2.2 Права доступа</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chmod 0777 /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение прав доступа к директории только для /home. 0777 – разрешение на чтение/запись/исполнение для всех групп;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ sudo chmod -R 0777 /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Рекурсивное изменение прав доступа к директории /home. 777 – разрешение  на чтение/запись/исполнение для всех групп. Все вложенные директории и  файлы будут иметь права 0777;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chown maxim:maxim /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение владельца и группы только для файла /home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chown -R maxim:maxim /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение владельца для всего содержимого директории /home;</p>
+
+<hr />
+
+<h4>3. Команды Linux: работа с архивами</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar cf primer.tar /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$ Создать tar-архив с именем primer.tar содержащий /home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar czf primer.tar.gz /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздать tar-архив с сжатием Gzip по имени primer.tar.gz;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar cjf primer.tar.bz2 /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздать tar-архив с сжатием Bzip2 по имени primer.tar.bz;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xf primer.tar</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать архив primer.tar в текущую папку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xzf primer.tar.gz</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать tar-архив с Gzip;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xjf primer.tar.bz</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать tar-архив с Bzip2;</p>
+
+<hr />
+
+<h4>4. Команды Linux: установка программ</h4>
+
+<h5>4.1 Просмотр установленных пакетов</h5>
+
+<p><em>RPM - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rpm -qa</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список установленных пакетов RPM в системе;</p>
+
+<p><em>DEB - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -l |more
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список установленных пакетов DEB в системе;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ apt-cache search имя пакета</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ищет в  индексах наличее доступного пакета и выводит на экран краткую информацию  о нужном пакете (очень полезная команда для поиска и установки программ  из консоли);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ apt-cache showpkg имя пакета</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полная информация о указанном пакете;</p>
+
+<h5>4.2 Установка и удаление пакетов</h5>
+
+<p><em>RPM - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rpm -i pkgname.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка RPM пакета pkgname.rpm;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rpm -e pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление RPM пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg -i *.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка всех пакетов в директории;</p>
+
+<p><em>DEB - __дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Обновление списка доступных пакетов из Internet;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Обновление доступной версии установленных пакетов в системе;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка DEB пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get remove pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление DEB пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg -i *.deb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка всех пакетов в директории;</p>
+
+<hr />
+
+<h4>5. Команды Linux: мониторинг работы и просмотр логов.</h4>
+
+<p>Команды  Linux необходимые для мониторинга работы операционной системы. Все  показания выводятся на экран в реальном времени. Число, стоящее после  команды означает интервал между выводом информации.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ top</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация в реальном времени о загруженных процессах, потребление ОЗУ;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ htop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Более расширенная on line-статистика о загруженных процессах (разработчик <a href="http://htop.sourceforge.net/">http://htop.sourceforge.net</a>);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dmesg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает log-файл загрузки ОС и нахождения новых устройств;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mpstat 1</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Показывает расширенную статистику потребления ресурсов системы в  процентах (для некоторых дистрибутивов необходима установка пакета  sysstat);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vmstat 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную статистику по использованию виртуальной памяти;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iostat 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную статистику прерываний по устройствам;</p>
+
+<hr />
+
+<h4>6. Команды Linux: информация об устройствах.</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsdev</span></code></pre></td></tr></table></div></figure>
+
+
+<p>информация об уже установленных устройствах (в некоторых дистрибутивах требует доставить пакет procinfo);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/cpuinfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать полную информацию о модели процессора (частота, поддерживаемые инструкции и т.д.);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/meminfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную информацию о занимаемой оперативной памяти  (MemTotal, MemFree, Buffers, Cached, SwapCached,HighTotal, HighFree,  LowTotal и т. д.);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ grep SwapTotal /proc/meminfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать размер раздела выделенного под swap;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ watch -n1 'cat /proc/interrupts'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о прерываниях;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ free -m</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация о используемой и свободной ОЗУ и Swap-файле (-m указывает, что отображать нужно в Мб);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lshal</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список всех устройств и их параметров;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/devices</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать все устройства в системе (названия взяты из директории /proc/devices);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lspci -tv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать обнаруженные PCI-устройства;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsusb -tv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать обнаруженные USB-устройства;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dmidecode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о версии BIOS компьютера;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gtf 1024 768 75</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит строку ModeLine для Вашего монитора на параметрах экрана 1024x768x75Hz;</p>
+
+<hr />
+
+<h4>7. Команды Linux: жесткие диски и файловая система.</h4>
+
+<h5>7.1 Информация о файловой системе и жестком диске.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fdisk -l</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация о всех подключенных жестких и сменных дисках;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo hdparm -I /dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полная информация о IDE/ATA жестких дисках;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ smartctl -a /dev/sda1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит SMART-информацию о разделе жесткого диска /dev/sda1 (необходима установка пакета smartmontools);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo blkid</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит UUID всех доступных накопителей информации в системе;</p>
+
+<h5>7.2 Производительность жесткого диска.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo hdparm -tT /dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает производительность жесткого диска;</p>
+
+<h5>7.3 Монтирование разделов жесткого диска.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mount | column -t</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает полную информацию о примонтированных устройсвах;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/partitions</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает только примонтированные разделы жесткого диска;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ df</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает свободное место на разделах;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/sda1 /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует раздел /dev/sda1 к точке монтирования /mnt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t auto /dev/cdrom /mnt/cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$ Монтирует большинство CD-ROM`ов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/hdc -t iso9660 -r /cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует IDE CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/scd0 -t iso9660 -r /cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует SCSI CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t ufs -o ufstype=ufs2,ro /dev/sda3 /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование FreeBSD разделов в Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t smbfs -o username=vasja,password=pupkin //pup/Video</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование сетевых ресурсов (SMB);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t iso9660 -o loop /home/file.iso /home/iso</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование ISO-образов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/sdb1 -t vfat -o rw /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование раздел с файловой системой FAT 16/32 (к примеру USB-накопитель) к точки монтирования /mnt с возможностью записи;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo umount /mnt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отмонтирует раздел от точки монтирования /mnt;</p>
+
+<hr />
+
+<h4>8. Команды Linux: настройка сети.</h4>
+
+<h5>8.1 Конфигурация сети.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать параметры всех сетевых;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать параметры сетевого интерфейса eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ethtool eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Показывает состояние сетевого интерфейса eth0 (для некоторых  дистрибутивов требуется установка пакета ethtool). Команда ethtool  применяется только для проводных подключений, не работает с  беспроводными интерфейсами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ethtool -s eth0 speed 100 duplex full autoneg off</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Принудительно задать скорость сетевому интерфейсу 100Mbit и режим Full duplex и отключить автоматическое определение;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0 192.168.50.254 netmask 255.255.255.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать основной IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ip addr add 192.168.50.254/24 dev eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать основной IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0:0 192.168.51.254 netmask 255.255.255.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать дополнительный IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ip addr add 192.168.51.254/24 dev eth0 label eth0:1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать дополнительный IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifconfig eth0 up</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Запустить сетевой интерфейс eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifconfig eth0 down</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключить сетевой интерфейс eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0 hw ether 00:01:02:03:04:05</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Смена MAC адреса;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo /etc/init.d/dhcpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перезагрузка DHCP клиента;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping 192.168.0.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка сетевого соединения. Пингуется IP адрес 192.168.0.2 (пинговать можно ya.ru);</p>
+
+<h5>8.2 Маршрутизация.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ route -n</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран таблицу маршрутизации;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ netstat -rn</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран таблицу маршрутизации;</p>
+
+<h3>8.3 Управление портами (брандмауэр).</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ netstat -an | grep LISTEN</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех открытых портов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsof -i</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех открытых портов в сеть Internet;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo netstat -tup</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Активные соединения с интернетом;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ socklist</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает все открытые сокеты;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo netstat -anp --udp --tcp | grep LISTEN</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Список приложений, которые открывают порты;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -L -n -v</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает статус firewall (статус iptables);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P INPUT ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P FORWARD ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P OUTPUT ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -X</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаляет все цепочки;</p>
+
+<h3>8.4 Управление NAT.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&ldquo;Поднятие&rdquo; NAT на интерфейсе eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 20022 -j DNAT --to 192.168.16.44:22</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перенаправление порта 20022, который использется для ssh;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 993:995 -j DNAT --to 192.168.16.254:993-995</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перенаправление диапазона портов 993-995;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iptables -L -t nat</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка статуса NAT;</p>
+
+<hr />
+
+<h2>9. Команды Linux: создание и запись ISO образов.</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cdrecord -scanbus</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает все доступные CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dd if=/dev/hdc of=/tmp/mycd.iso bs=2048 conv=notrunc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание ISO образов с диска CD-ROM;</p>
+
+<hr />
+
+<h2>10. Команды Linux: пользователи и группы.</h2>
+
+<p>Команды Linux необходимые для работы с пользователями и группами пользователей.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ id
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает сводную информацию по текущему пользователю (логин, UID, GID, группы);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ finger maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о пользователе maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ last</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает последних зарегистрированных пользователей;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ who</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает имя текущего пользователя и время входа;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ useradd maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление нового пользователя maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление группы home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ usermod -a -G home Mut@NT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляет пользователя Mut@NT в группу home (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupmod -A maxim home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляет пользователя maxim в группу home (SuSE);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ userdel maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление пользователя maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupdel home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление группы home;</p>
+
+<hr />
+
+<h2>11. Команды Linux: работа с процессами.</h2>
+
+<p>Все запущенные процессы имеют уникальные номера - PID.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ps axjf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать все загруженные процессы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pgrep -l sshd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID определенного процесса – sshd;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ echo $$
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID вашей оболочки;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fuser -va 22/tcp
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID процесса использующий порт 22;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fuser -va /home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает PID процесса имеющего доступ к /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ lsof /home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список процессы, которые используют /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ killall 0 httpd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран текущее состояние процесса httpd;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ kill 4712
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>«Убить» процесс с PID 4712;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo killall TERM 4712
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Посылает процессу с PID`ом 4712 сигнал TERM - завершить процесс;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo killall HUP httpd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Посылает процессу с именем httpd сигнал HUP - остановить процесс;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo fuser -k -TERM -m /home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>“Убить” все процессы имеющие доступ к /home;</p>
+
+<h4>Важные сигналы посылаемые процессам:</h4>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>1 - HUP остановить процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>2 - INT прервать процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>3 - QUIT выйти</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>9 - KILL “убить” процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>15 - TERM завершить процесс</p>
+
+<hr />
+
+<h2>12. Команды Linux: Runlevels.</h2>
+
+<p>После  загрузки ядра Linux начинают загружаться различные демоны и программы,  такие как NetworkManager, Evolution и т. д., результат которых мы видим у  себя после загрузки на рабочем столе. Загрузка каждой службы  осуществляется скриптом. Все скрипты лежат в /etc/init.d.</p>
+
+<p>Runlevels – это целое число, которое определяет “уровень загрузки”.</p>
+
+<h4>“Уровни загрузки” бывают:</h4>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=0</em> Выключение компьютера;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=1</em> режим Single-User;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=2</em> Текстовый режим без поддержки сети;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=3</em> Текстовый режим с поддержкой сети;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=4</em>;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=5</em> Графический режим;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=6</em> Перезагрузка компьютера.</p>
+
+<p>То есть скрипты, которые должны загружаться только в текстовом режиме с поддержкой сети, имеют Runlevels равный 3.</p>
+
+<p>Более простой вариант настройки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo sysv-rc-conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Очень удобная настройка Runlevels (необходима установка пакета sysv-rc-conf);</p>
+
+<p>Ручной вариант настройки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ chkconfig --list
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех скриптов с соответствующими им Runlevels;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ chkconfig --list udev
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает разрешенные Runlevels только отдельного скрипта, в нашем случае udev;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d udev defaults
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выставление скрипту udev значений Runlevels по-умолчанию (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chkconfig udev --level 35 on
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление скрипту udev Runlevels 3 и 5;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d udev start 20 2 3 4 5 . stop 20 0 1 6
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменить параметры для скрипта udev (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chkconfig udev off
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключение у udev всех Runlevels;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d -f udev remove
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключение у udev всех Runlevel (для Debian-подобных дистрибутивов);</p>
+
+<hr />
+
+<h2>13. Команды Linux: Работа с ядром и модулями.</h2>
+
+<h3>13.1 Работа с ядром системы.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -a
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать версию ядра Linux;</p>
+
+<h3>13.2 Работа с модулями ядра.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsmod
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Список всех модулей загруженных в ядро;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo modprobe isdn
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Загрузка модуля на примере isdn;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание сжатого образа ядра системы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ make modules
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Компиляция модуля;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo] make modules_install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка модуля;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ sudo make install
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка в ядро системы;</p>
+
+<hr />
+
+<h2>14. Команды Linux: работа с LiveCD.</h2>
+
+<h2></h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chroot /mnt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>смена root-окружения на /mnt. После этого коневой раздел, примонтировнный к /mnt, будет использоваться как родной;</p>
+
+<hr />
+
+<h2>15. Команды Linux: конвертирование различной информации;</h2>
+
+<h3>15.1 Конвертирование текста.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -l
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит список всех доступных кодировок;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f cp1251 -t UTF-8 -o file_cp1251.txt &gt; file_utf8.txt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Смена кодировки. Был файл file_cp1251.txt с кодировкой cp1251, а в итоге получился файл file_utf8.txt с кодировкой utf8;</p>
+
+<h3>15.2 Конвертирование PDF в JPEG.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ convert name.pdf name-%03d.jpg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертируется <em>name.pdf</em> в постраничные JPEG изображения (в некоторых дистрибутивах необходимо установить пакет <em>imagemagick</em>);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ convert *.jpeg name.pdf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертируются JPEG изображения в PDF (в некоторых дистрибутивах необходимо установить пакет <em>imagemagick</em>);</p>
+
+<h3>15.3 Конвертирование видео.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$  mencoder -o videoout.avi -oac mp3lame -ovc lavc -srate 11025 -channels 1  -af-adv force=1 -lameopts preset=medium -lavcopts  vcodec=msmpeg4v2:vbitrate=600 -mc 0 vidoein.AVI
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>15.4 Конвертирование аудио.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cdparanoia -B
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование треков с AudioCD в текущую директорию wav-файлами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lame -b 256 in.wav out.mp3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертирование wav-файлов в mp3 с качеством 256 kb/s;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ oggenc in.wav -b 256 out.ogg
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертирование wav-файлов в Ogg Vorbis с качеством 256 kb/s;</p>
+
+<hr />
+
+<h2>16. Команды Linux: печать на принтере.</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export PRINTER=lbp2900
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выбор принтера по-умолчанию. В примере выбран принтер Canon LBP-2900;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lpr $2 name.txt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распечатать на принтере Canon LBP-2900 две копии файла name.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lprm -
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление всех задач с принтера по-умолчанию.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-13T14:29:32+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gnu-slash-linux/'>gnu/linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2012/04/13/obschye-komandyi-linux/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2012/04/13/obschye-komandyi-linux/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/24/vosstanovlenye-ubuntu-posle-neudachnoho-obnovlenyya/" title="Previous Post: Восстановление Ubuntu после неудачного обновления">&laquo; Восстановление Ubuntu после неудачного обновления</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/" title="Next Post: Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10">Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

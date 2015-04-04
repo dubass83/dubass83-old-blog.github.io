@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Настройка отображения погоды Gismeteo в Conky - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Настройка вывода информации о погоде в conky. Я не стал заморачиваться с RSS (он у меня как-то криво работал) и немного погуглив остановился на &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Настройка отображения погоды Gismeteo в Conky</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-13T02:18:36+03:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Настройка вывода информации о погоде в conky.</h3>
+
+<p>Я не стал заморачиваться с RSS (он у меня как-то криво работал) и немного погуглив остановился на следуещем варианте. <strong>Скрипт для отображения погоды в Conky с gismeteo.</strong></p>
+
+<p>Итак, научим Conky выдирать данные о погоде из этого XML - <a href="http://informer.gismeteo.ru/getcode/xml.php?id=27612">http://informer.gismeteo.ru/getcode/xml.php?id=27612</a> . Вам нужно получить ссылку для своего города. Для Москвы это <a href="http://informer.gismeteo.ru/xml/27612_1.xml">http://informer.gismeteo.ru/xml/27612_1.xml</a> .</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Теперь создайте файл conky-weather.sh с таким содержимым:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>
+</span><span class='line'>time=$(date +%H)
+</span><span class='line'>
+</span><span class='line'>URL="http://informer.gismeteo.ru/xml/33614_1.xml"
+</span><span class='line'>EXEC="/usr/bin/curl -s"
+</span><span class='line'>
+</span><span class='line'>a=`$EXEC $URL`
+</span><span class='line'>
+</span><span class='line'>#температура
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep HEAT | sed -n 1p | sed -e 's/&lt;HEAT //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>sed -e 's/ /../' | gawk '{ print "Темп.",$1,"°C" }'
+</span><span class='line'>#ветер
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep WIND | sed -n 1p | sed -e 's/&lt;WIND //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>gawk '{ print "Ветер",($1+$2)/2,"м/с"}'
+</span><span class='line'>#давление
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep PRESSURE | sed -n 1p | sed -e 's/&lt;PRESSURE //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>gawk '{ print "Давл.",($1+$2)/2,"мм"}'
+</span><span class='line'>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>URL=&ldquo;<a href="http://informer.gismeteo.ru/xml/27719_1.xml">http://informer.gismeteo.ru/xml/27719_1.xml</a>&rdquo; замените на ссылку для вашего города. Проверить работоспособность скрипта можно, выполнив его в терминале:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./conky-weather.sh 
+</span><span class='line'>Темп. 14..16 °C
+</span><span class='line'>Ветер 3 м/с
+</span><span class='line'>Давл. 754 мм
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Если все работает, то добавьте в ваш ~/.conkyrc следующие строки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>${color a1ccea}Weather:
+</span><span class='line'>${color ffffff}${execi 3600 /путь/до/скрипта/conky-weather.sh}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Вот и все.</p>
+
+<hr />
+
+<p>Этот скрипт встретился мне на странице сайта <a href="http://zenux.ru/articles/8/">http://zenux.ru</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-13T02:18:36+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gnu-slash-linux/'>gnu/linux</a>, <a class='category' href='/blog/categories/ubuntu-desktop/'>ubuntu desktop</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/" title="Previous Post: перевод официальной документации по Conky">&laquo; перевод официальной документации по Conky</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/" title="Next Post: Востоновление работы HDD с помощью Shred">Востоновление работы HDD с помощью Shred &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

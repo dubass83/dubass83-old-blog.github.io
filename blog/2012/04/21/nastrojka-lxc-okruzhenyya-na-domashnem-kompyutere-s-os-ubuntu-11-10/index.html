@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10 - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Статья тестовая, незавершенная, исключительно для сохранения опыта. LXC - LinuX Containers. Контейнеры Linux - технология виртуализации программного &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-21T17:31:09+03:00" pubdate data-updated="true"></time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Статья тестовая, незавершенная, исключительно для сохранения опыта.</p>
+
+<h4>LXC - LinuX Containers.</h4>
+
+<p>Контейнеры Linux - технология виртуализации программного обеспечения на уровне операционной системы. Контейнеры Linux поддерживаются на уровне ядра.</p>
+
+<p><strong>Преимущества контейнерной технологии lxc для меня лично.</strong></p>
+
+<ul>
+<li><p>Не требуется поддержка виртуализации vt-x процессором. Intel Atom CPU D525 ее не поддерживает.</p></li>
+<li><p>Легко устанавливается из репозиториев ubuntu.</p></li>
+<li><p>Легко формируется минимальный сервер ubuntu в контейнере.</p></li>
+<li><p>Работает</p></li>
+<li><p>В силу особенностей технологии, унифицирует программное окружение контейнеров и хост-системы. Условно говоря - &ldquo;везде ubuntu&rdquo;.</p></li>
+<li><p>Присутствуют решаемые трудности.</p></li>
+</ul>
+
+
+<p><strong>Что получиться в результате настройки</strong></p>
+
+<ul>
+<li><p>Будет установлена на хост-системе (домашнем компьютере) инфраструктура lxc</p></li>
+<li><p>Будет создан контейнер с минимальной версией ubuntu 11.10.</p></li>
+<li><p>Проведена локализация и первоначальная настройка контейнера.</p></li>
+<li><p>Управление контейнером будет осуществляться стандартными средствами lxc и ОС.</p></li>
+</ul>
+
+
+<!-- more -->
+
+
+<p><strong>Установка поддержки инфраструктуры LXC в хост-системе Ubuntu 11.10</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install lxc</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Установка сопутствующих пакетов в хост-системе</strong>
+Комплект утилит для управления мостовыми(bridge) соединениями. Дело в том, что сетевое подключение контейнера к локальной сети и интернет, выполняется через сетевой мост.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install bridge-utils</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Операции с контейнерами выполняются в пользовательском окружении root хост-системы.
+Перейти в пользовательское окружении суперпользователя root</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo -s
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Создание контейнера, команда lxc-create</strong></p>
+
+<p>Создание контейнера с выбранным именем 1c_ubuntu, на основе встроенного шаблона ubuntu 11.10
+<code>$ sudo lxc-create -n 1c_ubuntu -t ubuntu</code>
+Более правильно, вначале создать файл конфигурации, а потом на его основе создать контейнер. Это часто используется для копирования настроек сети в конфигурационный файл контейнера.
+Конфигурационный файл config, относящийся к создаваемому контейнеру, создается в папке /var/lib/lxc/1c_ubuntu/
+Корневая файловая система контейнера создается в папке /var/lib/lxc/1c_ubuntu/rootfs</p>
+
+<p>Производится загрузка пакетов минимальной версии Ubuntu 11.10 (или текущей версии) и сохранение ее в кэше, дополнительно в хост-систему установился пакет lxcguest. Были какие-то трудности с локализацией.
+Возможно мелкая трудность, решится, с помощью генерации &ldquo;C&rdquo; локали.
+В некоторых системах, исправляется следующим образом:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen ru_RU.UTF-8
+</span><span class='line'>$ sudo dpkg-reconfigure locales</span></code></pre></td></tr></table></div></figure>
+
+
+<p>и еще</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export LC_ALL=ru_RU.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Также можно отредактировать /etc/default/locale и внести строку вида LC_ALL=ru_RU.UTF-8
+это можно сделать перед генерацией сервера.</p>
+
+<p>Файл конфигурации контейнера 1c_ubuntu.conf у меня выглядел так:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lxc.network.type = veth 
+</span><span class='line'>lxc.network.flags = up 
+</span><span class='line'>lxc.network.link = br0 
+</span><span class='line'>lxc.network.hwaddr = 00:11:22:33:55:44 
+</span><span class='line'>lxc.network.name = eth0 
+</span><span class='line'>lxc.network.ipv4 = 0.0.0.0 
+</span><span class='line'>lxc.cgroup.cpu.shares = 512 
+</span><span class='line'>lxc.cgroup.memory.limit_in_bytes = 1024M 
+</span><span class='line'>lxc.cgroup.memory.memsw.limit_in_bytes = 3072M </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Опционально. Удаление контейнера, команда lxc-destroy
+Если какие-то настройки неудачны, то можно удалить созданный контейнер</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lxc-destroy -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Первая правка конфигурации контейнера для подключение к локальной сети</strong>
+Выбор способа сетевого подключения.  Настройка локальной сети контейнеров, самая сложная часть в данном изложении.
+Мостовое подключение, при наличии собственной внутренней домашней локальной сети за роутером, позволяет обращаться к контейнеру как обычному компьютеру, с любых домашних компьютеров.</p>
+
+<p>Для того что бы это стало возможно редактируем /etc/network/interfaces</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>auto lo
+</span><span class='line'>iface lo inet loopback
+</span><span class='line'>
+</span><span class='line'>auto br0
+</span><span class='line'>iface br0 inet static
+</span><span class='line'>address 192.168.1.100
+</span><span class='line'>netmask 255.255.255.0
+</span><span class='line'>gateway 192.168.1.1
+</span><span class='line'>bridge_ports eth0
+</span><span class='line'>bridge_stp off
+</span><span class='line'>bridge_maxwait 5
+</span><span class='line'>post-up /usr/sbin/brctl setfd br0 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>после того как файл будет отредактирован выполнете команду</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ifup br0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+или</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#sudo /etc/init.d/networking restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>также необходимо добавить несколько правил в таблицу iptables</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A FORWARD -d 192.168.1.0/24 -i br0 -j ACCEPT 
+</span><span class='line'>iptables -A FORWARD -s 192.168.1.0/24 -i br0 -j ACCEPT 
+</span><span class='line'>-A INPUT -p udp -m udp --sport 67 --dport 68 -j ACCEPT 
+</span><span class='line'>-A INPUT -p udp -m udp --dport 67 --sport 68 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>проверяем что всё работает</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ping ya.ru</span></code></pre></td></tr></table></div></figure>
+
+
+<p>если сразу не заработало то пробуем отключить фаервол на хосте и пробуем ещё раз. Если с отключёным фаервол работает, тогда надо или разбиратся что имено блокирует выход в сеть, или прописать</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># sysctl net.bridge.bridge-nf-call-iptables=0
+</span><span class='line'># sysctl net.bridge.bridge-nf-call-arptables=0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>в терминале. Последние две команды небходимы для того чтобы виртуальные мосты работали более приближенно к простому железу, поэтому нужно отключить применение правил iptables на самом мосту.</p>
+
+<p>Локализация (поддержка русского языка) в консоли контейнера
+После появления интернета в контейнере, выполнить обновление репозиториев ubuntu и доустановить локализацию сервера.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install language-pack-ru-base
+</span><span class='line'>$ sudo nano /etc/default/locale</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляем строку, если нет: LANG=ru_RU.UTF-8</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg-reconfigure locales
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выходим и входим заново в контейнере. По идее, перезагружаться не надо.
+Команда покажет текущие настройки локали:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ locale</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Справочно. Перезагрузка lxc-контейнера изнутри</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo shutdown -r now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Первый запуск, команда запуска контейнера lxc-start</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-start -n 1c_ubuntu -d</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Параметр -d вернёт нам ввод командной строки хост-системы вместо запуска сеанса гостевой машины в текущем терминале.</p>
+
+<p><strong>Первоначальная настройка изнутри контейнера</strong></p>
+
+<p>Имя пользователя и пароль по умолчанию, при первом входе в консоль контейнера - root/root.
+Далее создаем главного пользователя с именем на выбор, - &ldquo;admin&rdquo; и добавляем его в группы sudousers.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ adduser admin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>аккуратно заполняем поля.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ adduser admin sudo
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>добавляем в группу sudo users.</p>
+
+<p>Изменяем пароль пользователя root, т.к. мы зашли под ним.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ passwd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка сетевого подключения изнутри контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping www.google.com
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход пользователя из контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ exit
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выключение контейнера изнутри</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo shutdown -h now
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Безопасное выключение контейнера снаружи, из хост-системы
+Вход в консоль управления контейнером</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-console -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Команда выключения</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 1c_ubuntu &gt; init 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Грубое выключение контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-stop -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Чтобы не делать повторно такие настройки, базовую конфигурацию контейнера для местных условий можно сохранить в &hellip; и создавать новые контейнеры на базе этой конфигурации
+Определения хранилища пользовательских данных
+Для удобного пользования контейнером и удобного резервирования пользовательских данных, можно выносить блочные устройства в другое место.</p>
+
+<p><strong>Резервное копирование контейнера</strong>
+Сразу после установки и настройки, рекомендуется создать резервную копию с помощью tar
+Пример файла backup.sh:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>NAME=1c_ubuntu
+</span><span class='line'>SRC_DIR=/var/lib/lxc/$NAME
+</span><span class='line'>DEST_DIR=/media/vm/backups/$NAME
+</span><span class='line'>cd $SRC_DIR
+</span><span class='line'>mkdir -p $DEST_DIR
+</span><span class='line'>tar --one-file-system -cf $DEST_DIR/$NAME-`date +%F`.tar .
+</span><span class='line'>#tar --one-file-system -czf $DEST_DIR/$NAME-`date +%F`.tar.gz .</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В несжатом состоянии структура создаётся очень быстро.</p>
+
+<p>Перенос контейнера в другое сетевое окружение (другая конфигурация сети)
+Например, перенос контейнера в сеть с роутером и динамическим присвоением &ldquo;серого&rdquo; IP-адреса. Операционная система хост-системы должна совпадать с исходной.
+Фактически, все определяется файлом конфигурации контейнера.</p>
+
+<p>Ресурсы</p>
+
+<ul>
+<li><p>Обстоятельная статья про виртуальные мосты в Linux <a href="http://xgu.ru/wiki/Linux_Bridge">http://xgu.ru/wiki/Linux_Bridge</a></p></li>
+<li><p>Тестовый SyncML сервер см. <a href="http://gimmor.blogspot.com/2012/03/syncml.html">http://gimmor.blogspot.com/2012/03/syncml.html</a></p></li>
+<li><p>LXC виртуализация, <a href="http://koder-ua.blogspot.com/">http://koder-ua.blogspot.com/</a></p></li>
+<li><p>Пояснение о виртуальных сетях lxc, в картинках на англ. языке  <a href="http://planet.gentoo.org/archives/2010/2010-09-06.html">http://planet.gentoo.org/archives/2010/2010-09-06.html</a></p></li>
+</ul>
+
+
+<p>По материалам статьи <a href="http://gimmor.blogspot.com/2012/03/lxc.html">Настройка LXC окружения на домашнем компьютере
+</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-21T17:31:09+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gnu-slash-linux/'>gnu/linux</a>, <a class='category' href='/blog/categories/administrirovaniie-i-nastroika/'>Администрирование и настройка</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/13/obschye-komandyi-linux/" title="Previous Post: Общие команды Linux">&laquo; Общие команды Linux</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/12/conky-for-ubuntu-12-04-lts/" title="Next Post: Conky for Ubuntu 12.04 LTS">Conky for Ubuntu 12.04 LTS &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'myblognot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/';
+        var disqus_url = 'http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

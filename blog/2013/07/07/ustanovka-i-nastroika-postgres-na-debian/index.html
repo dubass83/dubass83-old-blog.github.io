@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Установка и настройка Postgres на Debian 7 - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Введение PostgreSQL является полнофункциональной объектно-реляционной системой управления базами данных. Она поддерживает большую часть стандартного &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Установка и настройка Postgres на Debian 7</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-07T10:54:00+03:00" pubdate data-updated="true"></time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Введение</h2>
+
+<p><span class='pullquote-right' data-pullquote='поддерживает большую часть стандартного SQL'>
+<em>PostgreSQL</em> является полнофункциональной объектно-реляционной системой управления базами данных. Она поддерживает большую часть стандартного SQL и предназначен для пользовательских расширений для многих аспектах. Некоторые из особенностей: <strong>ACID-транзакции, внешние ключи, представления, последовательности, подзапросы, триггеры, пользовательские типы и функции, внешние объединения, контроль многоверсионность параллелизма</strong>. Графические пользовательские интерфейсы и привязки для многих языков программирования также доступны.<br/>
+</span></p>
+
+<!--more-->
+
+
+<h2>Установка базы данных PostgreSQL в Debian</h2>
+
+<p>Если вы хотите установить базу даных <em>PostgreSQL</em>, а также консольный клиент для управления базами данных, тогда выполните следующую команду из оболочки.<br/>
+    #apt-get install postgresql postgresql-client</p>
+
+<p>Эта команда установить пакет и все его зависимости. Если вы хотите проверить официальную документацию нажмите <a href="http://www.postgresql.org/docs/">здесь</a>.</p>
+
+<p>Несколько вопросов будут задавать сценарий настройки по ходу установки пакета. C большинством из них можно просто согласился.</p>
+
+<p>Каталог по умолчанию для базы данных находится по адресу  <code>/var/lib/postgres/</code>.</p>
+
+<p>Конфигурационый файл находится в <code>/etc/postgresql/postgresql.conf</code>.</p>
+
+<h2>Создание пользователей для базы данных</h2>
+
+<p>Единственный (по умолчанию) способ войти во вновь созданную базу данных системы, это войти с правами администратора, затем войти как пользователь <em>Postgres</em>.</p>
+
+<pre><code>#su
+#su postgres
+#psql template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Тем не менее, вы, вероятно, хотели, чтобы иметь возможность войти в систему как ваш пользователь <em>UNIX</em>, или любым другим пользователем на ваш выбор. Есть несколько способов настроить эти доступы, для этого надо отредактировать файл <code>/etc/postgresql/pg_hba.conf</code> файл (полная документация этого файл доступен <a href="http://www.postgresql.org/docs/7.4/static/client-authentication.html">здесь</a>).</p>
+
+<figure class='code'><figcaption><span>pg_hba.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">local </span>all postgres ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># All other connections by UNIX sockets</span>
+</span><span class='line'><span class="nb">local </span>all all ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># All IPv4 connections from localhost</span>
+</span><span class='line'>host all all 127.0.0.1 255.255.255.255 md5
+</span><span class='line'><span class="c"># All IPv6 localhost connections</span>
+</span><span class='line'>host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff ident sameuser
+</span><span class='line'>host all all ::ffff:127.0.0.1/128 ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># reject all other connection attempts</span>
+</span><span class='line'>host all all 0.0.0.0 0.0.0.0 reject
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Для редоктирования этого файла необходимо обладать правами супер пользователя, позже мы еще вернёмся к редактированию этого файла. Сейчас мы сказали <em>PostgreSQL</em> то, что все пользователи на локальной машине, должны иметь возможность доступа ко всем базам данных, используя свой ​​логин и <em>UNIX</em> пароли. Вам необходимо перезагрузить вашу базу данных, чтобы изменения вступили в силу.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>Теперь проблема в том, что авторизованные пользователи могут войти в базу данных, если они также существуют в базе данных. Так что вам нужно создать учетные записи с их именах пользователей. Это делается путем ввода с терминала команды <code>CreateUser</code> от имени пользователя <em>Postgres</em>.</p>
+
+<pre><code>#su postgres
+#createuser firstuser
+#exit
+</code></pre>
+
+<p>В ходе выполнения команды <code>CreateUser</code> будет задан вопрос, если пользователь должен иметь возможность для создания баз данных или создания новых пользователей.</p>
+
+<p>Теперь у вас есть новый пользователь в базе данных, и вы должны иметь возможность подключиться от имени этого пользователя (назовем его <em>firstuser</em>) следующим образом:</p>
+
+<pre><code>#su - firstuser
+#firstuser@localhost:~$ psql -W template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p><strong>-W</strong> параметр запрос на ввод пароля. Вы должны ввести пароль вашей системы.
+Так вот оно что, мы закончили первую часть этой установки. Теперь давайте приготовим это для Интернета.</p>
+
+<p>Если некоторые из ваших веб-скриптов понадобится подключение к базе данных, вам необходимо предоставить им доступ через некоторое нового пользователя, зарезервированных для этого веб-приложения.</p>
+
+<p>Давайте сначала создать нового пользователя (от имени пользователя <em>Postgres</em>). Назовем его <em>webuser</em>.</p>
+
+<pre><code>#su postgres
+#createuser webuser
+#exit 
+</code></pre>
+
+<p>Теперь дадим ему доступ к одному или нескольким базам данных (скажем, вы позволите ему получить доступ к базам данных, которые зовут <em>Web</em>). Чтобы сделать это, вам нужно отредактировать еще раз файл <em>pg_hba.conf</em>. Получение первой строке ниже и записи второй раз под первым.</p>
+
+<pre><code>host all all 127.0.0.1 255.255.255.255 md5
+host web webuser 127.0.0.1 255.255.255.255 md5
+</code></pre>
+
+<p>Если вы хотели бы вы предоставить доступ этому пользователю с любого компьютера в подсети 192.168.0.xxx, вам придется добавить следующую строку.</p>
+
+<pre><code>host web webuser 192.168.0.1 255.255.255.0 md5
+</code></pre>
+
+<p>Вы должны предоставить ему доступ к хосту, вероятно, вы будете использовать протокол <em>TCP/IP</em>, чтобы получить подключение к базе данных. Но, так как вы дали ему тип аутентификации MD5, вы должны дать ему пароль, а также. Для того, чтобы сделать это, вам необходимо подключиться к базе данных и выдает специальную команду, все как пользователь Postgres:</p>
+
+<pre><code>#su postgres
+#postgres@localhost:~$ psql template1
+#template1=# alter user webuser password 'some_password';
+#ALTER USER
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Теперь пользователь должен задать хороший пароль <em>&lsquo;some_password&rsquo;</em>, которые можно использовать после перезапуска PostgreSQL, чтобы сахранить и запомнить изменения в <em>pg_hba.conf</em> нужно перезапустить сервер.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>После этого вы должны быть в состоянии создать свою собственную базу данных, если вы дали ему на это разрешение.</p>
+
+<pre><code>#createdb -h localhost -U webuser -W web
+</code></pre>
+
+<p>Подключиться к этой вновь созданной базы данных можно с помощью следующей команды.</p>
+
+<pre><code>#psql -h localhost -U webuser -W web
+</code></pre>
+
+<p>Как вы могли заметить, мы используем параметр <em>-h localhost</em> здесь. Это должно заставить PostgreSQL клиента использовать <em>TCP/IP</em>, а не <em>UNIX</em> сокетов. Если вы не хотите есть, вам нужно добавить новую строку в <em>&ldquo;local&rdquo;</em> категории <em>pg_hba.conf</em> для пользователей <em>webuser</em> для подключения через <em>sockets</em>.</p>
+
+<pre><code>local web webuser md5
+</code></pre>
+
+<h2>Использование SQL</h2>
+
+<p>Важные команды которые вам может потребоваться знать,</p>
+
+<pre><code>#psql -h localhost -U webuser -W -l
+</code></pre>
+
+<p>Выдаст вам список доступных баз данных.</p>
+
+<p>Теперь подключитесь к базе данных <em>PostgreSQL</em> с помощью клиента <em>psql</em>, и давайте создадим небольшую таблицу, сразу после нескольких тестов.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">version</span><span class="p">();</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">current_date</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">h</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">d</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">dt</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weather</span><span class="p">(</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">city</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_lo</span> <span class="nb">int</span><span class="p">,</span> <span class="c1">-- low temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_hi</span> <span class="nb">int</span><span class="p">,</span> <span class="c1">-- high temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">prcp</span> <span class="nb">real</span><span class="p">,</span> <span class="c1">-- precipitation</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="nb">date</span> <span class="nb">date</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">prcp</span><span class="p">,</span> <span class="nb">date</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;San Francisco&#39;</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;1994-11-29&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;1994-11-29&#39;</span><span class="p">,</span> <span class="s1">&#39;Hayward&#39;</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">37</span><span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span> <span class="k">as</span> <span class="s1">&#39;Lowest Temperature&#39;</span><span class="p">,</span> <span class="n">temp_hi</span> <span class="k">as</span> <span class="s1">&#39;Highest Temperature&#39;</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">temp_lo</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">max</span><span class="p">(</span><span class="n">temp_lo</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">UPDATE</span> <span class="n">weather</span> <span class="k">SET</span> <span class="n">temp_lo</span> <span class="o">=</span> <span class="mi">41</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Hayward&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">prcp</span> <span class="k">IS</span> <span class="k">NULL</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">q</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Теперь у вас был хороший обзор из нескольких операторов <em>SQL</em> и как использовать их в <em>PostgreSQL</em>.<br/>
+<a href="http://www.debianhelp.co.uk/postgresql.htm">Оригинальная статья на англиском</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-07T10:54:00+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/debian/'>debian</a>, <a class='category' href='/blog/categories/install/'>install</a>, <a class='category' href='/blog/categories/postgres/'>postgres</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/" title="Previous Post: Подсветка синтаксиса RoR в nano">&laquo; Подсветка синтаксиса RoR в nano</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/03/29/im-back/" title="Next Post: I'm back!">I&#8217;m back! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'myblognot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/';
+        var disqus_url = 'http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: internet | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/internet/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[markdown синтаксис для octopress]]></title>
+    <link href="http://dubass83.github.io/blog/2012/12/16/markdown-sintaksis-dlia-octopress/"/>
+    <updated>2012-12-16T14:04:00+02:00</updated>
+    <id>http://dubass83.github.io/blog/2012/12/16/markdown-sintaksis-dlia-octopress</id>
+    <content type="html"><![CDATA[<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}
+Ниже будет перепечатан конспект, который, кстати, тоже написан на этом замечательном языке.</p>
+
+<!--more-->
+
+
+<h1>Блочные Элементы</h1>
+
+<h2>Параграфы</h2>
+
+<p>&lt;пустая строка>
+Текст параграфа. Может быть
+разбит на несколько строк.
+&lt;пустая строка></p>
+
+<h2>Переводы строк</h2>
+
+<p>Что бы вставить перевод строки без начала нового параграфа, в конец нужно добавить два или больше пробелов.</p>
+
+<p>Текст параграфа.&lt;пробел>&lt;пробел><br/>
+Этот текст будет с новой строки.</p>
+
+<h2>Заголовки</h2>
+
+<p>Заголовок первого уровня H1<br/>
+= = = = = = = = = = = = = = = = = = = = = =</p>
+
+<p>Заголовок второго уровня H2<br/>
+- - - - - - - - - - - - - - - - - - - - - -</p>
+
+<p>или так</p>
+
+<p># Заголовок первого уровня H1<br/>
+## Заголовок второго уровня H2<br/>
+###### Заголовок шестого уровня H6</p>
+
+<p>или так</p>
+
+<p># Заголовок первого уровня H1 #<br/>
+## Заголовок второго уровня H2 ##<br/>
+###### Заголовок шестого уровня H6 ######</p>
+
+<h2>Цитаты</h2>
+
+<p>> Это<br/>
+> многострочная<br/>
+> цитата</p>
+
+<p>или так</p>
+
+<p>> Это<br/>
+многострочная<br/>
+цитата</p>
+
+<h2>Списки</h2>
+
+<p>Ненумерованные:</p>
+
+<p>* красный<br/>
+* зеленый<br/>
+* синий</p>
+
+<p>или так</p>
+
+<p>- красный<br/>
+- зеленый<br/>
+- синий</p>
+
+<p>или даже так</p>
+
+<p>+ красный<br/>
++ зеленый<br/>
++ синий</p>
+
+<p>Нумерованные:</p>
+
+<ol>
+<li>Первый</li>
+<li>Второй</li>
+<li>Третий</li>
+</ol>
+
+
+<h2>Код</h2>
+
+<p>Отступ в четыре пробела или один таб генерирует блок кода:</p>
+
+<p>&lt;пробел>&lt;пробел>&lt;пробел>&lt;пробел>print &lsquo;Hello, World!&rsquo;</p>
+
+<h2>Горизонтальная линия</h2>
+
+<p>* * *</p>
+
+<p>или так:</p>
+
+<p>***</p>
+
+<p>или так:</p>
+
+<p>- - - - - -</p>
+
+<h1>Строчные элементы</h1>
+
+<h2>Ссылки</h2>
+
+<p><em>Инлайн ссылки</em></p>
+
+<p>Это простая [ссылка](<a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a>) в тексте.<br/>
+Это [ссылка](<a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> &ldquo;Титул&rdquo;) с аттрибутом title.</p>
+
+<p><em>Ссылки в справочном стиле</em></p>
+
+<p>Это [ссылка][1] в справочном стиле.<br/>
+&hellip;<br/>
+&hellip;<br/>
+[1]: <a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> &ldquo;Необязательный титул&rdquo;</p>
+
+<p>Что бы урл в тексте стал ссылкой его нужно обрамить в &lt; и ></p>
+
+<p>По урлу <a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> находится мой сайт.</p>
+
+<h2>Выделение</h2>
+
+<p>Одинарные звездочки генерируют тег &lt; em ></p>
+
+<p>это *выделенный* текст</p>
+
+<p>Двойные звёздочки генерируют тег &lt; strong ></p>
+
+<p>это **очень выделенный** текст</p>
+
+<h2>Код в строке  </h2>
+
+<p>Используйте функцию `printf()` для вывода.</p>
+
+<h2>Изображения</h2>
+
+<p>![alt-текст](<a href="http://example.com/image.jpg">http://example.com/image.jpg</a> &ldquo;Необязательный титул&rdquo;)</p>
+
+<p>или в справочном стиле:</p>
+
+<p>![alt-текст][2]<br/>
+&hellip;<br/>
+&hellip;<br/>
+[2]: <a href="http://example.com/image.jpg">http://example.com/image.jpg</a> &ldquo;Необязательный титул&rdquo;</p>
+
+<h2>Экранирование спец символов Markdown</h2>
+
+<p>Для экранирования специальных символов Markdown используй \</p>
+
+<h2>Дополнительно</h2>
+
+<h2>Плагин <em>pull quote</em> - цитата-врезка</h2>
+
+<p>Для того что бы его использовать пользуйтесь приведёным ниже синтаксисом. Между фигурной скобкой и знаком % нет пробела.</p>
+
+<pre><code>{ % pullquote %}
+Surround your paragraph with the pull quote tags. Then when you come to
+the text you want to pull, {" surround it like this "} and that's all there is to it.
+{ % endpullquote %}
+</code></pre>
+
+<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p>
+]]></content>
+  </entry>
+  
+</feed>

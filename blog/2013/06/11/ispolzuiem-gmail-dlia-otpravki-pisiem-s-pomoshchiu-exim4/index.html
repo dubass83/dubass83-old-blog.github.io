@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Используем gmail для отправки писем с помощью exim4 - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Если вы используете дома GNU/Linux-сервер для тестирования и разработки, то вам наверное как и мне захочется настроить демон Exim4 для отправки &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Используем Gmail для отправки писем с помощью Exim4</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T21:23:00+03:00" pubdate data-updated="true"></time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><span class='pullquote-right' data-pullquote='GOOGLE разрешает отправлять не более 100 писем в день'>
+Если вы используете дома <em>GNU/Linux</em>-сервер для тестирования и разработки, то вам наверное как и мне захочется настроить демон <em>Exim4</em> для отправки почты. Я использую дестрибутив <em>Debian GNU/Linux 7.0 (wheezy)</em> и ниже будет описана инструкция по настройки конфигурации <em>Exim4</em> для отправки писем через Гугловый SMTP используя <em>gmail-акаунт</em>. Сразу хочу предупредить что GOOGLE разрешает отправлять не более 100 писем в день используя его SMTP сервис. Так что имей это ввиду если собрался спамить =)
+</span></p>
+
+<!--more-->
+
+
+<h3>Запускаем в терминале</h3>
+
+<pre><code>#dpkg-reconfigure exim4-config
+</code></pre>
+
+<p>И по шагам указываем следующую информацию<br/>
+<strong>Общий тип почтовой конфигурации:</strong><br/>
+отправка почты через smarthost; приём по SMTP или через fetchmail<br/>
+<strong>Почтовое имя системы:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адреса, с которых следует ожидать входящие соединения SMTP:</strong><br/>
+127.0.0.1<br/>
+<strong>Другие места назначения, для которых должна приниматься почта:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>Машины, для которых доступна релейная передача почты:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адрес или имя хоста являющегося исходящим smarthost:</strong><br/>
+smtp.gmail.com::587<br/>
+<strong>Скрывать локальное почтовое имя в исходящей почте?</strong><br/>
+Нет<br/>
+<strong>Сокращать количество DNS-запросов до минимума (дозвон по требованию)?</strong><br/>
+Нет<br/>
+<strong>Метод доставки локальной почты:</strong><br/>
+mbox формат в /var/mail/<br/>
+<strong>Разделить конфигурацию на маленькие файлы?</strong> <br/>
+Да</p>
+
+<p>Аутентификационая информация на внешние SMTP сервера программа Exim4 хранит в фале <code>/etc/exim4/passwd.client</code> доступном на чтение и изменение только пользователю <em>root</em>.
+    # editor /etc/exim4/passwd.client
+в этот файл надо добавить следующие строки, заменив конечно логин и пароль на свои!
+    <em>.google.com:YourAccountName@gmail.com:y0uRpaSsw0RD
+Осталось выполнить последний штрих. Обновить конфигурацию и перезапустить демон.
+    # update-exim4.conf
+для тех кто перешол на </em>systemd*
+    # systemctl restart exim4.service
+остальные перезапускают exim4 привычным образом, можно например вот так:
+    # invoke-rc.d exim4 restart
+<strong>P.S.</strong> Для того что бы проверить работоспособность выполненой конфигурации выполни в терменале следующею команду.
+    echo &ldquo;This is my test message!&rdquo; | mail -s Test <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#121;&#111;&#117;&#x72;&#x5f;&#97;&#x6e;&#111;&#116;&#104;&#101;&#x72;&#x5f;&#x61;&#x63;&#111;&#117;&#x6e;&#x74;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#x72;&#117;">&#121;&#111;&#x75;&#x72;&#95;&#x61;&#x6e;&#x6f;&#x74;&#x68;&#101;&#x72;&#95;&#97;&#x63;&#x6f;&#x75;&#x6e;&#116;&#64;&#x6d;&#x61;&#x69;&#108;&#46;&#x72;&#x75;</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-11T21:23:00+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/debian/'>debian</a>, <a class='category' href='/blog/categories/exim4/'>exim4</a>, <a class='category' href='/blog/categories/gmail/'>gmail</a>, <a class='category' href='/blog/categories/razrabotka/'>разработка</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/" title="Previous Post: Добавление нового пользователя в MySQl">&laquo; Добавление нового пользователя в MySQl</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/" title="Next Post: Настройка отправки почты в Synergy c помошью Exim4">Настройка отправки почты в Synergy c помошью Exim4 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'myblognot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/';
+        var disqus_url = 'http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

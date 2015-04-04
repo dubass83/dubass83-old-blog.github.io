@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Востоновление работы HDD с помощью Shred - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Подготовка к востановлению. Для этого нам понадобится: Проблемный диск
+linux дистрибутив (я использую ubuntu 12.04-LTS)
+Прямые руки и время. Про &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Востоновление работы HDD с помощью Shred</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-09T11:16:00+02:00" pubdate data-updated="true"></time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Подготовка к востановлению.</h2>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li><p>Проблемный диск</p></li>
+<li><p>linux дистрибутив (я использую <a href="http://www.ubuntu.com/download" title="Download Ubuntu">ubuntu 12.04-LTS</a>)</p></li>
+<li><p>Прямые руки и время.</p></li>
+</ul>
+
+
+<p>Про время я сказал не просто так. Програма работает не бысто но надёжно.
+<em>Shred</em> - програма для полного удаления информации с HDD что добивается путём перезаписи блоков даных спомощью спецального алгоритма. Описание того что спомощью этой программы можно востанавливать поверхность жосткого диска я встретил в одной из статей в интернете и решил попробывать так как всё что требуется у меня было под рукой.</p>
+
+<!-- more -->
+
+
+<h2>Процес востонавления.</h2>
+
+<ul>
+<li><p>подключаем сбойный диск к компьютеру. В моём случаии я использовал USB карман, но можно подключить и через sata интерфейс.</p></li>
+<li><p>запустить в теминале команду <code>sudo fdisk -l</code> и проанализировать её вывод. Если вы будете делать это в первый раз то желательно сначала запустит команду до подключения диска. Это необходимо для того что бы вы могли сравнит вывод до и после подключения.</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>кусок вывода команды fdisk -l </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Disk /dev/sdc: 1000.2 GB, 1000204886016 bytes  
+</span><span class='line'>255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors  
+</span><span class='line'>Units = sectors of 1 * 512 = 512 bytes  
+</span><span class='line'>Sector size (logical/physical): 512 bytes / 512 bytes  
+</span><span class='line'>I/O size (minimum/optimal): 512 bytes / 512 bytes  
+</span><span class='line'>Disk identifier: 0x00000000</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Определить сбойный диск. В нашем случае это <code>/dev/sdc</code>.</p></li>
+<li><p><span class='pullquote-right' data-pullquote='`sudo shred -n0 -z -v /dev/sdc`'>
+Набираем в командной строке следующую команду:
+  <code>sudo shred -n0 -z -v /dev/sdc</code><br/>
+<em>shred</em> - команда форматирования;<br/>
+<em>-n0</em> – число этой опции указывает на количество проходов форматирования;<br/>
+<em>-z</em> – опция указывает, что поверхность жесткого диска нужно заполнить нулевыми значениями;<br/>
+<em>-v</em> – отобразить процесс форматирования на экране;<br/>
+<em>/dev/sdc</em> – указывает, какое устройство мы форматируем.<br/>
+</span></p></li>
+</ul>
+
+
+<h2>P.S</h2>
+
+<p>После завершения работы утилиты, нужно на жестком диске создать все необходимые разделы заново.
+В зависимости от объема жесткого диска и количества проходов по переформатированию, время будет затрачено немало, но результат вас поразит. Винчестер оживает и работает лучше, чем до форматирования. Скорость чтения-записи возрастает, появляется больше кластеров с меньшим временем чтения-записи. Пропадают программные bad блоки.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-09T11:16:00+02:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gnu-slash-linux/'>gnu/linux</a>, <a class='category' href='/blog/categories/how-to/'>how_to</a>, <a class='category' href='/blog/categories/riemont/'>ремонт</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/" title="Previous Post: Настройка отображения погоды Gismeteo в Conky">&laquo; Настройка отображения погоды Gismeteo в Conky</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/16/markdown-sintaksis-dlia-octopress/" title="Next Post: markdown синтаксис для octopress">markdown синтаксис для octopress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'myblognot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/';
+        var disqus_url = 'http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

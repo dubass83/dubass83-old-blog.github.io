@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: how_to | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/how-to/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Востоновление работы HDD с помощью Shred]]></title>
+    <link href="http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/"/>
+    <updated>2012-12-09T11:16:00+02:00</updated>
+    <id>http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred</id>
+    <content type="html"><![CDATA[<h2>Подготовка к востановлению.</h2>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li><p>Проблемный диск</p></li>
+<li><p>linux дистрибутив (я использую <a href="http://www.ubuntu.com/download" title="Download Ubuntu">ubuntu 12.04-LTS</a>)</p></li>
+<li><p>Прямые руки и время.</p></li>
+</ul>
+
+
+<p>Про время я сказал не просто так. Програма работает не бысто но надёжно.
+<em>Shred</em> - програма для полного удаления информации с HDD что добивается путём перезаписи блоков даных спомощью спецального алгоритма. Описание того что спомощью этой программы можно востанавливать поверхность жосткого диска я встретил в одной из статей в интернете и решил попробывать так как всё что требуется у меня было под рукой.</p>
+
+<!-- more -->
+
+
+<h2>Процес востонавления.</h2>
+
+<ul>
+<li><p>подключаем сбойный диск к компьютеру. В моём случаии я использовал USB карман, но можно подключить и через sata интерфейс.</p></li>
+<li><p>запустить в теминале команду <code>sudo fdisk -l</code> и проанализировать её вывод. Если вы будете делать это в первый раз то желательно сначала запустит команду до подключения диска. Это необходимо для того что бы вы могли сравнит вывод до и после подключения.
+<figure class='code'><figcaption><span>кусок вывода команды fdisk -l </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Disk /dev/sdc: 1000.2 GB, 1000204886016 bytes&lt;br/>
+</span><span class='line'>255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors&lt;br/>
+</span><span class='line'>Units = sectors of 1 * 512 = 512 bytes&lt;br/>
+</span><span class='line'>Sector size (logical/physical): 512 bytes / 512 bytes&lt;br/>
+</span><span class='line'>I/O size (minimum/optimal): 512 bytes / 512 bytes&lt;br/>
+</span><span class='line'>Disk identifier: 0x00000000&lt;br/></span></code></pre></td></tr></table></div></figure></p></li>
+<li><p>Определить сбойный диск. В нашем случае это <code>/dev/sdc</code>.</p></li>
+<li><p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p></li>
+</ul>
+
+
+<h2>P.S</h2>
+
+<p>После завершения работы утилиты, нужно на жестком диске создать все необходимые разделы заново.
+В зависимости от объема жесткого диска и количества проходов по переформатированию, время будет затрачено немало, но результат вас поразит. Винчестер оживает и работает лучше, чем до форматирования. Скорость чтения-записи возрастает, появляется больше кластеров с меньшим временем чтения-записи. Пропадают программные bad блоки.</p>
+]]></content>
+  </entry>
+  
+</feed>

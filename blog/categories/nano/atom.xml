@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nano | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/nano/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Подсветка синтаксиса RoR в nano]]></title>
+    <link href="http://dubass83.github.io/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/"/>
+    <updated>2013-07-06T21:08:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano</id>
+    <content type="html"><![CDATA[<p>Если ты используеш один из <em>Linux</em> дистрибутивов и твой выбор редактора пал на текстовый редактор <em>nano</em> тогда для изучения и разработки <em>rails</em> проэктов будет полезно установить подсветку синтаксиса <em>Embeded Rybu .erb</em>.</p>
+
+<h2>INSTALLATION</h2>
+
+<p>Необходимо <a href="https://github.com/geomic/ERB-And-More-Code-Highlighting-for-nano/blob/master/erb_for_nano0.7.tar.gz">скачать</a> и разархивировать файл в домашний католог пользователя.</p>
+
+<pre><code>tar xzvf erb_for_nanoX.X.tar.gz
+</code></pre>
+
+<p>после этой команды уже можно пользоватся редактором с подсветкой синтаксиса <em>Embeded Rybu .erb</em>.
+Но я рекомендовал бы переместить файл <code>erb.nanorc</code> из домашнего католога в <code>/usr/share/nano/</code>. Для этой операции вам потребуются права <em>root</em>!!! Итак преступим вам следует открыть текстовый редактор <em>nano</em> и изменить следующий текст</p>
+
+<pre><code>include "~/erb.nanorc"
+</code></pre>
+
+<p>на</p>
+
+<pre><code>include "/usr/share/nano/erb.nanorc"
+</code></pre>
+
+<p>На этом всё, комфортного вам кодинга!</p>
+]]></content>
+  </entry>
+  
+</feed>

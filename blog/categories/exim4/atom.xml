@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: exim4 | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/exim4/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка отправки почты в Synergy c помошью Exim4]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/"/>
+    <updated>2013-06-11T23:16:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4</id>
+    <content type="html"><![CDATA[<p>Для того что бы свеже установленое преложение на рельсах, в моём случае это адаптированый вариант интернет магазина <em>Spree</em>, начало отправлть почту добавляем следующий код.
+<figure class='code'><figcaption><span>config/initializers/action_mailer.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">delivery_method</span> <span class="o">=</span> <span class="ss">:sendmail</span>
+</span><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">sendmail_settings</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="ss">:arguments</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#x6e;&amp;#x6f;&amp;#x2d;&amp;#x72;&amp;#101;&amp;#x70;&amp;#108;&amp;#121;&amp;#x40;&amp;#115;&amp;#x70;&amp;#114;&amp;#x65;&amp;#x65;&amp;#x2d;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x2d;&amp;#x65;&amp;#120;&amp;#97;&amp;#x6d;&amp;#x70;&amp;#x6c;&amp;#101;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&quot;</span><span class="o">&gt;&amp;</span><span class="c1">#x6e;&amp;#111;&amp;#x2d;&amp;#114;&amp;#101;&amp;#112;&amp;#108;&amp;#121;&amp;#x40;&amp;#115;&amp;#112;&amp;#x72;&amp;#101;&amp;#x65;&amp;#45;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x2d;&amp;#x65;&amp;#120;&amp;#97;&amp;#109;&amp;#x70;&amp;#x6c;&amp;#x65;&amp;#46;&amp;#x63;&amp;#111;&amp;#109;&lt;/a&gt;&amp;rsquo;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+после чего запустить приложение на рельсах следующей командой:
+    rails s</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Используем gmail для отправки писем с помощью exim4]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/"/>
+    <updated>2013-06-11T21:23:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4</id>
+    <content type="html"><![CDATA[<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p>
+
+<!--more-->
+
+
+<h3>Запускаем в терминале</h3>
+
+<pre><code>#dpkg-reconfigure exim4-config
+</code></pre>
+
+<p>И по шагам указываем следующую информацию<br/>
+<strong>Общий тип почтовой конфигурации:</strong><br/>
+отправка почты через smarthost; приём по SMTP или через fetchmail<br/>
+<strong>Почтовое имя системы:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адреса, с которых следует ожидать входящие соединения SMTP:</strong><br/>
+127.0.0.1<br/>
+<strong>Другие места назначения, для которых должна приниматься почта:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>Машины, для которых доступна релейная передача почты:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адрес или имя хоста являющегося исходящим smarthost:</strong><br/>
+smtp.gmail.com::587<br/>
+<strong>Скрывать локальное почтовое имя в исходящей почте?</strong><br/>
+Нет<br/>
+<strong>Сокращать количество DNS-запросов до минимума (дозвон по требованию)?</strong><br/>
+Нет<br/>
+<strong>Метод доставки локальной почты:</strong><br/>
+mbox формат в /var/mail/<br/>
+<strong>Разделить конфигурацию на маленькие файлы?</strong> <br/>
+Да</p>
+
+<p>Аутентификационая информация на внешние SMTP сервера программа Exim4 хранит в фале <code>/etc/exim4/passwd.client</code> доступном на чтение и изменение только пользователю <em>root</em>.
+    # editor /etc/exim4/passwd.client
+в этот файл надо добавить следующие строки, заменив конечно логин и пароль на свои!
+    <em>.google.com:YourAccountName@gmail.com:y0uRpaSsw0RD
+Осталось выполнить последний штрих. Обновить конфигурацию и перезапустить демон.
+    # update-exim4.conf
+для тех кто перешол на </em>systemd*
+    # systemctl restart exim4.service
+остальные перезапускают exim4 привычным образом, можно например вот так:
+    # invoke-rc.d exim4 restart
+<strong>P.S.</strong> Для того что бы проверить работоспособность выполненой конфигурации выполни в терменале следующею команду.
+    echo &ldquo;This is my test message!&rdquo; | mail -s Test <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#121;&#x6f;&#x75;&#114;&#95;&#x61;&#x6e;&#x6f;&#116;&#104;&#x65;&#114;&#x5f;&#97;&#99;&#x6f;&#x75;&#x6e;&#x74;&#64;&#x6d;&#97;&#105;&#x6c;&#46;&#x72;&#117;">&#121;&#x6f;&#117;&#x72;&#x5f;&#x61;&#x6e;&#x6f;&#x74;&#104;&#101;&#114;&#95;&#97;&#x63;&#111;&#117;&#110;&#116;&#x40;&#x6d;&#97;&#105;&#x6c;&#x2e;&#114;&#x75;</a></p>
+]]></content>
+  </entry>
+  
+</feed>

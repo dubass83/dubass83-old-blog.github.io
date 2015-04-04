@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>перевод официальной документации по Conky - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="Слегка сокращенный перевод официальной документации по Conky. Опции конфигурации 1
+TEXT : После этого весь текст будет отображен на экране 1 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">перевод официальной документации по Conky</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-13T02:06:13+03:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Слегка сокращенный перевод официальной документации по Conky.</h3>
+
+<p>Опции конфигурации</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TEXT : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>После этого весь текст будет отображен на экране</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alignment :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Определяет позицию на экране. Может быть top_left, top_right, top_middle, bottom_left, bottom_right, bottom_middle, middle_left или middle_right</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>default_color : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Дефолтный цвет границ и текста</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>default_shade_color :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Дефолтный цвет теней</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>double_buffer :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Включите это, если Conky неприятно мигает</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>draw_shades :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Включить тени</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>font : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Указывает, какой шрифт использовать. Для определения имени шрифта используйте утилиту xfontsel</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gap_x : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>отступ слева или справа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gap_y :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>отступ сверху или снизу</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>use_xft : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Использовать шрифты Xft. Xft поддерживают антиальясинг.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xftfont : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Какой xft шрифт использовать</p>
+
+<p>Переменные</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>color (color) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задает цвет последующего текста. Пример: ${color ffffff}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpu (cpuN) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Использование процессора в процентах. Пример для одноядерной машины: ${cpu} Пример для многоядерной для первого ядра: ${cpu 1}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpubar (cpuN) (height),(width) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска загрузки процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpubar 3,100}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpugraph (cpuN) (height),(width) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>График загруженности процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpugraph 20,100}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl url interval_in_minutes : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скачивает и показывает текстовые данные с указанного url. Пример: ${curl <a href="http://mydomain.com/test.txt">http://mydomain.com/test.txt</a> 2}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>downspeed (net) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скорость скачки, где net - имя сетевого интерфейса. Пример: ${downspeed eth0}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>downspeedgraph (net) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+График скорости скачки, где net - имя сетевого интерфейса.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>else :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Логическое иначе</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>endif :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Конец условия $if</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>execi interval commamd : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выполнение исполняемого файла и показ его вывода. Пример: ${execi 2 cat /home/myname/test.txt}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>freq (n) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Частота процессора в МГц, где n - номер ядра (по дефолту 1)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_bar  (height),(width) fs : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска, которая показывает, как используется файловая система. Пример: ${fs_bar3,100 /home}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_free (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободного места файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_size (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Размер файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_type (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Тип файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_used (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Количество использованного места файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_empty (var) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанная переменная пуста, показывает все, что идет после $if_empty и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_existing file (string) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанный файл существует, показывает все, что идет после $if_existing и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_running (process) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанный процесс запущен, то показывает все, что идет после $if_running и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>image (-p x,y) (-f interval) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает изображение. x и y - координаты, -f interval - частота обновления. Пример: ${image /path/to/image.png -p 10,100 -f 15}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Версия ядра</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mem : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во используемой памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>membar (height),(width) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска загруженности памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memfree : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободной памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memgraph (height),(width)  : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>График использоемой памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memmax : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Общее кол-во памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nvidia :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Для владельцев карт Nvidia. Пример для вывода температуры: ${nvidia temp}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>shadecolor (color) :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Цвет теней</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swap :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во использованного свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swapfree :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободного свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swapmax :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Общее кол-во свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>time :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Вывод времени</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upspeed (net) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скорость исходящего трафика, где net - сетевой интерфейс</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upspeedgraph (net) (height),(width) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>График по исходящему трафику</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>uptime :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Аптайм</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-13T02:06:13+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gnu-slash-linux/'>gnu/linux</a>, <a class='category' href='/blog/categories/ubuntu-desktop/'>ubuntu desktop</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/12/podrobnaya-nastrojka-conky/" title="Previous Post: Подробная настройка Conky">&laquo; Подробная настройка Conky</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/" title="Next Post: Настройка отображения погоды Gismeteo в Conky">Настройка отображения погоды Gismeteo в Conky &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,3260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[I'm back!]]></title>
+    <link href="http://dubass83.github.io/blog/2015/03/29/im-back/"/>
+    <updated>2015-03-29T21:35:41+03:00</updated>
+    <id>http://dubass83.github.io/blog/2015/03/29/im-back</id>
+    <content type="html"><![CDATA[<h2>I&rsquo;m back!</h2>
+
+<p>Всем доброго время суток. Прошло уже много времени как я не писал ничего в блог&hellip;
+<img src="http://itsfoss.itsfoss.netdna-cdn.com/wp-content/uploads/2013/07/Windows_Vs_Mac_Vs_Linux_10.jpg" title="Linux vs Windows vs Mac os" alt="linux vs windows" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Установка и настройка Postgres на Debian 7]]></title>
+    <link href="http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/"/>
+    <updated>2013-07-07T10:54:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian</id>
+    <content type="html"><![CDATA[<h2>Введение</h2>
+
+<p><span class='pullquote-right' data-pullquote='поддерживает большую часть стандартного SQL'>
+<em>PostgreSQL</em> является полнофункциональной объектно-реляционной системой управления базами данных. Она поддерживает большую часть стандартного SQL и предназначен для пользовательских расширений для многих аспектах. Некоторые из особенностей: <strong>ACID-транзакции, внешние ключи, представления, последовательности, подзапросы, триггеры, пользовательские типы и функции, внешние объединения, контроль многоверсионность параллелизма</strong>. Графические пользовательские интерфейсы и привязки для многих языков программирования также доступны.<br/>
+</span></p>
+
+<!--more-->
+
+
+<h2>Установка базы данных PostgreSQL в Debian</h2>
+
+<p>Если вы хотите установить базу даных <em>PostgreSQL</em>, а также консольный клиент для управления базами данных, тогда выполните следующую команду из оболочки.<br/>
+    #apt-get install postgresql postgresql-client</p>
+
+<p>Эта команда установить пакет и все его зависимости. Если вы хотите проверить официальную документацию нажмите <a href="http://www.postgresql.org/docs/">здесь</a>.</p>
+
+<p>Несколько вопросов будут задавать сценарий настройки по ходу установки пакета. C большинством из них можно просто согласился.</p>
+
+<p>Каталог по умолчанию для базы данных находится по адресу  <code>/var/lib/postgres/</code>.</p>
+
+<p>Конфигурационый файл находится в <code>/etc/postgresql/postgresql.conf</code>.</p>
+
+<h2>Создание пользователей для базы данных</h2>
+
+<p>Единственный (по умолчанию) способ войти во вновь созданную базу данных системы, это войти с правами администратора, затем войти как пользователь <em>Postgres</em>.</p>
+
+<pre><code>#su
+#su postgres
+#psql template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Тем не менее, вы, вероятно, хотели, чтобы иметь возможность войти в систему как ваш пользователь <em>UNIX</em>, или любым другим пользователем на ваш выбор. Есть несколько способов настроить эти доступы, для этого надо отредактировать файл <code>/etc/postgresql/pg_hba.conf</code> файл (полная документация этого файл доступен <a href="http://www.postgresql.org/docs/7.4/static/client-authentication.html">здесь</a>).</p>
+
+<figure class='code'><figcaption><span>pg_hba.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">local </span>all postgres ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># All other connections by UNIX sockets</span>
+</span><span class='line'><span class="nb">local </span>all all ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># All IPv4 connections from localhost</span>
+</span><span class='line'>host all all 127.0.0.1 255.255.255.255 md5
+</span><span class='line'><span class="c"># All IPv6 localhost connections</span>
+</span><span class='line'>host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff ident sameuser
+</span><span class='line'>host all all ::ffff:127.0.0.1/128 ident sameuser
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># reject all other connection attempts</span>
+</span><span class='line'>host all all 0.0.0.0 0.0.0.0 reject
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Для редоктирования этого файла необходимо обладать правами супер пользователя, позже мы еще вернёмся к редактированию этого файла. Сейчас мы сказали <em>PostgreSQL</em> то, что все пользователи на локальной машине, должны иметь возможность доступа ко всем базам данных, используя свой ​​логин и <em>UNIX</em> пароли. Вам необходимо перезагрузить вашу базу данных, чтобы изменения вступили в силу.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>Теперь проблема в том, что авторизованные пользователи могут войти в базу данных, если они также существуют в базе данных. Так что вам нужно создать учетные записи с их именах пользователей. Это делается путем ввода с терминала команды <code>CreateUser</code> от имени пользователя <em>Postgres</em>.</p>
+
+<pre><code>#su postgres
+#createuser firstuser
+#exit
+</code></pre>
+
+<p>В ходе выполнения команды <code>CreateUser</code> будет задан вопрос, если пользователь должен иметь возможность для создания баз данных или создания новых пользователей.</p>
+
+<p>Теперь у вас есть новый пользователь в базе данных, и вы должны иметь возможность подключиться от имени этого пользователя (назовем его <em>firstuser</em>) следующим образом:</p>
+
+<pre><code>#su - firstuser
+#firstuser@localhost:~$ psql -W template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p><strong>-W</strong> параметр запрос на ввод пароля. Вы должны ввести пароль вашей системы.
+Так вот оно что, мы закончили первую часть этой установки. Теперь давайте приготовим это для Интернета.</p>
+
+<p>Если некоторые из ваших веб-скриптов понадобится подключение к базе данных, вам необходимо предоставить им доступ через некоторое нового пользователя, зарезервированных для этого веб-приложения.</p>
+
+<p>Давайте сначала создать нового пользователя (от имени пользователя <em>Postgres</em>). Назовем его <em>webuser</em>.</p>
+
+<pre><code>#su postgres
+#createuser webuser
+#exit 
+</code></pre>
+
+<p>Теперь дадим ему доступ к одному или нескольким базам данных (скажем, вы позволите ему получить доступ к базам данных, которые зовут <em>Web</em>). Чтобы сделать это, вам нужно отредактировать еще раз файл <em>pg_hba.conf</em>. Получение первой строке ниже и записи второй раз под первым.</p>
+
+<pre><code>host all all 127.0.0.1 255.255.255.255 md5
+host web webuser 127.0.0.1 255.255.255.255 md5
+</code></pre>
+
+<p>Если вы хотели бы вы предоставить доступ этому пользователю с любого компьютера в подсети 192.168.0.xxx, вам придется добавить следующую строку.</p>
+
+<pre><code>host web webuser 192.168.0.1 255.255.255.0 md5
+</code></pre>
+
+<p>Вы должны предоставить ему доступ к хосту, вероятно, вы будете использовать протокол <em>TCP/IP</em>, чтобы получить подключение к базе данных. Но, так как вы дали ему тип аутентификации MD5, вы должны дать ему пароль, а также. Для того, чтобы сделать это, вам необходимо подключиться к базе данных и выдает специальную команду, все как пользователь Postgres:</p>
+
+<pre><code>#su postgres
+#postgres@localhost:~$ psql template1
+#template1=# alter user webuser password 'some_password';
+#ALTER USER
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Теперь пользователь должен задать хороший пароль <em>&lsquo;some_password&rsquo;</em>, которые можно использовать после перезапуска PostgreSQL, чтобы сахранить и запомнить изменения в <em>pg_hba.conf</em> нужно перезапустить сервер.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>После этого вы должны быть в состоянии создать свою собственную базу данных, если вы дали ему на это разрешение.</p>
+
+<pre><code>#createdb -h localhost -U webuser -W web
+</code></pre>
+
+<p>Подключиться к этой вновь созданной базы данных можно с помощью следующей команды.</p>
+
+<pre><code>#psql -h localhost -U webuser -W web
+</code></pre>
+
+<p>Как вы могли заметить, мы используем параметр <em>-h localhost</em> здесь. Это должно заставить PostgreSQL клиента использовать <em>TCP/IP</em>, а не <em>UNIX</em> сокетов. Если вы не хотите есть, вам нужно добавить новую строку в <em>&ldquo;local&rdquo;</em> категории <em>pg_hba.conf</em> для пользователей <em>webuser</em> для подключения через <em>sockets</em>.</p>
+
+<pre><code>local web webuser md5
+</code></pre>
+
+<h2>Использование SQL</h2>
+
+<p>Важные команды которые вам может потребоваться знать,</p>
+
+<pre><code>#psql -h localhost -U webuser -W -l
+</code></pre>
+
+<p>Выдаст вам список доступных баз данных.</p>
+
+<p>Теперь подключитесь к базе данных <em>PostgreSQL</em> с помощью клиента <em>psql</em>, и давайте создадим небольшую таблицу, сразу после нескольких тестов.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">version</span><span class="p">();</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">current_date</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">h</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">d</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">dt</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weather</span><span class="p">(</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">city</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_lo</span> <span class="nb">int</span><span class="p">,</span> <span class="c1">-- low temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_hi</span> <span class="nb">int</span><span class="p">,</span> <span class="c1">-- high temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">prcp</span> <span class="nb">real</span><span class="p">,</span> <span class="c1">-- precipitation</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="nb">date</span> <span class="nb">date</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">prcp</span><span class="p">,</span> <span class="nb">date</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;San Francisco&#39;</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;1994-11-29&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;1994-11-29&#39;</span><span class="p">,</span> <span class="s1">&#39;Hayward&#39;</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">37</span><span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span> <span class="k">as</span> <span class="s1">&#39;Lowest Temperature&#39;</span><span class="p">,</span> <span class="n">temp_hi</span> <span class="k">as</span> <span class="s1">&#39;Highest Temperature&#39;</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">temp_lo</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">max</span><span class="p">(</span><span class="n">temp_lo</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">UPDATE</span> <span class="n">weather</span> <span class="k">SET</span> <span class="n">temp_lo</span> <span class="o">=</span> <span class="mi">41</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="s1">&#39;Hayward&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">prcp</span> <span class="k">IS</span> <span class="k">NULL</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">q</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Теперь у вас был хороший обзор из нескольких операторов <em>SQL</em> и как использовать их в <em>PostgreSQL</em>.<br/>
+<a href="http://www.debianhelp.co.uk/postgresql.htm">Оригинальная статья на англиском</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Подсветка синтаксиса RoR в nano]]></title>
+    <link href="http://dubass83.github.io/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/"/>
+    <updated>2013-07-06T21:08:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano</id>
+    <content type="html"><![CDATA[<p>Если ты используеш один из <em>Linux</em> дистрибутивов и твой выбор редактора пал на текстовый редактор <em>nano</em> тогда для изучения и разработки <em>rails</em> проэктов будет полезно установить подсветку синтаксиса <em>Embeded Rybu .erb</em>.</p>
+
+<h2>INSTALLATION</h2>
+
+<p>Необходимо <a href="https://github.com/geomic/ERB-And-More-Code-Highlighting-for-nano/blob/master/erb_for_nano0.7.tar.gz">скачать</a> и разархивировать файл в домашний католог пользователя.</p>
+
+<pre><code>tar xzvf erb_for_nanoX.X.tar.gz
+</code></pre>
+
+<p>после этой команды уже можно пользоватся редактором с подсветкой синтаксиса <em>Embeded Rybu .erb</em>.
+Но я рекомендовал бы переместить файл <code>erb.nanorc</code> из домашнего католога в <code>/usr/share/nano/</code>. Для этой операции вам потребуются права <em>root</em>!!! Итак преступим вам следует открыть текстовый редактор <em>nano</em> и изменить следующий текст</p>
+
+<pre><code>include "~/erb.nanorc"
+</code></pre>
+
+<p>на</p>
+
+<pre><code>include "/usr/share/nano/erb.nanorc"
+</code></pre>
+
+<p>На этом всё, комфортного вам кодинга!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка отправки почты в Synergy c помошью Exim4]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/"/>
+    <updated>2013-06-11T23:16:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4</id>
+    <content type="html"><![CDATA[<p>Для того что бы свеже установленое преложение на рельсах, в моём случае это адаптированый вариант интернет магазина <em>Spree</em>, начало отправлть почту добавляем следующий код.</p>
+
+<figure class='code'><figcaption><span>config/initializers/action_mailer.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">delivery_method</span> <span class="o">=</span> <span class="ss">:sendmail</span>
+</span><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">sendmail_settings</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="ss">:arguments</span> <span class="o">=&gt;</span> <span class="s1">&#39;-r no-reply@spree-mail-example.com&#39;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>после чего запустить приложение на рельсах следующей командой:
+    rails s</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Используем gmail для отправки писем с помощью exim4]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/"/>
+    <updated>2013-06-11T21:23:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4</id>
+    <content type="html"><![CDATA[<p><span class='pullquote-right' data-pullquote='GOOGLE разрешает отправлять не более 100 писем в день'>
+Если вы используете дома <em>GNU/Linux</em>-сервер для тестирования и разработки, то вам наверное как и мне захочется настроить демон <em>Exim4</em> для отправки почты. Я использую дестрибутив <em>Debian GNU/Linux 7.0 (wheezy)</em> и ниже будет описана инструкция по настройки конфигурации <em>Exim4</em> для отправки писем через Гугловый SMTP используя <em>gmail-акаунт</em>. Сразу хочу предупредить что GOOGLE разрешает отправлять не более 100 писем в день используя его SMTP сервис. Так что имей это ввиду если собрался спамить =)
+</span></p>
+
+<!--more-->
+
+
+<h3>Запускаем в терминале</h3>
+
+<pre><code>#dpkg-reconfigure exim4-config
+</code></pre>
+
+<p>И по шагам указываем следующую информацию<br/>
+<strong>Общий тип почтовой конфигурации:</strong><br/>
+отправка почты через smarthost; приём по SMTP или через fetchmail<br/>
+<strong>Почтовое имя системы:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адреса, с которых следует ожидать входящие соединения SMTP:</strong><br/>
+127.0.0.1<br/>
+<strong>Другие места назначения, для которых должна приниматься почта:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>Машины, для которых доступна релейная передача почты:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адрес или имя хоста являющегося исходящим smarthost:</strong><br/>
+smtp.gmail.com::587<br/>
+<strong>Скрывать локальное почтовое имя в исходящей почте?</strong><br/>
+Нет<br/>
+<strong>Сокращать количество DNS-запросов до минимума (дозвон по требованию)?</strong><br/>
+Нет<br/>
+<strong>Метод доставки локальной почты:</strong><br/>
+mbox формат в /var/mail/<br/>
+<strong>Разделить конфигурацию на маленькие файлы?</strong> <br/>
+Да</p>
+
+<p>Аутентификационая информация на внешние SMTP сервера программа Exim4 хранит в фале <code>/etc/exim4/passwd.client</code> доступном на чтение и изменение только пользователю <em>root</em>.
+    # editor /etc/exim4/passwd.client
+в этот файл надо добавить следующие строки, заменив конечно логин и пароль на свои!
+    <em>.google.com:YourAccountName@gmail.com:y0uRpaSsw0RD
+Осталось выполнить последний штрих. Обновить конфигурацию и перезапустить демон.
+    # update-exim4.conf
+для тех кто перешол на </em>systemd*
+    # systemctl restart exim4.service
+остальные перезапускают exim4 привычным образом, можно например вот так:
+    # invoke-rc.d exim4 restart
+<strong>P.S.</strong> Для того что бы проверить работоспособность выполненой конфигурации выполни в терменале следующею команду.
+    echo &ldquo;This is my test message!&rdquo; | mail -s Test <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#121;&#111;&#117;&#x72;&#x5f;&#97;&#x6e;&#111;&#116;&#104;&#101;&#x72;&#x5f;&#x61;&#x63;&#111;&#117;&#x6e;&#x74;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#x72;&#117;">&#121;&#111;&#x75;&#x72;&#95;&#x61;&#x6e;&#x6f;&#x74;&#x68;&#101;&#x72;&#95;&#97;&#x63;&#x6f;&#x75;&#x6e;&#116;&#64;&#x6d;&#x61;&#x69;&#108;&#46;&#x72;&#x75;</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Добавление нового пользователя в MySQl]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/"/>
+    <updated>2013-06-09T12:51:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql</id>
+    <content type="html"><![CDATA[<p> С настройкой <em>Mysql-сервера</em> я сталкиваюсь нечасто, в основном во время того когда занимаюсь разроботкой и тестированием нового <em>WEB-приложения</em>. Поэтому иногда требуется добавить нового пользователя на базу. Устанавливать для этих целей web-интерфейс не целесообразно, а через командную строку запоминать лень. Поэтому для лентяев как я следующий код:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">testbase</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">testuser</span><span class="o">@</span><span class="n">localhost</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;testpass&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если есть время разобратся и выучить что то новое тогда лучше посетить <a href="http://www.mysql.ru/docs/man/Adding_users.html">сайт с официальной документацией</a>.</p>
+
+<!--more-->
+
+
+<p> <figure class='code'><figcaption><span>[Добавление новых пользователей, используя команду GRANT]  </span></figcaption></p>
+
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="c1">--user=root mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;some_pass&#39;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@</span><span class="ss">&quot;%&quot;</span>
+</span><span class='line'>        <span class="o">-&gt;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;some_pass&#39;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="n">RELOAD</span><span class="p">,</span><span class="n">PROCESS</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="k">admin</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">USAGE</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">dummy</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div>
+
+
+<p></figure></p>
+
+<h3>Эти команды GRANT создают трех новых пользователей:</h3>
+
+<p><strong>monty</strong><br/>
+Полноценный суперпользователь - он может подсоединяться к серверу откуда угодно, но должен использовать для этого пароль some_pass. Обратите внимание на то, что мы должны применить операторы GRANT как для monty@localhost, так и для monty@&ldquo;%&rdquo;. Если не добавить запись с localhost, запись анонимного пользователя для localhost, которая создается при помощи mysql_install_db, будет иметь преимущество при подсоединении с локального компьютера, так как в ней указано более определенное значение для поля Host, и она расположена раньше в таблице user.<br/>
+<strong>admin</strong><br/>
+Пользователь, который может подсоединяться с localhost без пароля; ему назначены административные привилегии RELOAD и PROCESS. Эти привилегии позволяют пользователю запускать команды mysqladmin reload, mysqladmin refresh и mysqladmin flush-*, а также mysqladmin processlist. Ему не назначено никаких привилегий, относящихся к базам данных (их можно назначить позже, дополнительно применив оператор GRANT). <br/>
+<strong>dummy</strong><br/>
+Пользователь, который может подсоединяться к серверу без пароля, но только с локального компьютера. Все глобальные привилегии установлены в значение &lsquo;N&rsquo;-тип привилегии USAGE, который позволяет создавать пользователей без привилегий. Предполагается, что относящиеся к базам данных привилегии будут назначены позже.</p>
+
+<figure class='code'><figcaption><span>[Предоставление привилегий пользователям при помощи оператора GRANT] </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="c1">--user=root mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">bankaccount</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">expenses</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="n">whitehouse</span><span class="p">.</span><span class="n">gov</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">customer</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Привилегии для пользователя <strong>custom</strong> мы назначаем потому, что этот пользователь хочет получать доступ к <em>MySQL</em> как с локального компьютера через сокеты <em>Unix</em>, так и с удаленного компьютера whitehouse.gov через протокол TCP/IP.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows 8 и черный экран.]]></title>
+    <link href="http://dubass83.github.io/blog/2013/05/20/windows-8-i-chiernyi-ekran/"/>
+    <updated>2013-05-20T12:31:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/05/20/windows-8-i-chiernyi-ekran</id>
+    <content type="html"><![CDATA[<p><span class='pullquote-right' data-pullquote='Но все же иногда возникают весьма неприятные проблемы совместимости некоторых программ с новой операционной системой'>
+Вроде всем хороша новейшая операционная система Windows 8 от компании Майкрософт, и быстро загружается, и выключается, кстати, тоже, и потребляет меньше ресурсов компьютера, и уменьшает энергопотребление, в результате чего ваш ноутбук будет дольше работать от батареи. Но все же иногда возникают весьма неприятные проблемы совместимости некоторых программ с новой операционной системой. И с одной из таких проблем мы сейчас попробуем разобратся. Пользователи, перешедшие с <em>Windows 7</em> на <em>Windows 8</em>, и установившие в качестве защиты своего компьютера антивирус <em>Avast</em>! (тоже между прочим версии 8), жалуются на появление черного экрана при включении компьютера. При этом курсор указателя мыши работает, можно вызвать диспетчер задач, но полностью Windows 8 не прогружается.
+</span></p>
+
+<p>Итак, мы имеем следующее уравнение:</p>
+
+<p><strong>Windows 8 + Avast = черный экран</strong></p>
+
+<!--more-->
+
+
+<p>Черный экран возникает в результате того, что антивирус <em>Avast</em> блокирует файл <code>explorer.exe</code> и не дает нормально запуститься Windows.</p>
+
+<p>Данное поведение антивируса наблюдается на рабочих станциях после установки активатора <em>windows 8</em>, скорее всего это вызвано тем что активатор модифицирует системные файлы.
+И так для того что бы решить эту проблему необходимо:
+1. Включите компьютер и войдите в систему.<br/>
+2. После того как появился черный экран вызовите диспетчер задач нажав комбинацию клавиш <code>«Ctrl + Alt + Del»</code>.<br/>
+3. Во вкладк «Процесы» найдите и щелкните правой кнопкой мыши по строке Avast.<br/>
+4. В появившемся контекстном меню щелкните левой клавишей мыши по команде «Открыть расположение файла».<br/>
+5. Двойным нажатием левой клавиши мыши запустите файл «AvastUI».<br/>
+6. В открывшемся окне программы Avast заходим во вкладку «Безопасность».<br/>
+7. Далее в левой колонке меню нажимаем вкладку «Антивирус».<br/>
+8. Далее в самом низу жмем вкладку «Экран поведения».<br/>
+9. Теперь справа чуть выше нажимаем кнопку «Настройки».<br/>
+10. В левом боковом меню заходим во вкладку «Надёжные процессы».<br/>
+11. И добавляем процессы, которые не нужно отслеживать <code>«C:\Windows\explorer.exe»</code> и <code>«C:\Windows\ImmersiveControlPanel\SystemSettings.exe»</code>.<br/>
+12. Теперь вызываем диспетчер задач нажав комбинацию клавиш «Ctrl + Alt + Del» и перезагружаем компьютер.</p>
+
+<p>После проделанной операции черный экран во время запуска <em>Windows 8</em> вас беспокоить больше не будет.</p>
+
+<p>Если у вас есть другие способы обойти данную неприятность, пишите в комментариях.</p>
+
+<p>По материалам статьи <a href="http://pc-helpnsk.ru/windows-8-%D0%B8-%D1%87%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%8D%D0%BA%D1%80%D0%B0%D0%BD/">win8 и черный экран</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[markdown синтаксис для octopress]]></title>
+    <link href="http://dubass83.github.io/blog/2012/12/16/markdown-sintaksis-dlia-octopress/"/>
+    <updated>2012-12-16T14:04:00+02:00</updated>
+    <id>http://dubass83.github.io/blog/2012/12/16/markdown-sintaksis-dlia-octopress</id>
+    <content type="html"><![CDATA[<p><span class='pullquote-right' data-pullquote='Был создан для удобства чтения и написания размеченных текстов.'>
+<strong>Markdown</strong> - это легковесный язык разметки текста для веба. Был создан для удобства чтения и написания размеченных текстов. Движок markdown генерирует валидный XHTML. Авторы - <strong>John Gruber</strong> и <strong>Aaron Swartz</strong>. Официальная страница проекта и более подробная документация на сайте <a href="http://daringfireball.net/projects/markdown/">Daring Fireball</a>.
+</span>
+Ниже будет перепечатан конспект, который, кстати, тоже написан на этом замечательном языке.</p>
+
+<!--more-->
+
+
+<h1>Блочные Элементы</h1>
+
+<h2>Параграфы</h2>
+
+<p>&lt;пустая строка>
+Текст параграфа. Может быть
+разбит на несколько строк.
+&lt;пустая строка></p>
+
+<h2>Переводы строк</h2>
+
+<p>Что бы вставить перевод строки без начала нового параграфа, в конец нужно добавить два или больше пробелов.</p>
+
+<p>Текст параграфа.&lt;пробел>&lt;пробел><br/>
+Этот текст будет с новой строки.</p>
+
+<h2>Заголовки</h2>
+
+<p>Заголовок первого уровня H1<br/>
+= = = = = = = = = = = = = = = = = = = = = =</p>
+
+<p>Заголовок второго уровня H2<br/>
+- - - - - - - - - - - - - - - - - - - - - -</p>
+
+<p>или так</p>
+
+<p># Заголовок первого уровня H1<br/>
+## Заголовок второго уровня H2<br/>
+###### Заголовок шестого уровня H6</p>
+
+<p>или так</p>
+
+<p># Заголовок первого уровня H1 #<br/>
+## Заголовок второго уровня H2 ##<br/>
+###### Заголовок шестого уровня H6 ######</p>
+
+<h2>Цитаты</h2>
+
+<p>> Это<br/>
+> многострочная<br/>
+> цитата</p>
+
+<p>или так</p>
+
+<p>> Это<br/>
+многострочная<br/>
+цитата</p>
+
+<h2>Списки</h2>
+
+<p>Ненумерованные:</p>
+
+<p>* красный<br/>
+* зеленый<br/>
+* синий</p>
+
+<p>или так</p>
+
+<p>- красный<br/>
+- зеленый<br/>
+- синий</p>
+
+<p>или даже так</p>
+
+<p>+ красный<br/>
++ зеленый<br/>
++ синий</p>
+
+<p>Нумерованные:</p>
+
+<ol>
+<li>Первый</li>
+<li>Второй</li>
+<li>Третий</li>
+</ol>
+
+
+<h2>Код</h2>
+
+<p>Отступ в четыре пробела или один таб генерирует блок кода:</p>
+
+<p>&lt;пробел>&lt;пробел>&lt;пробел>&lt;пробел>print &lsquo;Hello, World!&rsquo;</p>
+
+<h2>Горизонтальная линия</h2>
+
+<p>* * *</p>
+
+<p>или так:</p>
+
+<p>***</p>
+
+<p>или так:</p>
+
+<p>- - - - - -</p>
+
+<h1>Строчные элементы</h1>
+
+<h2>Ссылки</h2>
+
+<p><em>Инлайн ссылки</em></p>
+
+<p>Это простая [ссылка](<a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a>) в тексте.<br/>
+Это [ссылка](<a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> &ldquo;Титул&rdquo;) с аттрибутом title.</p>
+
+<p><em>Ссылки в справочном стиле</em></p>
+
+<p>Это [ссылка][1] в справочном стиле.<br/>
+&hellip;<br/>
+&hellip;<br/>
+[1]: <a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> &ldquo;Необязательный титул&rdquo;</p>
+
+<p>Что бы урл в тексте стал ссылкой его нужно обрамить в &lt; и ></p>
+
+<p>По урлу <a href="http://dubass83.org.ua/">http://dubass83.org.ua/</a> находится мой сайт.</p>
+
+<h2>Выделение</h2>
+
+<p>Одинарные звездочки генерируют тег &lt; em ></p>
+
+<p>это *выделенный* текст</p>
+
+<p>Двойные звёздочки генерируют тег &lt; strong ></p>
+
+<p>это **очень выделенный** текст</p>
+
+<h2>Код в строке  </h2>
+
+<p>Используйте функцию `printf()` для вывода.</p>
+
+<h2>Изображения</h2>
+
+<p>![alt-текст](<a href="http://example.com/image.jpg">http://example.com/image.jpg</a> &ldquo;Необязательный титул&rdquo;)</p>
+
+<p>или в справочном стиле:</p>
+
+<p>![alt-текст][2]<br/>
+&hellip;<br/>
+&hellip;<br/>
+[2]: <a href="http://example.com/image.jpg">http://example.com/image.jpg</a> &ldquo;Необязательный титул&rdquo;</p>
+
+<h2>Экранирование спец символов Markdown</h2>
+
+<p>Для экранирования специальных символов Markdown используй \</p>
+
+<h2>Дополнительно</h2>
+
+<h2>Плагин <em>pull quote</em> - цитата-врезка</h2>
+
+<p>Для того что бы его использовать пользуйтесь приведёным ниже синтаксисом. Между фигурной скобкой и знаком % нет пробела.</p>
+
+<pre><code>{ % pullquote %}
+Surround your paragraph with the pull quote tags. Then when you come to
+the text you want to pull, {" surround it like this "} and that's all there is to it.
+{ % endpullquote %}
+</code></pre>
+
+<p><span class='pullquote-right' data-pullquote='я считаю, будет полезно включать цитаты врезки'>
+Вот более реалистичный пример того, как можно использовать цитаты врезки. При написании статьи, я считаю, будет полезно включать цитаты врезки, для того чтобы помочь читателям легко определить темы, затронутые в каждом разделе. Важно отметить, что цитаты являются лишь визуальным представлением и их не надо набирать два раза в тексте. Octopress включает в себя удобный плагин генерирования цитат-врезок с помощью CSS, который сделает эту рутиную работу вместо вас.
+</span></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Востоновление работы HDD с помощью Shred]]></title>
+    <link href="http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred/"/>
+    <updated>2012-12-09T11:16:00+02:00</updated>
+    <id>http://dubass83.github.io/blog/2012/12/09/vostonovlieniie-raboty-hdd-s-pomoshchiu-shred</id>
+    <content type="html"><![CDATA[<h2>Подготовка к востановлению.</h2>
+
+<p>Для этого нам понадобится:</p>
+
+<ul>
+<li><p>Проблемный диск</p></li>
+<li><p>linux дистрибутив (я использую <a href="http://www.ubuntu.com/download" title="Download Ubuntu">ubuntu 12.04-LTS</a>)</p></li>
+<li><p>Прямые руки и время.</p></li>
+</ul>
+
+
+<p>Про время я сказал не просто так. Програма работает не бысто но надёжно.
+<em>Shred</em> - програма для полного удаления информации с HDD что добивается путём перезаписи блоков даных спомощью спецального алгоритма. Описание того что спомощью этой программы можно востанавливать поверхность жосткого диска я встретил в одной из статей в интернете и решил попробывать так как всё что требуется у меня было под рукой.</p>
+
+<!-- more -->
+
+
+<h2>Процес востонавления.</h2>
+
+<ul>
+<li><p>подключаем сбойный диск к компьютеру. В моём случаии я использовал USB карман, но можно подключить и через sata интерфейс.</p></li>
+<li><p>запустить в теминале команду <code>sudo fdisk -l</code> и проанализировать её вывод. Если вы будете делать это в первый раз то желательно сначала запустит команду до подключения диска. Это необходимо для того что бы вы могли сравнит вывод до и после подключения.</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>кусок вывода команды fdisk -l </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Disk /dev/sdc: 1000.2 GB, 1000204886016 bytes  
+</span><span class='line'>255 heads, 63 sectors/track, 121601 cylinders, total 1953525168 sectors  
+</span><span class='line'>Units = sectors of 1 * 512 = 512 bytes  
+</span><span class='line'>Sector size (logical/physical): 512 bytes / 512 bytes  
+</span><span class='line'>I/O size (minimum/optimal): 512 bytes / 512 bytes  
+</span><span class='line'>Disk identifier: 0x00000000</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Определить сбойный диск. В нашем случае это <code>/dev/sdc</code>.</p></li>
+<li><p><span class='pullquote-right' data-pullquote='`sudo shred -n0 -z -v /dev/sdc`'>
+Набираем в командной строке следующую команду:
+  <code>sudo shred -n0 -z -v /dev/sdc</code><br/>
+<em>shred</em> - команда форматирования;<br/>
+<em>-n0</em> – число этой опции указывает на количество проходов форматирования;<br/>
+<em>-z</em> – опция указывает, что поверхность жесткого диска нужно заполнить нулевыми значениями;<br/>
+<em>-v</em> – отобразить процесс форматирования на экране;<br/>
+<em>/dev/sdc</em> – указывает, какое устройство мы форматируем.<br/>
+</span></p></li>
+</ul>
+
+
+<h2>P.S</h2>
+
+<p>После завершения работы утилиты, нужно на жестком диске создать все необходимые разделы заново.
+В зависимости от объема жесткого диска и количества проходов по переформатированию, время будет затрачено немало, но результат вас поразит. Винчестер оживает и работает лучше, чем до форматирования. Скорость чтения-записи возрастает, появляется больше кластеров с меньшим временем чтения-записи. Пропадают программные bad блоки.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка отображения погоды Gismeteo в Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/"/>
+    <updated>2012-05-13T02:18:36+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky</id>
+    <content type="html"><![CDATA[<h3>Настройка вывода информации о погоде в conky.</h3>
+
+<p>Я не стал заморачиваться с RSS (он у меня как-то криво работал) и немного погуглив остановился на следуещем варианте. <strong>Скрипт для отображения погоды в Conky с gismeteo.</strong></p>
+
+<p>Итак, научим Conky выдирать данные о погоде из этого XML - <a href="http://informer.gismeteo.ru/getcode/xml.php?id=27612">http://informer.gismeteo.ru/getcode/xml.php?id=27612</a> . Вам нужно получить ссылку для своего города. Для Москвы это <a href="http://informer.gismeteo.ru/xml/27612_1.xml">http://informer.gismeteo.ru/xml/27612_1.xml</a> .</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Теперь создайте файл conky-weather.sh с таким содержимым:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>
+</span><span class='line'>time=$(date +%H)
+</span><span class='line'>
+</span><span class='line'>URL="http://informer.gismeteo.ru/xml/33614_1.xml"
+</span><span class='line'>EXEC="/usr/bin/curl -s"
+</span><span class='line'>
+</span><span class='line'>a=`$EXEC $URL`
+</span><span class='line'>
+</span><span class='line'>#температура
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep HEAT | sed -n 1p | sed -e 's/&lt;HEAT //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>sed -e 's/ /../' | gawk '{ print "Темп.",$1,"°C" }'
+</span><span class='line'>#ветер
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep WIND | sed -n 1p | sed -e 's/&lt;WIND //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>gawk '{ print "Ветер",($1+$2)/2,"м/с"}'
+</span><span class='line'>#давление
+</span><span class='line'>echo $a | tr "/&gt;" "\n" | grep PRESSURE | sed -n 1p | sed -e 's/&lt;PRESSURE //' |\
+</span><span class='line'>sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+</span><span class='line'>gawk '{ print "Давл.",($1+$2)/2,"мм"}'
+</span><span class='line'>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>URL=&ldquo;<a href="http://informer.gismeteo.ru/xml/27719_1.xml">http://informer.gismeteo.ru/xml/27719_1.xml</a>&rdquo; замените на ссылку для вашего города. Проверить работоспособность скрипта можно, выполнив его в терминале:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./conky-weather.sh 
+</span><span class='line'>Темп. 14..16 °C
+</span><span class='line'>Ветер 3 м/с
+</span><span class='line'>Давл. 754 мм
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Если все работает, то добавьте в ваш ~/.conkyrc следующие строки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>${color a1ccea}Weather:
+</span><span class='line'>${color ffffff}${execi 3600 /путь/до/скрипта/conky-weather.sh}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Вот и все.</p>
+
+<hr />
+
+<p>Этот скрипт встретился мне на странице сайта <a href="http://zenux.ru/articles/8/">http://zenux.ru</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[перевод официальной документации по Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/"/>
+    <updated>2012-05-13T02:06:13+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky</id>
+    <content type="html"><![CDATA[<h3>Слегка сокращенный перевод официальной документации по Conky.</h3>
+
+<p>Опции конфигурации</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TEXT : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>После этого весь текст будет отображен на экране</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alignment :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Определяет позицию на экране. Может быть top_left, top_right, top_middle, bottom_left, bottom_right, bottom_middle, middle_left или middle_right</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>default_color : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Дефолтный цвет границ и текста</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>default_shade_color :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Дефолтный цвет теней</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>double_buffer :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Включите это, если Conky неприятно мигает</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>draw_shades :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Включить тени</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>font : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Указывает, какой шрифт использовать. Для определения имени шрифта используйте утилиту xfontsel</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gap_x : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>отступ слева или справа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gap_y :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>отступ сверху или снизу</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>use_xft : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Использовать шрифты Xft. Xft поддерживают антиальясинг.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>xftfont : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Какой xft шрифт использовать</p>
+
+<p>Переменные</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>color (color) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задает цвет последующего текста. Пример: ${color ffffff}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpu (cpuN) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Использование процессора в процентах. Пример для одноядерной машины: ${cpu} Пример для многоядерной для первого ядра: ${cpu 1}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpubar (cpuN) (height),(width) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска загрузки процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpubar 3,100}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cpugraph (cpuN) (height),(width) : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>График загруженности процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpugraph 20,100}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl url interval_in_minutes : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скачивает и показывает текстовые данные с указанного url. Пример: ${curl <a href="http://mydomain.com/test.txt">http://mydomain.com/test.txt</a> 2}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>downspeed (net) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скорость скачки, где net - имя сетевого интерфейса. Пример: ${downspeed eth0}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>downspeedgraph (net) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+График скорости скачки, где net - имя сетевого интерфейса.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>else :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Логическое иначе</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>endif :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Конец условия $if</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>execi interval commamd : 
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выполнение исполняемого файла и показ его вывода. Пример: ${execi 2 cat /home/myname/test.txt}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>freq (n) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Частота процессора в МГц, где n - номер ядра (по дефолту 1)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_bar  (height),(width) fs : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска, которая показывает, как используется файловая система. Пример: ${fs_bar3,100 /home}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_free (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободного места файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_size (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Размер файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_type (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Тип файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fs_used (fs) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Количество использованного места файловой системы</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_empty (var) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанная переменная пуста, показывает все, что идет после $if_empty и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_existing file (string) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанный файл существует, показывает все, что идет после $if_existing и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if_running (process) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если указанный процесс запущен, то показывает все, что идет после $if_running и до $endif</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>image (-p x,y) (-f interval) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает изображение. x и y - координаты, -f interval - частота обновления. Пример: ${image /path/to/image.png -p 10,100 -f 15}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kernel : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Версия ядра</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mem : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во используемой памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>membar (height),(width) : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полоска загруженности памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memfree : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободной памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memgraph (height),(width)  : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>График использоемой памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>memmax : </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Общее кол-во памяти</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nvidia :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Для владельцев карт Nvidia. Пример для вывода температуры: ${nvidia temp}</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>shadecolor (color) :</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Цвет теней</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swap :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во использованного свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swapfree :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Кол-во свободного свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>swapmax :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Общее кол-во свопа</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>time :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Вывод времени</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upspeed (net) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скорость исходящего трафика, где net - сетевой интерфейс</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upspeedgraph (net) (height),(width) :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>График по исходящему трафику</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>uptime :
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Аптайм</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Подробная настройка Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/12/podrobnaya-nastrojka-conky/"/>
+    <updated>2012-05-12T19:13:55+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/12/podrobnaya-nastrojka-conky</id>
+    <content type="html"><![CDATA[<h3>Установка и настройка Conky.</h3>
+
+<p><strong>Conky</strong> — системный монитор для <strong>Linux</strong>. <strong>Настройка Conky</strong>. Мониторинг системы в <strong>Linux</strong>.
+Официальный источник информаци о <a href="http://conky.sourceforge.net/aboutconky.html">Conky</a></p>
+
+<p>Итак, вступление. <strong>Сonky</strong> — многофункциональный полностью настраиваемый системный монитор для <strong>Linux</strong> и BSD систем. Если вы запустите conky сразу после установки, то сможете подумать, что conky — некрасивая и неудобная программа. На самом деле это в корне не так. <strong>Conky</strong> нужно настроить и, если это сделать правильно, все будет супер.</p>
+
+<p><strong>Предупреждение</strong>: если вы не хотите утруждать свои нежные мозги чтением непонятных слов и набиранием их вручную с клавиатуры (ужас-то какой!), то до <strong>conky</strong> вы не доросли и можете закрыть эту страницу :Р Если вас это не напугало —</p>
+
+<p>Как я уже сказал, чтобы <strong>conky</strong> выглядел хорошо, его надо настроить. Тут два варианта. Первый вариант: найти неплохой но стандартный готовый конфиг и просто использовать его. Найти можно на  <a href="http://conky.sourceforge.net/screenshots.html.">http://conky.sourceforge.net/screenshots.html.</a></p>
+
+<p>Второй вариант: дочитать эту статью и написать свой на основе готового, добавляя и редактируя его под себя. Благо, это не сложно и интересно. В этой статье я пошагово разберу свой конфиг и опишу настройки кое-каких дополнительных программ, которые пригодятся в работе conky.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Вступление закончилось, приступим к делу. <strong>Настройка Conky</strong></p>
+
+<p><a href="../perevod-ofytsyalnoj-dokumentatsyy-po-conky">Конфиг conky</a> называется <em>.conkyrc</em> и должен лежать в домашней директории пользователя. Он состоит из двух частей: в первой части описываются настройки внешнего вида, а во второй находится то, что будет непосредственно показано на экране.</p>
+
+<p>Разберем мой конфиг по частям. Пометка: обычный текст - пояснения; текст, выделенный цветом, - строки конфига Conky, их вы можете копировать в свой конфиг, изменяя некоторые параметры под себя. Поехали.</p>
+
+<p>Эти строчки нужны для корректного отображения окна conky. Скорее всего менять их вам не придется.</p>
+
+<pre><code>background no
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+</code></pre>
+
+<p>Используем XFT шрифты. Выбор таких шрифтов не велик - Terminus, Vera, Sans и Mono. Вы можете закоментировать эти две строчки и сможете использовать обычные шрифты, но только с XFT шрифтами на моем компьютере conky корректно отображал русские буквы.</p>
+
+<pre><code>use_xft yes
+xftfont Terminus:size=8
+</code></pre>
+
+<p>Поддержка двойного буфера. Без нее conky будет неприятно мигать.</p>
+
+<pre><code>double_buffer yes
+</code></pre>
+
+<p>Включаем тени - для улучшения читабельности текста.</p>
+
+<pre><code>draw_shades yes
+</code></pre>
+
+<p>Задаем умолчальные цвета</p>
+
+<pre><code>default_color white
+default_shade_color black
+default_outline_color blue
+</code></pre>
+
+<p>Задаем позицию для окна. <strong>Conky</strong> будет отображаться в левом верхнем углу. Можно изменить на top_right, bottom_left, bottom_right</p>
+
+<pre><code>alignment top_left
+</code></pre>
+
+<p>Делаем небольшие отступы с краев</p>
+
+<pre><code>gap_x 10
+gap_y 10
+</code></pre>
+
+<p>Так указывается шрифт, если у вас отключено <strong>use_xft yes</strong>. Для определения правильного имени шрифта используйте утилиту <strong>xfontsel</strong>. <em>Так шрифт можно указывать, если не используется use_xft.</em> Но без use_xft не отображаются корректно русские буквы. Поэтому пока закоментим.</p>
+
+<pre><code>## font  -schumacher-clean-medium-r-*-*-12-*-*-*-*-*-*-*
+</code></pre>
+
+<p>Эта строчка определяет, как будет показываться свободная/используемая оперативная память. Если <strong>no_buffers no</strong>, то кол-во используемой оперативной памяти будет определяться с учетом кэшированной памяти. Если <strong>no_buffers yes</strong>, кэш будет считаться свободной памятью. Единственного правильного варианта нет. Да и вобще, утилитам которые показывают кол-во свободной/занятой памяти не стоит доверять. Это из-за тонкостей использования динамических библиотек в <strong>Linux</strong>. Если две программы используют библиотеку в 20МБ, это не означает, что каждая из программ занимает +20МБ в ОЗУ. Именно поэтому в некоторых случаях программы, которые используют &ldquo;жирные&rdquo; библиотеки типа QT или GTK, на деле используют оперативную память эффективнее чем остальные. Но и это не всегда верно. Также, программа может &ldquo;занять&rdquo; себе довольно большой объем оперативки и, с одной стороны память будет занята, но с другой - свободна. Решать вам. Скажу лишь, что с <strong>no_buffers yes</strong>, у меня никогда не &ldquo;занято&rdquo; больше 500МБ, а с <strong>no_buffers no</strong> - <strong>Conky</strong> показывает что &ldquo;занято&rdquo; постоянно около 3-4ГБ.</p>
+
+<pre><code>no_buffers no
+</code></pre>
+
+<p>Все, первая часть конфига окончена. Переходим ко второй.</p>
+
+<p>Все, что будет идти после <strong>TEXT</strong>, будет выведено на экран. Минимальная настройка conky может выглядеть так:
+TEXT
+HELLO</p>
+
+<pre><code>TEXT
+</code></pre>
+
+<p>Сверху у нас будет написана версия ядра системы. &ldquo;Kernel: ${kernel}&rdquo; можно заменять на &ldquo;Ядро: ${kernel}&rdquo;, как вам угодно. Информация берется из переменной $kernel. Если надо указать какие-то дополнительные параметры, имя переменной заключается в фигурные скобки. Да и без параметров обычно так делают - по-привычке, видимо :)</p>
+
+<pre><code>Kernel: ${kernel}
+</code></pre>
+
+<p>Дата и время</p>
+
+<pre><code>Date: ${time}
+</code></pre>
+
+<p>Аптайм системы</p>
+
+<pre><code>Uptime: $uptime
+</code></pre>
+
+<p><strong>Информация о использовании процессора</strong>. ${color a1ccea} указывает цвет последующего текста. Весь текст, следующий после ${color a1ccea} будет синим, поэтому, после этой строчки мы его сделаем опять белым.</p>
+
+<p>Если у вас многоядерный процессор, можно выводить информацию с каждого ядра таким образом ${cpu 1} - для первого ядра, #{cpu 2} - для второго и тд.</p>
+
+<pre><code>${color a1ccea}CPU usage:    $cpu% 
+</code></pre>
+
+<p>Возвращаем цвет в белый и рисуем полоску загруженности процессора высотой 3 и шириной 140 пикселей</p>
+
+<pre><code>${color ffffff}${cpubar 3,140}
+</code></pre>
+
+<p>Рисуем движущийся график загрузки процессора высотой 20 и шириной 140 пикселей. &ldquo;000000 ffffff&rdquo; означают что график будет окрашен градиентно - от белого к черному. Вы можете изменить цвета на свои или вобще убрать &ldquo;000000 ffffff&rdquo;, тогда график будет просто белый.</p>
+
+<pre><code>${cpugraph 20,140 000000 ffffff}
+</code></pre>
+
+<p>Показываем три процесса, которые сильнее всего нагружают процессор. Первый окрашиваем оранжевым цветом.</p>
+
+<pre><code>Highest CPU:
+${color ff9000}${top name 1} ${top cpu 1}%
+</code></pre>
+
+<p>Возвращаем цвет текста к белому</p>
+
+<pre><code>${color ffffff}${top name 2} ${top cpu 2}%
+${top name 3} ${top cpu 3}%
+</code></pre>
+
+<p><strong>Использование оперативной памяти</strong></p>
+
+<pre><code>${color a1ccea}MEM usage:    $memperc%
+</code></pre>
+
+<p>Пишем количество занятой памяти и общее кол-во озу</p>
+
+<pre><code>${color ffffff}Used: $mem of $memmax
+</code></pre>
+
+<p>Рисуем полоску использования памяти высотой 3 и шириной 140</p>
+
+<pre><code>${membar 3,140}
+</code></pre>
+
+<p>Рисуем график использования памяти высотой 20 и шириной 140, закрашенный градиентом</p>
+
+<pre><code>${memgraph 20,140  000000 ffffff}
+</code></pre>
+
+<p>Показываем три процесса, которые используют памяти больше, чем другие. Самый прожорливый окрашиваем оранжевым цветом.</p>
+
+<pre><code>Highest MEM:
+${color ff9000}${top_mem name 1} ${top_mem mem 1}%
+${color ffffff}${top_mem name 2} ${top_mem mem 2}%
+${top_mem name 3} ${top_mem mem 3}%
+</code></pre>
+
+<p>Выводим информацию по использованию свопа</p>
+
+<pre><code>SWAP usage: $swapperc% 
+Used: $swap/$swapmax
+</code></pre>
+
+<p>Теперь переходим к <strong>мониторингу сетевых интерфейсов</strong></p>
+
+<pre><code>${color a1ccea}Network usage:
+</code></pre>
+
+<p>Показываем исходящий трафик для интерфейса eth0. Если у вас интерфейс называется по-другому, измените eth0 на свое. Если у вас больше одного сетевого интерфейса, просто скопируйте следующие строчки и измените eth0 на свое.</p>
+
+<pre><code>${color ffffff}
+Up: ${upspeed eth0}/s
+</code></pre>
+
+<p>График исходящего трафика</p>
+
+<pre><code>${upspeedgraph eth0 20,140  000000 ffffff}
+</code></pre>
+
+<p>Входящий трафик</p>
+
+<pre><code>Down: ${downspeed eth0}/s
+</code></pre>
+
+<p>График для входящего трафика</p>
+
+<pre><code>${downspeedgraph eth0 20,140  000000 ffffff}
+</code></pre>
+
+<p><strong>Информация о файловых системах.</strong></p>
+
+<p>Тут показывается информация для разделов /, /home и /files
+Эти разделы используются на моем компьютере, поэтому измените параметры на нужные</p>
+
+<pre><code>${color a1ccea}File systems:
+${color ffffff}
+</code></pre>
+
+<p>Сколько использовано на корневом разделе и сколько места всего</p>
+
+<pre><code> / ${fs_used /}/${fs_size /}
+</code></pre>
+
+<p>Полоска для корневого раздела</p>
+
+<pre><code>${fs_bar 3,140 /}
+</code></pre>
+
+<p>То-же самое для /home и /files:</p>
+
+<pre><code>Home ${fs_used /home}/${fs_size /home}
+${fs_bar 3,140 /home}
+ /files ${fs_used /files}/${fs_size /files}
+${fs_bar 3,140 /files}
+</code></pre>
+
+<p>На <strong>мониторинге температуры</strong> остановимся подробнее.</p>
+
+<p>Чтобы следить за температурой чипсета материнской платы и температурой процессора, надо установить и настроить пакет <strong>lm_sensors</strong>. Как это делается, написано тут: <a href="http://open-way.org/index.php?id=20&amp;ctgr=27&amp;type=2">Установка и настройка lm_sensors</a></p>
+
+<p>Температуру жесткого диска можно смотреть утилитой <strong>hddtemp</strong>. Просто установите ее, никаких настроек не требуется. Единственная проблема - <strong>hddtemp</strong> использовать может только root. Но мы же не хотим каждый раз запускать conky от рута, поэтому надо разрешить запускать <strong>hddtemp</strong> от пользователя, без прав рута. В Gentoo hddtemp лежит по адресу <em>/usr/sbin/hddtemp</em> и, чтобы разрешить запускать ее от пользователя, надо выполнить от рута команду <em>chmod a+s /usr/sbin/hddtemp</em>. Если у вас в /usr/sbin/ ее нету, местоположение файла hddtemp можно узнать командой <em>whereis hddtemp</em> (от рута тоже). Дополнительная проблема в том, что если эта программа у вас обновится, то права надо будет изменить заново.</p>
+
+<p>Температуру видеокарты, как мне известно, могут смотреть только владельцы Nvidia. Для этого, conky должен быть собран с флагом nvidia (в Gentoo). Во многих дистрибутивах он по умолчанию собирается с поддержкой nvidia.</p>
+
+<p><strong>Температура процессора</strong>. Данные берутся с lm_sensors. В моем случае за процессор в lm_sensors отвечает датчик temp1. У вас может быть по-другому. <br/>
+Самый простой способ узнать, какой из датчиков за что отвечает, - записать данные с вывода lm_sensors, перезагрузиться и сравнить их с данными о температуре в BIOS</p>
+
+<pre><code>${color ffffff}CPU:             ${execi 2 sensors | grep temp1 | cut -c 15-16}°С
+</code></pre>
+
+<p><strong>Температура сис. платы.</strong> У меня за нее отвечает temp2. Замените temp2 на другой датчик, если у вас по-другому</p>
+
+<pre><code>SYS:             ${execi 2 sensors | grep temp2 | cut -c 15-16}°С
+</code></pre>
+
+<p><strong>Температура жестких дисков</strong>. Данные берутся с hddtemp. У меня устроства жестких дисков называются /dev/sda и /dev/sdb. Измените это на свое, если у вас по-другому.</p>
+
+<pre><code>/dev/SDA:        ${execi 2 /usr/sbin/hddtemp /dev/sda -q | awk '{print $3; }' | cut -c 1-2}°С
+/dev/SDB:        ${execi 2 /usr/sbin/hddtemp /dev/sdb -q | awk '{print $3; }' | cut -c 1-2}°С
+</code></pre>
+
+<p><strong>Температура видео-карты</strong>. Новые версии Conky поддерживают показ температуры с видеокарт Nvidia. Про ATI ничего не известно</p>
+
+<pre><code>Nvidia GPU:      ${nvidia temp}°С
+</code></pre>
+
+<hr />
+
+<p>Часть информации была позаимствована по этому адресу на сайте <a href="http://zenux.ru/articles/8/">http://zenux.ru</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Conky for Ubuntu 12.04 LTS]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/12/conky-for-ubuntu-12-04-lts/"/>
+    <updated>2012-05-12T18:36:14+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/12/conky-for-ubuntu-12-04-lts</id>
+    <content type="html"><![CDATA[<h3>Conky это монитор для X Windows систем.</h3>
+
+<p>Он отображает различную системную информацию на рабочем столе. <a href="../podrobnaya-nastrojka-conky">Conky</a> настраивается при помощи редактирования пользовательского конфигурационного файла <code>~/.conkyrc</code>. Рассмотрим один из таких файлов <strong>Conky-Lua</strong>, который украсит ваш рабочий стол и позволит контролировать некоторые параметры системы.</p>
+
+<p>Если у вас не установлен Conky то установим его выполнив команду:</p>
+
+<ol>
+<li><p><code>sudo apt-get install conky-all</code></p></li>
+<li><p>Теперь скачаем сам файл конфигурации <a href="http://gnome-look.org/content/download.php?content=139024&amp;id=1&amp;tan=46022226">тут</a>.</p></li>
+<li><p>Распаковываем архив, а в нем выберем нужный для вашего дистрибутива архив и тоже распакуем его.</p></li>
+<li><p>Переходим в распакованный каталог. Переименовываем <em>«conkyrc»</em> в <em>«.conkyrc»</em> и перемещаем его в домашний каталог.</p></li>
+<li><p>Включает отображение скрытых файолов в Nautilus и создаем папку с именем <em>«.conky»</em>. Копируем из распакованного каталога картинку и файл <em>clock_rings.lua</em> в <em>«.conky»</em>.</p></li>
+<li><p>Теперь открываем текстовым редактором файл <em>«.conkyrc»</em> и заменяем строчку:
+<code>lua_load /~.lua/scripts/clock_rings.lua</code>
+на
+<code>lua_load ~/.conky/clock_rings.lua</code></p></li>
+<li><p>Запускаем conky. Для этого жмем Alt+F2 и вводим команду: conky</p></li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>Для того что бы conky стартовала вместе с системой необходимо прописать в автозагрузку слдующию строку <code>sh -c "sleep 15 &amp;&amp; conky" --pause 30</code></p>
+
+<p>Если вы подключены к интернету через wifi, то вам необходимо поменять в конфигурационом файле <em>~.conkyrc</em> следующие строки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>${color FFFFFF}${goto 125}${voffset 25}${downspeed eth0}
+</span><span class='line'>${color FFFFFF}${goto 125}${upspeed eth0}
+</span><span class='line'>${color FF6600}${goto 125}Net
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>на</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>${color FFFFFF}${goto 125}${voffset 25}${downspeed wlan0}
+</span><span class='line'>${color FFFFFF}${goto 125}${upspeed wlan0}
+</span><span class='line'>${color FF6600}${goto 125}Net wifi
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>После, открываем следующий файл <em>~.conky/clock_rings.lua</em> и в нём изменяем следующие строки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>name='downspeedf',
+</span><span class='line'>arg='eth0',</span></code></pre></td></tr></table></div></figure>
+
+
+<p>и</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>name='upspeedf',
+</span><span class='line'>arg='eth0',</span></code></pre></td></tr></table></div></figure>
+
+
+<p>на</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>name='downspeedf',
+</span><span class='line'>arg='wlan0',</span></code></pre></td></tr></table></div></figure>
+
+
+<p>и</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>name='upspeedf',
+</span><span class='line'>arg='wlan0',</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Это сработает если беспроводной сетевой интерфейс на компютере определяется как wlan0. Поэтому перед тем как вносить изменения в конфигурационые файлы потрудись посмотреть на вывод команды _ iwconfig_.</p>
+
+<hr />
+
+<p>В следующей статье я раскажу <a href="../nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky">как настроить отображение погоды для твоего города</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка LXC окружения на домашнем компьютере с ОС Ubuntu 11.10]]></title>
+    <link href="http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10/"/>
+    <updated>2012-04-21T17:31:09+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/04/21/nastrojka-lxc-okruzhenyya-na-domashnem-kompyutere-s-os-ubuntu-11-10</id>
+    <content type="html"><![CDATA[<p>Статья тестовая, незавершенная, исключительно для сохранения опыта.</p>
+
+<h4>LXC - LinuX Containers.</h4>
+
+<p>Контейнеры Linux - технология виртуализации программного обеспечения на уровне операционной системы. Контейнеры Linux поддерживаются на уровне ядра.</p>
+
+<p><strong>Преимущества контейнерной технологии lxc для меня лично.</strong></p>
+
+<ul>
+<li><p>Не требуется поддержка виртуализации vt-x процессором. Intel Atom CPU D525 ее не поддерживает.</p></li>
+<li><p>Легко устанавливается из репозиториев ubuntu.</p></li>
+<li><p>Легко формируется минимальный сервер ubuntu в контейнере.</p></li>
+<li><p>Работает</p></li>
+<li><p>В силу особенностей технологии, унифицирует программное окружение контейнеров и хост-системы. Условно говоря - &ldquo;везде ubuntu&rdquo;.</p></li>
+<li><p>Присутствуют решаемые трудности.</p></li>
+</ul>
+
+
+<p><strong>Что получиться в результате настройки</strong></p>
+
+<ul>
+<li><p>Будет установлена на хост-системе (домашнем компьютере) инфраструктура lxc</p></li>
+<li><p>Будет создан контейнер с минимальной версией ubuntu 11.10.</p></li>
+<li><p>Проведена локализация и первоначальная настройка контейнера.</p></li>
+<li><p>Управление контейнером будет осуществляться стандартными средствами lxc и ОС.</p></li>
+</ul>
+
+
+<!-- more -->
+
+
+<p><strong>Установка поддержки инфраструктуры LXC в хост-системе Ubuntu 11.10</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install lxc</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Установка сопутствующих пакетов в хост-системе</strong>
+Комплект утилит для управления мостовыми(bridge) соединениями. Дело в том, что сетевое подключение контейнера к локальной сети и интернет, выполняется через сетевой мост.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install bridge-utils</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Операции с контейнерами выполняются в пользовательском окружении root хост-системы.
+Перейти в пользовательское окружении суперпользователя root</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo -s
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Создание контейнера, команда lxc-create</strong></p>
+
+<p>Создание контейнера с выбранным именем 1c_ubuntu, на основе встроенного шаблона ubuntu 11.10
+<code>$ sudo lxc-create -n 1c_ubuntu -t ubuntu</code>
+Более правильно, вначале создать файл конфигурации, а потом на его основе создать контейнер. Это часто используется для копирования настроек сети в конфигурационный файл контейнера.
+Конфигурационный файл config, относящийся к создаваемому контейнеру, создается в папке /var/lib/lxc/1c_ubuntu/
+Корневая файловая система контейнера создается в папке /var/lib/lxc/1c_ubuntu/rootfs</p>
+
+<p>Производится загрузка пакетов минимальной версии Ubuntu 11.10 (или текущей версии) и сохранение ее в кэше, дополнительно в хост-систему установился пакет lxcguest. Были какие-то трудности с локализацией.
+Возможно мелкая трудность, решится, с помощью генерации &ldquo;C&rdquo; локали.
+В некоторых системах, исправляется следующим образом:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo locale-gen ru_RU.UTF-8
+</span><span class='line'>$ sudo dpkg-reconfigure locales</span></code></pre></td></tr></table></div></figure>
+
+
+<p>и еще</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export LC_ALL=ru_RU.UTF-8</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Также можно отредактировать /etc/default/locale и внести строку вида LC_ALL=ru_RU.UTF-8
+это можно сделать перед генерацией сервера.</p>
+
+<p>Файл конфигурации контейнера 1c_ubuntu.conf у меня выглядел так:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lxc.network.type = veth 
+</span><span class='line'>lxc.network.flags = up 
+</span><span class='line'>lxc.network.link = br0 
+</span><span class='line'>lxc.network.hwaddr = 00:11:22:33:55:44 
+</span><span class='line'>lxc.network.name = eth0 
+</span><span class='line'>lxc.network.ipv4 = 0.0.0.0 
+</span><span class='line'>lxc.cgroup.cpu.shares = 512 
+</span><span class='line'>lxc.cgroup.memory.limit_in_bytes = 1024M 
+</span><span class='line'>lxc.cgroup.memory.memsw.limit_in_bytes = 3072M </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Опционально. Удаление контейнера, команда lxc-destroy
+Если какие-то настройки неудачны, то можно удалить созданный контейнер</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lxc-destroy -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Первая правка конфигурации контейнера для подключение к локальной сети</strong>
+Выбор способа сетевого подключения.  Настройка локальной сети контейнеров, самая сложная часть в данном изложении.
+Мостовое подключение, при наличии собственной внутренней домашней локальной сети за роутером, позволяет обращаться к контейнеру как обычному компьютеру, с любых домашних компьютеров.</p>
+
+<p>Для того что бы это стало возможно редактируем /etc/network/interfaces</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>auto lo
+</span><span class='line'>iface lo inet loopback
+</span><span class='line'>
+</span><span class='line'>auto br0
+</span><span class='line'>iface br0 inet static
+</span><span class='line'>address 192.168.1.100
+</span><span class='line'>netmask 255.255.255.0
+</span><span class='line'>gateway 192.168.1.1
+</span><span class='line'>bridge_ports eth0
+</span><span class='line'>bridge_stp off
+</span><span class='line'>bridge_maxwait 5
+</span><span class='line'>post-up /usr/sbin/brctl setfd br0 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>после того как файл будет отредактирован выполнете команду</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ifup br0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+или</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#sudo /etc/init.d/networking restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>также необходимо добавить несколько правил в таблицу iptables</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>iptables -A FORWARD -d 192.168.1.0/24 -i br0 -j ACCEPT 
+</span><span class='line'>iptables -A FORWARD -s 192.168.1.0/24 -i br0 -j ACCEPT 
+</span><span class='line'>-A INPUT -p udp -m udp --sport 67 --dport 68 -j ACCEPT 
+</span><span class='line'>-A INPUT -p udp -m udp --dport 67 --sport 68 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>проверяем что всё работает</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ping ya.ru</span></code></pre></td></tr></table></div></figure>
+
+
+<p>если сразу не заработало то пробуем отключить фаервол на хосте и пробуем ещё раз. Если с отключёным фаервол работает, тогда надо или разбиратся что имено блокирует выход в сеть, или прописать</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># sysctl net.bridge.bridge-nf-call-iptables=0
+</span><span class='line'># sysctl net.bridge.bridge-nf-call-arptables=0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>в терминале. Последние две команды небходимы для того чтобы виртуальные мосты работали более приближенно к простому железу, поэтому нужно отключить применение правил iptables на самом мосту.</p>
+
+<p>Локализация (поддержка русского языка) в консоли контейнера
+После появления интернета в контейнере, выполнить обновление репозиториев ubuntu и доустановить локализацию сервера.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install language-pack-ru-base
+</span><span class='line'>$ sudo nano /etc/default/locale</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляем строку, если нет: LANG=ru_RU.UTF-8</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg-reconfigure locales
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выходим и входим заново в контейнере. По идее, перезагружаться не надо.
+Команда покажет текущие настройки локали:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ locale</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>Справочно. Перезагрузка lxc-контейнера изнутри</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo shutdown -r now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Первый запуск, команда запуска контейнера lxc-start</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-start -n 1c_ubuntu -d</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Параметр -d вернёт нам ввод командной строки хост-системы вместо запуска сеанса гостевой машины в текущем терминале.</p>
+
+<p><strong>Первоначальная настройка изнутри контейнера</strong></p>
+
+<p>Имя пользователя и пароль по умолчанию, при первом входе в консоль контейнера - root/root.
+Далее создаем главного пользователя с именем на выбор, - &ldquo;admin&rdquo; и добавляем его в группы sudousers.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ adduser admin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>аккуратно заполняем поля.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ adduser admin sudo
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>добавляем в группу sudo users.</p>
+
+<p>Изменяем пароль пользователя root, т.к. мы зашли под ним.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ passwd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка сетевого подключения изнутри контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping www.google.com
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход пользователя из контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ exit
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выключение контейнера изнутри</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo shutdown -h now
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Безопасное выключение контейнера снаружи, из хост-системы
+Вход в консоль управления контейнером</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-console -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Команда выключения</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 1c_ubuntu &gt; init 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Грубое выключение контейнера</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo lxc-stop -n 1c_ubuntu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Чтобы не делать повторно такие настройки, базовую конфигурацию контейнера для местных условий можно сохранить в &hellip; и создавать новые контейнеры на базе этой конфигурации
+Определения хранилища пользовательских данных
+Для удобного пользования контейнером и удобного резервирования пользовательских данных, можно выносить блочные устройства в другое место.</p>
+
+<p><strong>Резервное копирование контейнера</strong>
+Сразу после установки и настройки, рекомендуется создать резервную копию с помощью tar
+Пример файла backup.sh:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/bash
+</span><span class='line'>NAME=1c_ubuntu
+</span><span class='line'>SRC_DIR=/var/lib/lxc/$NAME
+</span><span class='line'>DEST_DIR=/media/vm/backups/$NAME
+</span><span class='line'>cd $SRC_DIR
+</span><span class='line'>mkdir -p $DEST_DIR
+</span><span class='line'>tar --one-file-system -cf $DEST_DIR/$NAME-`date +%F`.tar .
+</span><span class='line'>#tar --one-file-system -czf $DEST_DIR/$NAME-`date +%F`.tar.gz .</span></code></pre></td></tr></table></div></figure>
+
+
+<p>В несжатом состоянии структура создаётся очень быстро.</p>
+
+<p>Перенос контейнера в другое сетевое окружение (другая конфигурация сети)
+Например, перенос контейнера в сеть с роутером и динамическим присвоением &ldquo;серого&rdquo; IP-адреса. Операционная система хост-системы должна совпадать с исходной.
+Фактически, все определяется файлом конфигурации контейнера.</p>
+
+<p>Ресурсы</p>
+
+<ul>
+<li><p>Обстоятельная статья про виртуальные мосты в Linux <a href="http://xgu.ru/wiki/Linux_Bridge">http://xgu.ru/wiki/Linux_Bridge</a></p></li>
+<li><p>Тестовый SyncML сервер см. <a href="http://gimmor.blogspot.com/2012/03/syncml.html">http://gimmor.blogspot.com/2012/03/syncml.html</a></p></li>
+<li><p>LXC виртуализация, <a href="http://koder-ua.blogspot.com/">http://koder-ua.blogspot.com/</a></p></li>
+<li><p>Пояснение о виртуальных сетях lxc, в картинках на англ. языке  <a href="http://planet.gentoo.org/archives/2010/2010-09-06.html">http://planet.gentoo.org/archives/2010/2010-09-06.html</a></p></li>
+</ul>
+
+
+<p>По материалам статьи <a href="http://gimmor.blogspot.com/2012/03/lxc.html">Настройка LXC окружения на домашнем компьютере
+</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Общие команды Linux]]></title>
+    <link href="http://dubass83.github.io/blog/2012/04/13/obschye-komandyi-linux/"/>
+    <updated>2012-04-13T14:29:32+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/04/13/obschye-komandyi-linux</id>
+    <content type="html"><![CDATA[<h4>1. Общие команды Linux</h4>
+
+<p>Linux команды, которым не нашлось место ни в каком другом разделе.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать версию ядра Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsb_release -a</span></code></pre></td></tr></table></div></figure>
+
+
+<p>На экран выводиться информация о версии операционной системы Debian и оснваных на ней дистрибутивах;</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ man hier</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Описание иерархии файловой системы (для чего нужна каждая директория в linux);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ clear</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Очищение экрана терминала;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wall Привет</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отправляет на терминалы других пользователей сообщение &ldquo;Привет&rdquo;;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ date</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает текущую дату и время;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cal -3</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает в удобной форме предыдущий, текущий и последующий месяц (типо календарь);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uptime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать текущее время и работу системы без перезагрузки и выключения;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ hostname
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать сетевое имя компьютера;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ whois linux.org</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о доменом имени linux.org;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export http_proxy=http://your.proxy/:port</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменить переменной окружения http_proxy, для использования интернета через proxy-сервер;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget http://dubass83.org.ua/file</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Скачать файл <a href="http://dubass83.org.ua/file">http://dubass83.org.ua/file</a> в текущую папку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget --convert-links -r http://www.linux.org/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование сайта целиком и конвертирование ссылок для автономной работы. Копирование происходит на 5 уровней в глубину;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pppconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание и настройка Dial-Up соединения для выхода в Интернет по модему;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pppoeconf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание и настройка выхода в Интернет через ADSL-модем;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ !!</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выполнить последнюю команду;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ history | tail -50</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать последние 50 набранных команд;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ exit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Завершить сеанс текущего пользователя;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ passwd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Меняет пароль текущего пользователя;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ shutdown -h now</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход из Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ poweroff</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выход из Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ reboot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перезагрузка системы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ last reboot
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cтатистика перезагрузок;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ winecfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Настройка <a href="http://www.winehq.org/about/">Wine</a> - НЕэмулятор WinAPI;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ host dubass83.org.ua</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает IP-адрес введенного сайта;</p>
+
+<hr />
+
+<h4>2. Команды Linux: работы с файлами и директориями</h4>
+
+<p>В  этом разделе собраны команды Linux предназначенные для: создания и  удаления файлов и директорий, команды навигации между ними и команды для  назначения владельца и прав доступа.</p>
+
+<h5>2.1 Директории и файлы</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pwd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит текущий путь;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит список файлов и каталогов по порядку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls -laX</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит форматированный список всех файлов и директорий, включая скрытые;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переход в домашнюю директорию;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd /home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переход в директорию /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание пустого файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать содержимое файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tail /var/log/messages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит конец файла. Удобно при работе с логами и большими файлами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ nano /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Редактирование файла /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gedit /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Вторая команда Linux для редактирования файла;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo "Последняя строчка" | sudo tee -a /home/primer2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление к концу файла &ldquo;Последняя строчка&rdquo; в файл /home/primer2;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cp /home/Mut@NT/primer.txt /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирует /home/Mut@NT/primer.txt в home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ln -s /home/Mut@NT/primer.txt /home/primer</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздает символическую ссылку /home/primer к файлу /home/Mut@NT/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mkdir /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание директории с именем shaman;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rmdir /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление директории с именем shaman;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rm -rf /home/maxim/shaman</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление директории с вложенными фалами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cp -la /dir1 /dir2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование директорий;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mv /dir1 /dir2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Переименование директории;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ du -sh /home/maxim/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран размер заданной директории. Можно использовать для определения размера файлов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ locate primer</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Поиск всех файлов с именем primer;</p>
+
+<h5>2.2 Права доступа</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chmod 0777 /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение прав доступа к директории только для /home. 0777 – разрешение на чтение/запись/исполнение для всех групп;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ sudo chmod -R 0777 /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Рекурсивное изменение прав доступа к директории /home. 777 – разрешение  на чтение/запись/исполнение для всех групп. Все вложенные директории и  файлы будут иметь права 0777;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chown maxim:maxim /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение владельца и группы только для файла /home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chown -R maxim:maxim /home/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменение владельца для всего содержимого директории /home;</p>
+
+<hr />
+
+<h4>3. Команды Linux: работа с архивами</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar cf primer.tar /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$ Создать tar-архив с именем primer.tar содержащий /home/primer.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar czf primer.tar.gz /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздать tar-архив с сжатием Gzip по имени primer.tar.gz;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar cjf primer.tar.bz2 /home/primer.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cоздать tar-архив с сжатием Bzip2 по имени primer.tar.bz;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xf primer.tar</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать архив primer.tar в текущую папку;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xzf primer.tar.gz</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать tar-архив с Gzip;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xjf primer.tar.bz</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распаковать tar-архив с Bzip2;</p>
+
+<hr />
+
+<h4>4. Команды Linux: установка программ</h4>
+
+<h5>4.1 Просмотр установленных пакетов</h5>
+
+<p><em>RPM - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rpm -qa</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список установленных пакетов RPM в системе;</p>
+
+<p><em>DEB - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dpkg -l |more
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список установленных пакетов DEB в системе;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ apt-cache search имя пакета</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ищет в  индексах наличее доступного пакета и выводит на экран краткую информацию  о нужном пакете (очень полезная команда для поиска и установки программ  из консоли);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ apt-cache showpkg имя пакета</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полная информация о указанном пакете;</p>
+
+<h5>4.2 Установка и удаление пакетов</h5>
+
+<p><em>RPM - дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rpm -i pkgname.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка RPM пакета pkgname.rpm;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo rpm -e pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление RPM пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg -i *.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка всех пакетов в директории;</p>
+
+<p><em>DEB - __дистрибутивы</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get update</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Обновление списка доступных пакетов из Internet;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get upgrade</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Обновление доступной версии установленных пакетов в системе;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка DEB пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get remove pkgname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление DEB пакета pkgname;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg -i *.deb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка всех пакетов в директории;</p>
+
+<hr />
+
+<h4>5. Команды Linux: мониторинг работы и просмотр логов.</h4>
+
+<p>Команды  Linux необходимые для мониторинга работы операционной системы. Все  показания выводятся на экран в реальном времени. Число, стоящее после  команды означает интервал между выводом информации.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ top</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация в реальном времени о загруженных процессах, потребление ОЗУ;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ htop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Более расширенная on line-статистика о загруженных процессах (разработчик <a href="http://htop.sourceforge.net/">http://htop.sourceforge.net</a>);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dmesg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает log-файл загрузки ОС и нахождения новых устройств;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mpstat 1</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Показывает расширенную статистику потребления ресурсов системы в  процентах (для некоторых дистрибутивов необходима установка пакета  sysstat);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vmstat 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную статистику по использованию виртуальной памяти;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iostat 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную статистику прерываний по устройствам;</p>
+
+<hr />
+
+<h4>6. Команды Linux: информация об устройствах.</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsdev</span></code></pre></td></tr></table></div></figure>
+
+
+<p>информация об уже установленных устройствах (в некоторых дистрибутивах требует доставить пакет procinfo);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/cpuinfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать полную информацию о модели процессора (частота, поддерживаемые инструкции и т.д.);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/meminfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать расширенную информацию о занимаемой оперативной памяти  (MemTotal, MemFree, Buffers, Cached, SwapCached,HighTotal, HighFree,  LowTotal и т. д.);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ grep SwapTotal /proc/meminfo</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать размер раздела выделенного под swap;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ watch -n1 'cat /proc/interrupts'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о прерываниях;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ free -m</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация о используемой и свободной ОЗУ и Swap-файле (-m указывает, что отображать нужно в Мб);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lshal</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать список всех устройств и их параметров;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/devices</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать все устройства в системе (названия взяты из директории /proc/devices);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lspci -tv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать обнаруженные PCI-устройства;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsusb -tv</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать обнаруженные USB-устройства;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dmidecode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о версии BIOS компьютера;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gtf 1024 768 75</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит строку ModeLine для Вашего монитора на параметрах экрана 1024x768x75Hz;</p>
+
+<hr />
+
+<h4>7. Команды Linux: жесткие диски и файловая система.</h4>
+
+<h5>7.1 Информация о файловой системе и жестком диске.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fdisk -l</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Информация о всех подключенных жестких и сменных дисках;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo hdparm -I /dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Полная информация о IDE/ATA жестких дисках;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ smartctl -a /dev/sda1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит SMART-информацию о разделе жесткого диска /dev/sda1 (необходима установка пакета smartmontools);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo blkid</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит UUID всех доступных накопителей информации в системе;</p>
+
+<h5>7.2 Производительность жесткого диска.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo hdparm -tT /dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает производительность жесткого диска;</p>
+
+<h5>7.3 Монтирование разделов жесткого диска.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ mount | column -t</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает полную информацию о примонтированных устройсвах;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cat /proc/partitions</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает только примонтированные разделы жесткого диска;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ df</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает свободное место на разделах;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/sda1 /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует раздел /dev/sda1 к точке монтирования /mnt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t auto /dev/cdrom /mnt/cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$ Монтирует большинство CD-ROM`ов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/hdc -t iso9660 -r /cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует IDE CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/scd0 -t iso9660 -r /cdrom</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирует SCSI CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t ufs -o ufstype=ufs2,ro /dev/sda3 /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование FreeBSD разделов в Linux;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t smbfs -o username=vasja,password=pupkin //pup/Video</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование сетевых ресурсов (SMB);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -t iso9660 -o loop /home/file.iso /home/iso</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование ISO-образов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount /dev/sdb1 -t vfat -o rw /mnt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Монтирование раздел с файловой системой FAT 16/32 (к примеру USB-накопитель) к точки монтирования /mnt с возможностью записи;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo umount /mnt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отмонтирует раздел от точки монтирования /mnt;</p>
+
+<hr />
+
+<h4>8. Команды Linux: настройка сети.</h4>
+
+<h5>8.1 Конфигурация сети.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать параметры всех сетевых;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать параметры сетевого интерфейса eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ethtool eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Показывает состояние сетевого интерфейса eth0 (для некоторых  дистрибутивов требуется установка пакета ethtool). Команда ethtool  применяется только для проводных подключений, не работает с  беспроводными интерфейсами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ethtool -s eth0 speed 100 duplex full autoneg off</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Принудительно задать скорость сетевому интерфейсу 100Mbit и режим Full duplex и отключить автоматическое определение;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0 192.168.50.254 netmask 255.255.255.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать основной IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ip addr add 192.168.50.254/24 dev eth0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать основной IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0:0 192.168.51.254 netmask 255.255.255.0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать дополнительный IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ip addr add 192.168.51.254/24 dev eth0 label eth0:1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Задать дополнительный IP адрес сетевому интерфейсу eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifconfig eth0 up</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Запустить сетевой интерфейс eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo ifconfig eth0 down</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключить сетевой интерфейс eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ifconfig eth0 hw ether 00:01:02:03:04:05</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Смена MAC адреса;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo /etc/init.d/dhcpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перезагрузка DHCP клиента;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ping 192.168.0.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка сетевого соединения. Пингуется IP адрес 192.168.0.2 (пинговать можно ya.ru);</p>
+
+<h5>8.2 Маршрутизация.</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ route -n</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран таблицу маршрутизации;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ netstat -rn</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран таблицу маршрутизации;</p>
+
+<h3>8.3 Управление портами (брандмауэр).</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ netstat -an | grep LISTEN</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех открытых портов;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsof -i</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех открытых портов в сеть Internet;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo netstat -tup</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Активные соединения с интернетом;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ socklist</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает все открытые сокеты;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo netstat -anp --udp --tcp | grep LISTEN</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Список приложений, которые открывают порты;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -L -n -v</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает статус firewall (статус iptables);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P INPUT ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P FORWARD ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -P OUTPUT ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Открывает доступ ко всем портам;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -X</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаляет все цепочки;</p>
+
+<h3>8.4 Управление NAT.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&ldquo;Поднятие&rdquo; NAT на интерфейсе eth0;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 20022 -j DNAT --to 192.168.16.44:22</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перенаправление порта 20022, который использется для ssh;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 993:995 -j DNAT --to 192.168.16.254:993-995</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Перенаправление диапазона портов 993-995;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iptables -L -t nat</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Проверка статуса NAT;</p>
+
+<hr />
+
+<h2>9. Команды Linux: создание и запись ISO образов.</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cdrecord -scanbus</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает все доступные CD-ROM;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ dd if=/dev/hdc of=/tmp/mycd.iso bs=2048 conv=notrunc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание ISO образов с диска CD-ROM;</p>
+
+<hr />
+
+<h2>10. Команды Linux: пользователи и группы.</h2>
+
+<p>Команды Linux необходимые для работы с пользователями и группами пользователей.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ id
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает сводную информацию по текущему пользователю (логин, UID, GID, группы);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ finger maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать информацию о пользователе maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ last</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает последних зарегистрированных пользователей;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ who</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает имя текущего пользователя и время входа;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ useradd maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление нового пользователя maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupadd home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление группы home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ usermod -a -G home Mut@NT</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляет пользователя Mut@NT в группу home (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupmod -A maxim home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавляет пользователя maxim в группу home (SuSE);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ userdel maxim</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление пользователя maxim;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ groupdel home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление группы home;</p>
+
+<hr />
+
+<h2>11. Команды Linux: работа с процессами.</h2>
+
+<p>Все запущенные процессы имеют уникальные номера - PID.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ps axjf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать все загруженные процессы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ pgrep -l sshd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID определенного процесса – sshd;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ echo $$
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID вашей оболочки;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fuser -va 22/tcp
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать PID процесса использующий порт 22;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ fuser -va /home</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает PID процесса имеющего доступ к /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ lsof /home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список процессы, которые используют /home;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ killall 0 httpd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит на экран текущее состояние процесса httpd;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ kill 4712
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>«Убить» процесс с PID 4712;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo killall TERM 4712
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Посылает процессу с PID`ом 4712 сигнал TERM - завершить процесс;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo killall HUP httpd
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Посылает процессу с именем httpd сигнал HUP - остановить процесс;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo fuser -k -TERM -m /home
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>“Убить” все процессы имеющие доступ к /home;</p>
+
+<h4>Важные сигналы посылаемые процессам:</h4>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>1 - HUP остановить процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>2 - INT прервать процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>3 - QUIT выйти</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>9 - KILL “убить” процесс</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p>15 - TERM завершить процесс</p>
+
+<hr />
+
+<h2>12. Команды Linux: Runlevels.</h2>
+
+<p>После  загрузки ядра Linux начинают загружаться различные демоны и программы,  такие как NetworkManager, Evolution и т. д., результат которых мы видим у  себя после загрузки на рабочем столе. Загрузка каждой службы  осуществляется скриптом. Все скрипты лежат в /etc/init.d.</p>
+
+<p>Runlevels – это целое число, которое определяет “уровень загрузки”.</p>
+
+<h4>“Уровни загрузки” бывают:</h4>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=0</em> Выключение компьютера;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=1</em> режим Single-User;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=2</em> Текстовый режим без поддержки сети;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=3</em> Текстовый режим с поддержкой сети;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=4</em>;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=5</em> Графический режим;</p>
+
+<ul>
+<li></li>
+</ul>
+
+
+<p><em>Runlevels=6</em> Перезагрузка компьютера.</p>
+
+<p>То есть скрипты, которые должны загружаться только в текстовом режиме с поддержкой сети, имеют Runlevels равный 3.</p>
+
+<p>Более простой вариант настройки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo sysv-rc-conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Очень удобная настройка Runlevels (необходима установка пакета sysv-rc-conf);</p>
+
+<p>Ручной вариант настройки:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ chkconfig --list
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает список всех скриптов с соответствующими им Runlevels;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ chkconfig --list udev
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показывает разрешенные Runlevels только отдельного скрипта, в нашем случае udev;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d udev defaults
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выставление скрипту udev значений Runlevels по-умолчанию (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chkconfig udev --level 35 on
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Добавление скрипту udev Runlevels 3 и 5;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d udev start 20 2 3 4 5 . stop 20 0 1 6
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Изменить параметры для скрипта udev (для Debian-подобных дистрибутивов);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chkconfig udev off
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключение у udev всех Runlevels;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo update-rc.d -f udev remove
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Отключение у udev всех Runlevel (для Debian-подобных дистрибутивов);</p>
+
+<hr />
+
+<h2>13. Команды Linux: Работа с ядром и модулями.</h2>
+
+<h3>13.1 Работа с ядром системы.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ uname -a
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Показать версию ядра Linux;</p>
+
+<h3>13.2 Работа с модулями ядра.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lsmod
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Список всех модулей загруженных в ядро;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo modprobe isdn
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Загрузка модуля на примере isdn;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ make
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Создание сжатого образа ядра системы;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ make modules
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Компиляция модуля;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo] make modules_install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка модуля;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>$ sudo make install
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Установка в ядро системы;</p>
+
+<hr />
+
+<h2>14. Команды Linux: работа с LiveCD.</h2>
+
+<h2></h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo chroot /mnt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>смена root-окружения на /mnt. После этого коневой раздел, примонтировнный к /mnt, будет использоваться как родной;</p>
+
+<hr />
+
+<h2>15. Команды Linux: конвертирование различной информации;</h2>
+
+<h3>15.1 Конвертирование текста.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -l
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выводит список всех доступных кодировок;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ iconv -f cp1251 -t UTF-8 -o file_cp1251.txt &gt; file_utf8.txt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Смена кодировки. Был файл file_cp1251.txt с кодировкой cp1251, а в итоге получился файл file_utf8.txt с кодировкой utf8;</p>
+
+<h3>15.2 Конвертирование PDF в JPEG.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ convert name.pdf name-%03d.jpg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертируется <em>name.pdf</em> в постраничные JPEG изображения (в некоторых дистрибутивах необходимо установить пакет <em>imagemagick</em>);</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ convert *.jpeg name.pdf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертируются JPEG изображения в PDF (в некоторых дистрибутивах необходимо установить пакет <em>imagemagick</em>);</p>
+
+<h3>15.3 Конвертирование видео.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$  mencoder -o videoout.avi -oac mp3lame -ovc lavc -srate 11025 -channels 1  -af-adv force=1 -lameopts preset=medium -lavcopts  vcodec=msmpeg4v2:vbitrate=600 -mc 0 vidoein.AVI
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>15.4 Конвертирование аудио.</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cdparanoia -B
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Копирование треков с AudioCD в текущую директорию wav-файлами;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lame -b 256 in.wav out.mp3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертирование wav-файлов в mp3 с качеством 256 kb/s;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ oggenc in.wav -b 256 out.ogg
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Конвертирование wav-файлов в Ogg Vorbis с качеством 256 kb/s;</p>
+
+<hr />
+
+<h2>16. Команды Linux: печать на принтере.</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ export PRINTER=lbp2900
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Выбор принтера по-умолчанию. В примере выбран принтер Canon LBP-2900;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lpr $2 name.txt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Распечатать на принтере Canon LBP-2900 две копии файла name.txt;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ lprm -
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Удаление всех задач с принтера по-умолчанию.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Восстановление Ubuntu после неудачного обновления]]></title>
+    <link href="http://dubass83.github.io/blog/2012/03/24/vosstanovlenye-ubuntu-posle-neudachnoho-obnovlenyya/"/>
+    <updated>2012-03-24T15:07:47+02:00</updated>
+    <id>http://dubass83.github.io/blog/2012/03/24/vosstanovlenye-ubuntu-posle-neudachnoho-obnovlenyya</id>
+    <content type="html"><![CDATA[<p>В один прекрасный день, при обновлении сервера, ядро впало в панику. Как следствие имеем не работаспособный сервер и не рабочую планку оперативной памяти, причина паники ядра.</p>
+
+<p>После замены памяти на сервере пробуем его включить. Дальше экрана загрузки дело не пошло.</p>
+
+<p>В чем проблема? – До конца не установились пакеты обновлений.</p>
+
+<p>Что делать?</p>
+
+<!-- more -->
+
+
+<p>Я решил попробовать починить систему.</p>
+
+<p>Что я сделал?</p>
+
+<ol>
+<li><p>Загрузился в mode режим.</p></li>
+<li><p>Сделал файловую систему доступной для чтения и записи в этом режиме (перемонтировал)</p></li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo mount -rw -o remount
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Запустил Менеджер пакетов для восстановления и пересборки пакетов</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo dpkg – -configure -a
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Этот процес идет где-то 30-45 минут.</p>
+
+<ol>
+<li><p>Удачно загрузился в систему.</p></li>
+<li><p>Запустил Менеджер обновлений и обновился еще раз (менеджер скачал еще несколько дополнительных пакетов и установил их).</p></li>
+</ol>
+
+
+<p>После этих манипуляций система работает стабильно. И эти сроки я пишу в блог установленый на сервере Ubuntu 11.04.</p>
+
+<p>Конечно, бывают разные последствия и каждый конкретный случай надо рассматривать индивидуально. Я описал свой случай и то лечение которое нашел. А вообще рекомендуют делать бэкап важных данных и софта, чтобы потом не было обидно на самих себя,… да и спокойнее так.</p>
+]]></content>
+  </entry>
+  
+</feed>

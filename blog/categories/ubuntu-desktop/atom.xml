@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ubuntu desktop | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/ubuntu-desktop/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Настройка отображения погоды Gismeteo в Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky/"/>
+    <updated>2012-05-13T02:18:36+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/13/nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky</id>
+    <content type="html"><![CDATA[<h3>Настройка вывода информации о погоде в conky.</h3>
+
+<p>Я не стал заморачиваться с RSS (он у меня как-то криво работал) и немного погуглив остановился на следуещем варианте. <strong>Скрипт для отображения погоды в Conky с gismeteo.</strong></p>
+
+<p>Итак, научим Conky выдирать данные о погоде из этого XML - <a href="http://informer.gismeteo.ru/getcode/xml.php?id=27612">http://informer.gismeteo.ru/getcode/xml.php?id=27612</a> . Вам нужно получить ссылку для своего города. Для Москвы это <a href="http://informer.gismeteo.ru/xml/27612_1.xml">http://informer.gismeteo.ru/xml/27612_1.xml</a> .</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Теперь создайте файл conky-weather.sh с таким содержимым:</p>
+
+<pre><code>#!/bin/sh
+
+time=$(date +%H)
+
+URL="http://informer.gismeteo.ru/xml/33614_1.xml"
+EXEC="/usr/bin/curl -s"
+
+a=`$EXEC $URL`
+
+#температура
+echo $a | tr "/&gt;" "\n" | grep HEAT | sed -n 1p | sed -e 's/&lt;HEAT //' |\
+sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+sed -e 's/ /../' | gawk '{ print "Темп.",$1,"°C" }'
+#ветер
+echo $a | tr "/&gt;" "\n" | grep WIND | sed -n 1p | sed -e 's/&lt;WIND //' |\
+sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+gawk '{ print "Ветер",($1+$2)/2,"м/с"}'
+#давление
+echo $a | tr "/&gt;" "\n" | grep PRESSURE | sed -n 1p | sed -e 's/&lt;PRESSURE //' |\
+sed -e 's/"//g' | tr -d "min=" | tr -d "max=" | sed -e 's/ //' |\
+gawk '{ print "Давл.",($1+$2)/2,"мм"}'
+</code></pre>
+
+<p>URL=&ldquo;<a href="http://informer.gismeteo.ru/xml/27719_1.xml">http://informer.gismeteo.ru/xml/27719_1.xml</a>&rdquo; замените на ссылку для вашего города. Проверить работоспособность скрипта можно, выполнив его в терминале:</p>
+
+<pre><code class="">$ ./conky-weather.sh 
+Темп. 14..16 °C
+Ветер 3 м/с
+Давл. 754 мм
+</code></pre>
+
+<p>Если все работает, то добавьте в ваш ~/.conkyrc следующие строки:</p>
+
+<pre><code class="">${color a1ccea}Weather:
+${color ffffff}${execi 3600 /путь/до/скрипта/conky-weather.sh}
+</code></pre>
+
+<p>Вот и все.</p>
+
+<hr />
+
+<p>Этот скрипт встретился мне на странице сайта <a href="http://zenux.ru/articles/8/">http://zenux.ru</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[перевод официальной документации по Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky/"/>
+    <updated>2012-05-13T02:06:13+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/13/perevod-ofytsyalnoj-dokumentatsyy-po-conky</id>
+    <content type="html"><![CDATA[<h3>Слегка сокращенный перевод официальной документации по Conky.</h3>
+
+<p>Опции конфигурации</p>
+
+<pre><code>TEXT : 
+</code></pre>
+
+<p>После этого весь текст будет отображен на экране</p>
+
+<pre><code>alignment :
+</code></pre>
+
+<p>Определяет позицию на экране. Может быть top_left, top_right, top_middle, bottom_left, bottom_right, bottom_middle, middle_left или middle_right</p>
+
+<pre><code>default_color : 
+</code></pre>
+
+<p>Дефолтный цвет границ и текста</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<pre><code>default_shade_color :
+</code></pre>
+
+<p>Дефолтный цвет теней</p>
+
+<pre><code>double_buffer :
+</code></pre>
+
+<p>Включите это, если Conky неприятно мигает</p>
+
+<pre><code>draw_shades :
+</code></pre>
+
+<p>Включить тени</p>
+
+<pre><code>font : 
+</code></pre>
+
+<p>Указывает, какой шрифт использовать. Для определения имени шрифта используйте утилиту xfontsel</p>
+
+<pre><code>gap_x : 
+</code></pre>
+
+<p>отступ слева или справа</p>
+
+<pre><code>gap_y :
+</code></pre>
+
+<p>отступ сверху или снизу</p>
+
+<pre><code>use_xft : 
+</code></pre>
+
+<p>Использовать шрифты Xft. Xft поддерживают антиальясинг.</p>
+
+<pre><code>xftfont : 
+</code></pre>
+
+<p>Какой xft шрифт использовать</p>
+
+<p>Переменные</p>
+
+<pre><code>color (color) : 
+</code></pre>
+
+<p>Задает цвет последующего текста. Пример: ${color ffffff}</p>
+
+<pre><code>cpu (cpuN) :
+</code></pre>
+
+<p>Использование процессора в процентах. Пример для одноядерной машины: ${cpu} Пример для многоядерной для первого ядра: ${cpu 1}</p>
+
+<pre><code>cpubar (cpuN) (height),(width) : 
+</code></pre>
+
+<p>Полоска загрузки процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpubar 3,100}</p>
+
+<pre><code>cpugraph (cpuN) (height),(width) : 
+</code></pre>
+
+<p>График загруженности процессора, где cpuN - номер ядра (указывать, если машина многоядерная), height - высота, width - ширина полоски. Пример: ${cpugraph 20,100}</p>
+
+<pre><code>curl url interval_in_minutes : 
+</code></pre>
+
+<p>Скачивает и показывает текстовые данные с указанного url. Пример: ${curl <a href="http://mydomain.com/test.txt">http://mydomain.com/test.txt</a> 2}</p>
+
+<pre><code>downspeed (net) : 
+</code></pre>
+
+<p>Скорость скачки, где net - имя сетевого интерфейса. Пример: ${downspeed eth0}</p>
+
+<pre><code>downspeedgraph (net) :
+</code></pre>
+
+<p>График скорости скачки, где net - имя сетевого интерфейса.</p>
+
+<pre><code>else :
+</code></pre>
+
+<p>Логическое иначе</p>
+
+<pre><code>endif :
+</code></pre>
+
+<p>Конец условия $if</p>
+
+<pre><code>execi interval commamd : 
+</code></pre>
+
+<p>Выполнение исполняемого файла и показ его вывода. Пример: ${execi 2 cat /home/myname/test.txt}</p>
+
+<pre><code>freq (n) : 
+</code></pre>
+
+<p>Частота процессора в МГц, где n - номер ядра (по дефолту 1)</p>
+
+<pre><code>fs_bar  (height),(width) fs : 
+</code></pre>
+
+<p>Полоска, которая показывает, как используется файловая система. Пример: ${fs_bar3,100 /home}</p>
+
+<pre><code>fs_free (fs) : 
+</code></pre>
+
+<p>Кол-во свободного места файловой системы</p>
+
+<pre><code>fs_size (fs) : 
+</code></pre>
+
+<p>Размер файловой системы</p>
+
+<pre><code>fs_type (fs) : 
+</code></pre>
+
+<p>Тип файловой системы</p>
+
+<pre><code>fs_used (fs) : 
+</code></pre>
+
+<p>Количество использованного места файловой системы</p>
+
+<pre><code>if_empty (var) : 
+</code></pre>
+
+<p>Если указанная переменная пуста, показывает все, что идет после $if_empty и до $endif</p>
+
+<pre><code>if_existing file (string) : 
+</code></pre>
+
+<p>Если указанный файл существует, показывает все, что идет после $if_existing и до $endif</p>
+
+<pre><code>if_running (process) : 
+</code></pre>
+
+<p>Если указанный процесс запущен, то показывает все, что идет после $if_running и до $endif</p>
+
+<pre><code>image (-p x,y) (-f interval) : 
+</code></pre>
+
+<p>Показывает изображение. x и y - координаты, -f interval - частота обновления. Пример: ${image /path/to/image.png -p 10,100 -f 15}</p>
+
+<pre><code>kernel : 
+</code></pre>
+
+<p>Версия ядра</p>
+
+<pre><code>mem : 
+</code></pre>
+
+<p>Кол-во используемой памяти</p>
+
+<pre><code>membar (height),(width) : 
+</code></pre>
+
+<p>Полоска загруженности памяти</p>
+
+<pre><code>memfree : 
+</code></pre>
+
+<p>Кол-во свободной памяти</p>
+
+<pre><code>memgraph (height),(width)  : 
+</code></pre>
+
+<p>График использоемой памяти</p>
+
+<pre><code>memmax : 
+</code></pre>
+
+<p>Общее кол-во памяти</p>
+
+<pre><code>nvidia :
+</code></pre>
+
+<p>Для владельцев карт Nvidia. Пример для вывода температуры: ${nvidia temp}</p>
+
+<pre><code>shadecolor (color) :
+</code></pre>
+
+<p>Цвет теней</p>
+
+<pre><code>swap :
+</code></pre>
+
+<p>Кол-во использованного свопа</p>
+
+<pre><code>swapfree :
+</code></pre>
+
+<p>Кол-во свободного свопа</p>
+
+<pre><code>swapmax :
+</code></pre>
+
+<p>Общее кол-во свопа</p>
+
+<pre><code>time :
+</code></pre>
+
+<p>Вывод времени</p>
+
+<pre><code>upspeed (net) :
+</code></pre>
+
+<p>Скорость исходящего трафика, где net - сетевой интерфейс</p>
+
+<pre><code>upspeedgraph (net) (height),(width) :
+</code></pre>
+
+<p>График по исходящему трафику</p>
+
+<pre><code>uptime :
+</code></pre>
+
+<p>Аптайм</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Подробная настройка Conky]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/12/podrobnaya-nastrojka-conky/"/>
+    <updated>2012-05-12T19:13:55+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/12/podrobnaya-nastrojka-conky</id>
+    <content type="html"><![CDATA[<h3>Установка и настройка Conky.</h3>
+
+<p><strong>Conky</strong> — системный монитор для <strong>Linux</strong>. <strong>Настройка Conky</strong>. Мониторинг системы в <strong>Linux</strong>.
+Официальный источник информаци о <a href="http://conky.sourceforge.net/aboutconky.html">Conky</a></p>
+
+<p>Итак, вступление. <strong>Сonky</strong> — многофункциональный полностью настраиваемый системный монитор для <strong>Linux</strong> и BSD систем. Если вы запустите conky сразу после установки, то сможете подумать, что conky — некрасивая и неудобная программа. На самом деле это в корне не так. <strong>Conky</strong> нужно настроить и, если это сделать правильно, все будет супер.</p>
+
+<p><strong>Предупреждение</strong>: если вы не хотите утруждать свои нежные мозги чтением непонятных слов и набиранием их вручную с клавиатуры (ужас-то какой!), то до <strong>conky</strong> вы не доросли и можете закрыть эту страницу :Р Если вас это не напугало —</p>
+
+<p>Как я уже сказал, чтобы <strong>conky</strong> выглядел хорошо, его надо настроить. Тут два варианта. Первый вариант: найти неплохой но стандартный готовый конфиг и просто использовать его. Найти можно на  <a href="http://conky.sourceforge.net/screenshots.html.">http://conky.sourceforge.net/screenshots.html.</a></p>
+
+<p>Второй вариант: дочитать эту статью и написать свой на основе готового, добавляя и редактируя его под себя. Благо, это не сложно и интересно. В этой статье я пошагово разберу свой конфиг и опишу настройки кое-каких дополнительных программ, которые пригодятся в работе conky.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Вступление закончилось, приступим к делу. <strong>Настройка Conky</strong></p>
+
+<p><a href="../perevod-ofytsyalnoj-dokumentatsyy-po-conky">Конфиг conky</a> называется <em>.conkyrc</em> и должен лежать в домашней директории пользователя. Он состоит из двух частей: в первой части описываются настройки внешнего вида, а во второй находится то, что будет непосредственно показано на экране.</p>
+
+<p>Разберем мой конфиг по частям. Пометка: обычный текст - пояснения; текст, выделенный цветом, - строки конфига Conky, их вы можете копировать в свой конфиг, изменяя некоторые параметры под себя. Поехали.</p>
+
+<p>Эти строчки нужны для корректного отображения окна conky. Скорее всего менять их вам не придется.</p>
+
+<pre><code>background no
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+</code></pre>
+
+<p>Используем XFT шрифты. Выбор таких шрифтов не велик - Terminus, Vera, Sans и Mono. Вы можете закоментировать эти две строчки и сможете использовать обычные шрифты, но только с XFT шрифтами на моем компьютере conky корректно отображал русские буквы.</p>
+
+<pre><code>use_xft yes
+xftfont Terminus:size=8
+</code></pre>
+
+<p>Поддержка двойного буфера. Без нее conky будет неприятно мигать.</p>
+
+<pre><code>double_buffer yes
+</code></pre>
+
+<p>Включаем тени - для улучшения читабельности текста.</p>
+
+<pre><code>draw_shades yes
+</code></pre>
+
+<p>Задаем умолчальные цвета</p>
+
+<pre><code>default_color white
+default_shade_color black
+default_outline_color blue
+</code></pre>
+
+<p>Задаем позицию для окна. <strong>Conky</strong> будет отображаться в левом верхнем углу. Можно изменить на top_right, bottom_left, bottom_right</p>
+
+<pre><code>alignment top_left
+</code></pre>
+
+<p>Делаем небольшие отступы с краев</p>
+
+<pre><code>gap_x 10
+gap_y 10
+</code></pre>
+
+<p>Так указывается шрифт, если у вас отключено <strong>use_xft yes</strong>. Для определения правильного имени шрифта используйте утилиту <strong>xfontsel</strong>. <em>Так шрифт можно указывать, если не используется use_xft.</em> Но без use_xft не отображаются корректно русские буквы. Поэтому пока закоментим.</p>
+
+<pre><code>## font  -schumacher-clean-medium-r-*-*-12-*-*-*-*-*-*-*
+</code></pre>
+
+<p>Эта строчка определяет, как будет показываться свободная/используемая оперативная память. Если <strong>no_buffers no</strong>, то кол-во используемой оперативной памяти будет определяться с учетом кэшированной памяти. Если <strong>no_buffers yes</strong>, кэш будет считаться свободной памятью. Единственного правильного варианта нет. Да и вобще, утилитам которые показывают кол-во свободной/занятой памяти не стоит доверять. Это из-за тонкостей использования динамических библиотек в <strong>Linux</strong>. Если две программы используют библиотеку в 20МБ, это не означает, что каждая из программ занимает +20МБ в ОЗУ. Именно поэтому в некоторых случаях программы, которые используют &ldquo;жирные&rdquo; библиотеки типа QT или GTK, на деле используют оперативную память эффективнее чем остальные. Но и это не всегда верно. Также, программа может &ldquo;занять&rdquo; себе довольно большой объем оперативки и, с одной стороны память будет занята, но с другой - свободна. Решать вам. Скажу лишь, что с <strong>no_buffers yes</strong>, у меня никогда не &ldquo;занято&rdquo; больше 500МБ, а с <strong>no_buffers no</strong> - <strong>Conky</strong> показывает что &ldquo;занято&rdquo; постоянно около 3-4ГБ.</p>
+
+<pre><code>no_buffers no
+</code></pre>
+
+<p>Все, первая часть конфига окончена. Переходим ко второй.</p>
+
+<p>Все, что будет идти после <strong>TEXT</strong>, будет выведено на экран. Минимальная настройка conky может выглядеть так:
+TEXT
+HELLO</p>
+
+<pre><code>TEXT
+</code></pre>
+
+<p>Сверху у нас будет написана версия ядра системы. &ldquo;Kernel: ${kernel}&rdquo; можно заменять на &ldquo;Ядро: ${kernel}&rdquo;, как вам угодно. Информация берется из переменной $kernel. Если надо указать какие-то дополнительные параметры, имя переменной заключается в фигурные скобки. Да и без параметров обычно так делают - по-привычке, видимо :)</p>
+
+<pre><code>Kernel: ${kernel}
+</code></pre>
+
+<p>Дата и время</p>
+
+<pre><code>Date: ${time}
+</code></pre>
+
+<p>Аптайм системы</p>
+
+<pre><code>Uptime: $uptime
+</code></pre>
+
+<p><strong>Информация о использовании процессора</strong>. ${color a1ccea} указывает цвет последующего текста. Весь текст, следующий после ${color a1ccea} будет синим, поэтому, после этой строчки мы его сделаем опять белым.</p>
+
+<p>Если у вас многоядерный процессор, можно выводить информацию с каждого ядра таким образом ${cpu 1} - для первого ядра, #{cpu 2} - для второго и тд.</p>
+
+<pre><code>${color a1ccea}CPU usage:    $cpu% 
+</code></pre>
+
+<p>Возвращаем цвет в белый и рисуем полоску загруженности процессора высотой 3 и шириной 140 пикселей</p>
+
+<pre><code>${color ffffff}${cpubar 3,140}
+</code></pre>
+
+<p>Рисуем движущийся график загрузки процессора высотой 20 и шириной 140 пикселей. &ldquo;000000 ffffff&rdquo; означают что график будет окрашен градиентно - от белого к черному. Вы можете изменить цвета на свои или вобще убрать &ldquo;000000 ffffff&rdquo;, тогда график будет просто белый.</p>
+
+<pre><code>${cpugraph 20,140 000000 ffffff}
+</code></pre>
+
+<p>Показываем три процесса, которые сильнее всего нагружают процессор. Первый окрашиваем оранжевым цветом.</p>
+
+<pre><code>Highest CPU:
+${color ff9000}${top name 1} ${top cpu 1}%
+</code></pre>
+
+<p>Возвращаем цвет текста к белому</p>
+
+<pre><code>${color ffffff}${top name 2} ${top cpu 2}%
+${top name 3} ${top cpu 3}%
+</code></pre>
+
+<p><strong>Использование оперативной памяти</strong></p>
+
+<pre><code>${color a1ccea}MEM usage:    $memperc%
+</code></pre>
+
+<p>Пишем количество занятой памяти и общее кол-во озу</p>
+
+<pre><code>${color ffffff}Used: $mem of $memmax
+</code></pre>
+
+<p>Рисуем полоску использования памяти высотой 3 и шириной 140</p>
+
+<pre><code>${membar 3,140}
+</code></pre>
+
+<p>Рисуем график использования памяти высотой 20 и шириной 140, закрашенный градиентом</p>
+
+<pre><code>${memgraph 20,140  000000 ffffff}
+</code></pre>
+
+<p>Показываем три процесса, которые используют памяти больше, чем другие. Самый прожорливый окрашиваем оранжевым цветом.</p>
+
+<pre><code>Highest MEM:
+${color ff9000}${top_mem name 1} ${top_mem mem 1}%
+${color ffffff}${top_mem name 2} ${top_mem mem 2}%
+${top_mem name 3} ${top_mem mem 3}%
+</code></pre>
+
+<p>Выводим информацию по использованию свопа</p>
+
+<pre><code>SWAP usage: $swapperc% 
+Used: $swap/$swapmax
+</code></pre>
+
+<p>Теперь переходим к <strong>мониторингу сетевых интерфейсов</strong></p>
+
+<pre><code>${color a1ccea}Network usage:
+</code></pre>
+
+<p>Показываем исходящий трафик для интерфейса eth0. Если у вас интерфейс называется по-другому, измените eth0 на свое. Если у вас больше одного сетевого интерфейса, просто скопируйте следующие строчки и измените eth0 на свое.</p>
+
+<pre><code>${color ffffff}
+Up: ${upspeed eth0}/s
+</code></pre>
+
+<p>График исходящего трафика</p>
+
+<pre><code>${upspeedgraph eth0 20,140  000000 ffffff}
+</code></pre>
+
+<p>Входящий трафик</p>
+
+<pre><code>Down: ${downspeed eth0}/s
+</code></pre>
+
+<p>График для входящего трафика</p>
+
+<pre><code>${downspeedgraph eth0 20,140  000000 ffffff}
+</code></pre>
+
+<p><strong>Информация о файловых системах.</strong></p>
+
+<p>Тут показывается информация для разделов /, /home и /files
+Эти разделы используются на моем компьютере, поэтому измените параметры на нужные</p>
+
+<pre><code>${color a1ccea}File systems:
+${color ffffff}
+</code></pre>
+
+<p>Сколько использовано на корневом разделе и сколько места всего</p>
+
+<pre><code> / ${fs_used /}/${fs_size /}
+</code></pre>
+
+<p>Полоска для корневого раздела</p>
+
+<pre><code>${fs_bar 3,140 /}
+</code></pre>
+
+<p>То-же самое для /home и /files:</p>
+
+<pre><code>Home ${fs_used /home}/${fs_size /home}
+${fs_bar 3,140 /home}
+ /files ${fs_used /files}/${fs_size /files}
+${fs_bar 3,140 /files}
+</code></pre>
+
+<p>На <strong>мониторинге температуры</strong> остановимся подробнее.</p>
+
+<p>Чтобы следить за температурой чипсета материнской платы и температурой процессора, надо установить и настроить пакет <strong>lm_sensors</strong>. Как это делается, написано тут: <a href="http://open-way.org/index.php?id=20&amp;ctgr=27&amp;type=2">Установка и настройка lm_sensors</a></p>
+
+<p>Температуру жесткого диска можно смотреть утилитой <strong>hddtemp</strong>. Просто установите ее, никаких настроек не требуется. Единственная проблема - <strong>hddtemp</strong> использовать может только root. Но мы же не хотим каждый раз запускать conky от рута, поэтому надо разрешить запускать <strong>hddtemp</strong> от пользователя, без прав рута. В Gentoo hddtemp лежит по адресу <em>/usr/sbin/hddtemp</em> и, чтобы разрешить запускать ее от пользователя, надо выполнить от рута команду <em>chmod a+s /usr/sbin/hddtemp</em>. Если у вас в /usr/sbin/ ее нету, местоположение файла hddtemp можно узнать командой <em>whereis hddtemp</em> (от рута тоже). Дополнительная проблема в том, что если эта программа у вас обновится, то права надо будет изменить заново.</p>
+
+<p>Температуру видеокарты, как мне известно, могут смотреть только владельцы Nvidia. Для этого, conky должен быть собран с флагом nvidia (в Gentoo). Во многих дистрибутивах он по умолчанию собирается с поддержкой nvidia.</p>
+
+<p><strong>Температура процессора</strong>. Данные берутся с lm_sensors. В моем случае за процессор в lm_sensors отвечает датчик temp1. У вас может быть по-другому. <br/>
+Самый простой способ узнать, какой из датчиков за что отвечает, - записать данные с вывода lm_sensors, перезагрузиться и сравнить их с данными о температуре в BIOS</p>
+
+<pre><code>${color ffffff}CPU:             ${execi 2 sensors | grep temp1 | cut -c 15-16}°С
+</code></pre>
+
+<p><strong>Температура сис. платы.</strong> У меня за нее отвечает temp2. Замените temp2 на другой датчик, если у вас по-другому</p>
+
+<pre><code>SYS:             ${execi 2 sensors | grep temp2 | cut -c 15-16}°С
+</code></pre>
+
+<p><strong>Температура жестких дисков</strong>. Данные берутся с hddtemp. У меня устроства жестких дисков называются /dev/sda и /dev/sdb. Измените это на свое, если у вас по-другому.</p>
+
+<pre><code>/dev/SDA:        ${execi 2 /usr/sbin/hddtemp /dev/sda -q | awk '{print $3; }' | cut -c 1-2}°С
+/dev/SDB:        ${execi 2 /usr/sbin/hddtemp /dev/sdb -q | awk '{print $3; }' | cut -c 1-2}°С
+</code></pre>
+
+<p><strong>Температура видео-карты</strong>. Новые версии Conky поддерживают показ температуры с видеокарт Nvidia. Про ATI ничего не известно</p>
+
+<pre><code>Nvidia GPU:      ${nvidia temp}°С
+</code></pre>
+
+<hr />
+
+<p>Часть информации была позаимствована по этому адресу на сайте <a href="http://zenux.ru/articles/8/">http://zenux.ru</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Conky for Ubuntu 12.04 LTS]]></title>
+    <link href="http://dubass83.github.io/blog/2012/05/12/conky-for-ubuntu-12-04-lts/"/>
+    <updated>2012-05-12T18:36:14+03:00</updated>
+    <id>http://dubass83.github.io/blog/2012/05/12/conky-for-ubuntu-12-04-lts</id>
+    <content type="html"><![CDATA[<h3>Conky это монитор для X Windows систем.</h3>
+
+<p>Он отображает различную системную информацию на рабочем столе. <a href="../podrobnaya-nastrojka-conky">Conky</a> настраивается при помощи редактирования пользовательского конфигурационного файла <code>~/.conkyrc</code>. Рассмотрим один из таких файлов <strong>Conky-Lua</strong>, который украсит ваш рабочий стол и позволит контролировать некоторые параметры системы.</p>
+
+<p>Если у вас не установлен Conky то установим его выполнив команду:</p>
+
+<ol>
+<li><p><code>sudo apt-get install conky-all</code></p></li>
+<li><p>Теперь скачаем сам файл конфигурации <a href="http://gnome-look.org/content/download.php?content=139024&amp;id=1&amp;tan=46022226">тут</a>.</p></li>
+<li><p>Распаковываем архив, а в нем выберем нужный для вашего дистрибутива архив и тоже распакуем его.</p></li>
+<li><p>Переходим в распакованный каталог. Переименовываем <em>«conkyrc»</em> в <em>«.conkyrc»</em> и перемещаем его в домашний каталог.</p></li>
+<li><p>Включает отображение скрытых файолов в Nautilus и создаем папку с именем <em>«.conky»</em>. Копируем из распакованного каталога картинку и файл <em>clock_rings.lua</em> в <em>«.conky»</em>.</p></li>
+<li><p>Теперь открываем текстовым редактором файл <em>«.conkyrc»</em> и заменяем строчку:
+<code>lua_load /~.lua/scripts/clock_rings.lua</code>
+на
+<code>lua_load ~/.conky/clock_rings.lua</code></p></li>
+<li><p>Запускаем conky. Для этого жмем Alt+F2 и вводим команду: conky</p></li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>Для того что бы conky стартовала вместе с системой необходимо прописать в автозагрузку слдующию строку <code>sh -c "sleep 15 &amp;&amp; conky" --pause 30</code></p>
+
+<p>Если вы подключены к интернету через wifi, то вам необходимо поменять в конфигурационом файле <em>~.conkyrc</em> следующие строки:</p>
+
+<pre><code>${color FFFFFF}${goto 125}${voffset 25}${downspeed eth0}
+${color FFFFFF}${goto 125}${upspeed eth0}
+${color FF6600}${goto 125}Net
+</code></pre>
+
+<p>на
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>${color FFFFFF}${goto 125}${voffset 25}${downspeed wlan0}
+</span><span class='line'>${color FFFFFF}${goto 125}${upspeed wlan0}
+</span><span class='line'>${color FF6600}${goto 125}Net wifi&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>После, открываем следующий файл _~.conky/clock_rings.lua_ и в нём изменяем следующие строки: 
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;name=&lsquo;downspeedf&rsquo;,
+</span><span class='line'>arg=&lsquo;eth0&rsquo;,
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>и
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>name=&lsquo;upspeedf&rsquo;,
+</span><span class='line'>arg=&lsquo;eth0&rsquo;,
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>на
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>name=&lsquo;downspeedf&rsquo;,
+</span><span class='line'>arg=&lsquo;wlan0&rsquo;,
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>и
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>name=&lsquo;upspeedf&rsquo;,
+</span><span class='line'>arg=&lsquo;wlan0&rsquo;,</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Это сработает если беспроводной сетевой интерфейс на компютере определяется как wlan0. Поэтому перед тем как вносить изменения в конфигурационые файлы потрудись посмотреть на вывод команды _ iwconfig_.</p>
+
+<hr />
+
+<p>В следующей статье я раскажу <a href="../nastrojka-otobrazhenyya-pohodyi-gismeteo-v-conky">как настроить отображение погоды для твоего города</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Добавление нового пользователя в MySQl - Мой БлогNOT</title>
+  <meta name="author" content="dubass83">
+
+  
+  <meta name="description" content="С настройкой Mysql-сервера я сталкиваюсь нечасто, в основном во время того когда занимаюсь разроботкой и тестированием нового WEB-приложения. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Мой БлогNOT" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36803780-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Мой БлогNOT</a></h1>
+  
+    <h2>saved thoughts from the web&#8230;</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dubass83.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Добавление нового пользователя в MySQl</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-09T12:51:00+03:00" pubdate data-updated="true"></time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p> С настройкой <em>Mysql-сервера</em> я сталкиваюсь нечасто, в основном во время того когда занимаюсь разроботкой и тестированием нового <em>WEB-приложения</em>. Поэтому иногда требуется добавить нового пользователя на базу. Устанавливать для этих целей web-интерфейс не целесообразно, а через командную строку запоминать лень. Поэтому для лентяев как я следующий код:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">testbase</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">testuser</span><span class="o">@</span><span class="n">localhost</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;testpass&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если есть время разобратся и выучить что то новое тогда лучше посетить <a href="http://www.mysql.ru/docs/man/Adding_users.html">сайт с официальной документацией</a>.</p>
+
+<!--more-->
+
+
+<p> <figure class='code'><figcaption><span>[Добавление новых пользователей, используя команду GRANT]  </span></figcaption></p>
+
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="c1">--user=root mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;some_pass&#39;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@</span><span class="ss">&quot;%&quot;</span>
+</span><span class='line'>        <span class="o">-&gt;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;some_pass&#39;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="n">RELOAD</span><span class="p">,</span><span class="n">PROCESS</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="k">admin</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">USAGE</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">dummy</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div>
+
+
+<p></figure></p>
+
+<h3>Эти команды GRANT создают трех новых пользователей:</h3>
+
+<p><strong>monty</strong><br/>
+Полноценный суперпользователь - он может подсоединяться к серверу откуда угодно, но должен использовать для этого пароль some_pass. Обратите внимание на то, что мы должны применить операторы GRANT как для monty@localhost, так и для monty@&ldquo;%&rdquo;. Если не добавить запись с localhost, запись анонимного пользователя для localhost, которая создается при помощи mysql_install_db, будет иметь преимущество при подсоединении с локального компьютера, так как в ней указано более определенное значение для поля Host, и она расположена раньше в таблице user.<br/>
+<strong>admin</strong><br/>
+Пользователь, который может подсоединяться с localhost без пароля; ему назначены административные привилегии RELOAD и PROCESS. Эти привилегии позволяют пользователю запускать команды mysqladmin reload, mysqladmin refresh и mysqladmin flush-*, а также mysqladmin processlist. Ему не назначено никаких привилегий, относящихся к базам данных (их можно назначить позже, дополнительно применив оператор GRANT). <br/>
+<strong>dummy</strong><br/>
+Пользователь, который может подсоединяться к серверу без пароля, но только с локального компьютера. Все глобальные привилегии установлены в значение &lsquo;N&rsquo;-тип привилегии USAGE, который позволяет создавать пользователей без привилегий. Предполагается, что относящиеся к базам данных привилегии будут назначены позже.</p>
+
+<figure class='code'><figcaption><span>[Предоставление привилегий пользователям при помощи оператора GRANT] </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="c1">--user=root mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">bankaccount</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">expenses</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="n">whitehouse</span><span class="p">.</span><span class="n">gov</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">customer</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="s1">&#39;%&#39;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;stupid&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Привилегии для пользователя <strong>custom</strong> мы назначаем потому, что этот пользователь хочет получать доступ к <em>MySQL</em> как с локального компьютера через сокеты <em>Unix</em>, так и с удаленного компьютера whitehouse.gov через протокол TCP/IP.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dubass83</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-09T12:51:00+03:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/debian/'>debian</a>, <a class='category' href='/blog/categories/mysql/'>mysql</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/" data-via="dubass83" data-counturl="http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/20/windows-8-i-chiernyi-ekran/" title="Previous Post: Windows 8 и черный экран.">&laquo; Windows 8 и черный экран.</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/" title="Next Post: Используем gmail для отправки писем с помощью exim4">Используем gmail для отправки писем с помощью exim4 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/03/29/im-back/">I&#8217;m back!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/">Установка и настройка Postgres на Debian 7</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/06/podsvietka-sintaksisa-ror-v-nano/">Подсветка синтаксиса RoR в nano</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/nastroika-otpravki-pochty-v-synergy-c-pomoshiu-exim4/">Настройка отправки почты в Synergy c помошью Exim4</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/">Используем gmail для отправки писем с помощью exim4</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dubass83">@dubass83</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dubass83',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dubass83 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+<script type="text/javascript">
+      var disqus_shortname = 'myblognot';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/';
+        var disqus_url = 'http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

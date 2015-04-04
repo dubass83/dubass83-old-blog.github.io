@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gmail | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/gmail/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Используем gmail для отправки писем с помощью exim4]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4/"/>
+    <updated>2013-06-11T21:23:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/11/ispolzuiem-gmail-dlia-otpravki-pisiem-s-pomoshchiu-exim4</id>
+    <content type="html"><![CDATA[<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p>
+
+<!--more-->
+
+
+<h3>Запускаем в терминале</h3>
+
+<pre><code>#dpkg-reconfigure exim4-config
+</code></pre>
+
+<p>И по шагам указываем следующую информацию<br/>
+<strong>Общий тип почтовой конфигурации:</strong><br/>
+отправка почты через smarthost; приём по SMTP или через fetchmail<br/>
+<strong>Почтовое имя системы:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адреса, с которых следует ожидать входящие соединения SMTP:</strong><br/>
+127.0.0.1<br/>
+<strong>Другие места назначения, для которых должна приниматься почта:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>Машины, для которых доступна релейная передача почты:</strong><br/>
+Оставляем пустую строку<br/>
+<strong>IP-адрес или имя хоста являющегося исходящим smarthost:</strong><br/>
+smtp.gmail.com::587<br/>
+<strong>Скрывать локальное почтовое имя в исходящей почте?</strong><br/>
+Нет<br/>
+<strong>Сокращать количество DNS-запросов до минимума (дозвон по требованию)?</strong><br/>
+Нет<br/>
+<strong>Метод доставки локальной почты:</strong><br/>
+mbox формат в /var/mail/<br/>
+<strong>Разделить конфигурацию на маленькие файлы?</strong> <br/>
+Да</p>
+
+<p>Аутентификационая информация на внешние SMTP сервера программа Exim4 хранит в фале <code>/etc/exim4/passwd.client</code> доступном на чтение и изменение только пользователю <em>root</em>.
+    # editor /etc/exim4/passwd.client
+в этот файл надо добавить следующие строки, заменив конечно логин и пароль на свои!
+    <em>.google.com:YourAccountName@gmail.com:y0uRpaSsw0RD
+Осталось выполнить последний штрих. Обновить конфигурацию и перезапустить демон.
+    # update-exim4.conf
+для тех кто перешол на </em>systemd*
+    # systemctl restart exim4.service
+остальные перезапускают exim4 привычным образом, можно например вот так:
+    # invoke-rc.d exim4 restart
+<strong>P.S.</strong> Для того что бы проверить работоспособность выполненой конфигурации выполни в терменале следующею команду.
+    echo &ldquo;This is my test message!&rdquo; | mail -s Test <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#121;&#x6f;&#117;&#x72;&#x5f;&#97;&#x6e;&#x6f;&#x74;&#x68;&#x65;&#x72;&#95;&#97;&#x63;&#x6f;&#x75;&#110;&#116;&#x40;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#114;&#x75;">&#x79;&#x6f;&#117;&#x72;&#95;&#x61;&#110;&#x6f;&#116;&#104;&#101;&#x72;&#95;&#x61;&#x63;&#x6f;&#117;&#x6e;&#x74;&#x40;&#109;&#x61;&#105;&#108;&#46;&#x72;&#x75;</a></p>
+]]></content>
+  </entry>
+  
+</feed>

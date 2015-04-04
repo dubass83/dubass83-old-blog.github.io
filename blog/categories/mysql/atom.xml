@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mysql | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Добавление нового пользователя в MySQl]]></title>
+    <link href="http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql/"/>
+    <updated>2013-06-09T12:51:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/06/09/dobavlieniie-novogho-polzovatielia-v-mysql</id>
+    <content type="html"><![CDATA[<p> С настройкой <em>Mysql-сервера</em> я сталкиваюсь нечасто, в основном во время того когда занимаюсь разроботкой и тестированием нового <em>WEB-приложения</em>. Поэтому иногда требуется добавить нового пользователя на базу. Устанавливать для этих целей web-интерфейс не целесообразно, а через командную строку запоминать лень. Поэтому для лентяев как я следующий код:</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">testbase</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">testuser</span><span class="o">@</span><span class="n">localhost</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">testpass</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span><span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Если есть время разобратся и выучить что то новое тогда лучше посетить <a href="http://www.mysql.ru/docs/man/Adding_users.html">сайт с официальной документацией</a>.</p>
+
+<!--more-->
+
+
+<p> <figure class='code'><figcaption><span>[Добавление новых пользователей, используя команду GRANT]  </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="k">user</span><span class="o">=</span><span class="n">root</span> <span class="n">mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">some_pass</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="n">monty</span><span class="o">@&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">%&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>        <span class="o">-&gt;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">some_pass</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="n">RELOAD</span><span class="p">,</span><span class="n">PROCESS</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="k">admin</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">USAGE</span> <span class="k">ON</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span> <span class="k">TO</span> <span class="n">dummy</span><span class="o">@</span><span class="n">localhost</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h3>Эти команды GRANT создают трех новых пользователей:</h3>
+
+<p><strong>monty</strong><br/>
+Полноценный суперпользователь - он может подсоединяться к серверу откуда угодно, но должен использовать для этого пароль some_pass. Обратите внимание на то, что мы должны применить операторы GRANT как для monty@localhost, так и для monty@&ldquo;%&rdquo;. Если не добавить запись с localhost, запись анонимного пользователя для localhost, которая создается при помощи mysql_install_db, будет иметь преимущество при подсоединении с локального компьютера, так как в ней указано более определенное значение для поля Host, и она расположена раньше в таблице user.<br/>
+<strong>admin</strong><br/>
+Пользователь, который может подсоединяться с localhost без пароля; ему назначены административные привилегии RELOAD и PROCESS. Эти привилегии позволяют пользователю запускать команды mysqladmin reload, mysqladmin refresh и mysqladmin flush-*, а также mysqladmin processlist. Ему не назначено никаких привилегий, относящихся к базам данных (их можно назначить позже, дополнительно применив оператор GRANT). <br/>
+<strong>dummy</strong><br/>
+Пользователь, который может подсоединяться к серверу без пароля, но только с локального компьютера. Все глобальные привилегии установлены в значение &lsquo;N&rsquo;-тип привилегии USAGE, который позволяет создавать пользователей без привилегий. Предполагается, что относящиеся к базам данных привилегии будут назначены позже.</p>
+
+<p><figure class='code'><figcaption><span>[Предоставление привилегий пользователям при помощи оператора GRANT] </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span><span class="k">user</span><span class="o">=</span><span class="n">root</span> <span class="n">mysql</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">bankaccount</span><span class="p">.</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@</span><span class="n">localhost</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">stupid</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">expenses</span><span class="p">.</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="ss">&quot;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x63;&amp;#117;&amp;#x73;&amp;#x74;&amp;#111;&amp;#x6d;&amp;#x40;&amp;#119;&amp;#x68;&amp;#x69;&amp;#116;&amp;#x65;&amp;#104;&amp;#111;&amp;#x75;&amp;#x73;&amp;#101;&amp;#46;&amp;#103;&amp;#111;&amp;#118;&quot;</span><span class="o">&gt;&amp;#</span><span class="mi">99</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x75</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x73</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">116</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x6f</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x6d</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">64</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x77</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x68</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x69</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">116</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x65</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">104</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x6f</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x75</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x73</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">101</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">46</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">103</span><span class="p">;</span><span class="o">&amp;#</span><span class="n">x6f</span><span class="p">;</span><span class="o">&amp;#</span><span class="mi">118</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">stupid</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">ON</span> <span class="n">customer</span><span class="p">.</span><span class="o">*</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="k">TO</span> <span class="n">custom</span><span class="o">@&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">%&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-&gt;</span>     <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">stupid</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Привилегии для пользователя <strong>custom</strong> мы назначаем потому, что этот пользователь хочет получать доступ к <em>MySQL</em> как с локального компьютера через сокеты <em>Unix</em>, так и с удаленного компьютера whitehouse.gov через протокол TCP/IP.</p>
+]]></content>
+  </entry>
+  
+</feed>

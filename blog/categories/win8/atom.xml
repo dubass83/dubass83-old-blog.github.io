@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: win8 | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/win8/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Windows 8 и черный экран.]]></title>
+    <link href="http://dubass83.github.io/blog/2013/05/20/windows-8-i-chiernyi-ekran/"/>
+    <updated>2013-05-20T12:31:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/05/20/windows-8-i-chiernyi-ekran</id>
+    <content type="html"><![CDATA[<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p>
+
+<p>Итак, мы имеем следующее уравнение:</p>
+
+<p><strong>Windows 8 + Avast = черный экран</strong></p>
+
+<!--more-->
+
+
+<p>Черный экран возникает в результате того, что антивирус <em>Avast</em> блокирует файл <code>explorer.exe</code> и не дает нормально запуститься Windows.</p>
+
+<p>Данное поведение антивируса наблюдается на рабочих станциях после установки активатора <em>windows 8</em>, скорее всего это вызвано тем что активатор модифицирует системные файлы.
+И так для того что бы решить эту проблему необходимо:
+1. Включите компьютер и войдите в систему.<br/>
+2. После того как появился черный экран вызовите диспетчер задач нажав комбинацию клавиш <code>«Ctrl + Alt + Del»</code>.<br/>
+3. Во вкладк «Процесы» найдите и щелкните правой кнопкой мыши по строке Avast.<br/>
+4. В появившемся контекстном меню щелкните левой клавишей мыши по команде «Открыть расположение файла».<br/>
+5. Двойным нажатием левой клавиши мыши запустите файл «AvastUI».<br/>
+6. В открывшемся окне программы Avast заходим во вкладку «Безопасность».<br/>
+7. Далее в левой колонке меню нажимаем вкладку «Антивирус».<br/>
+8. Далее в самом низу жмем вкладку «Экран поведения».<br/>
+9. Теперь справа чуть выше нажимаем кнопку «Настройки».<br/>
+10. В левом боковом меню заходим во вкладку «Надёжные процессы».<br/>
+11. И добавляем процессы, которые не нужно отслеживать <code>«C:\Windows\explorer.exe»</code> и <code>«C:\Windows\ImmersiveControlPanel\SystemSettings.exe»</code>.<br/>
+12. Теперь вызываем диспетчер задач нажав комбинацию клавиш «Ctrl + Alt + Del» и перезагружаем компьютер.</p>
+
+<p>После проделанной операции черный экран во время запуска <em>Windows 8</em> вас беспокоить больше не будет.</p>
+
+<p>Если у вас есть другие способы обойти данную неприятность, пишите в комментариях.</p>
+
+<p>По материалам статьи <a href="http://pc-helpnsk.ru/windows-8-%D0%B8-%D1%87%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%8D%D0%BA%D1%80%D0%B0%D0%BD/">win8 и черный экран</a></p>
+]]></content>
+  </entry>
+  
+</feed>

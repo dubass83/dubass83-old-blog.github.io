@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: install | Мой БлогNOT]]></title>
+  <link href="http://dubass83.github.io/blog/categories/install/atom.xml" rel="self"/>
+  <link href="http://dubass83.github.io/"/>
+  <updated>2015-04-04T18:12:41+03:00</updated>
+  <id>http://dubass83.github.io/</id>
+  <author>
+    <name><![CDATA[dubass83]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Установка и настройка Postgres на Debian 7]]></title>
+    <link href="http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian/"/>
+    <updated>2013-07-07T10:54:00+03:00</updated>
+    <id>http://dubass83.github.io/blog/2013/07/07/ustanovka-i-nastroika-postgres-na-debian</id>
+    <content type="html"><![CDATA[<h2>Введение</h2>
+
+<p>Surround your pullquote like this {&#8221; text to be quoted &#8220;}</p>
+
+<!--more-->
+
+
+<h2>Установка базы данных PostgreSQL в Debian</h2>
+
+<p>Если вы хотите установить базу даных <em>PostgreSQL</em>, а также консольный клиент для управления базами данных, тогда выполните следующую команду из оболочки.<br/>
+    #apt-get install postgresql postgresql-client</p>
+
+<p>Эта команда установить пакет и все его зависимости. Если вы хотите проверить официальную документацию нажмите <a href="http://www.postgresql.org/docs/">здесь</a>.</p>
+
+<p>Несколько вопросов будут задавать сценарий настройки по ходу установки пакета. C большинством из них можно просто согласился.</p>
+
+<p>Каталог по умолчанию для базы данных находится по адресу  <code>/var/lib/postgres/</code>.</p>
+
+<p>Конфигурационый файл находится в <code>/etc/postgresql/postgresql.conf</code>.</p>
+
+<h2>Создание пользователей для базы данных</h2>
+
+<p>Единственный (по умолчанию) способ войти во вновь созданную базу данных системы, это войти с правами администратора, затем войти как пользователь <em>Postgres</em>.</p>
+
+<pre><code>#su
+#su postgres
+#psql template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Тем не менее, вы, вероятно, хотели, чтобы иметь возможность войти в систему как ваш пользователь <em>UNIX</em>, или любым другим пользователем на ваш выбор. Есть несколько способов настроить эти доступы, для этого надо отредактировать файл <code>/etc/postgresql/pg_hba.conf</code> файл (полная документация этого файл доступен <a href="http://www.postgresql.org/docs/7.4/static/client-authentication.html">здесь</a>).</p>
+
+<p><figure class='code'><figcaption><span>pg_hba.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">local </span>all postgres ident sameuser
+</span><span class='line'><span class="c">#&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;All other connections by UNIX sockets&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;local all all ident sameuser
+</span><span class='line'><span class="c">#&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;All IPv4 connections from localhost&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;host all all 127.0.0.1 255.255.255.255 md5&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;All IPv6 localhost connections&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff ident sameuser
+</span><span class='line'>host all all ::ffff:127.0.0.1/128 ident sameuser
+</span><span class='line'><span class="c">#&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;reject all other connection attempts&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;host all all 0.0.0.0 0.0.0.0 reject
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Для редоктирования этого файла необходимо обладать правами супер пользователя, позже мы еще вернёмся к редактированию этого файла. Сейчас мы сказали <em>PostgreSQL</em> то, что все пользователи на локальной машине, должны иметь возможность доступа ко всем базам данных, используя свой ​​логин и <em>UNIX</em> пароли. Вам необходимо перезагрузить вашу базу данных, чтобы изменения вступили в силу.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>Теперь проблема в том, что авторизованные пользователи могут войти в базу данных, если они также существуют в базе данных. Так что вам нужно создать учетные записи с их именах пользователей. Это делается путем ввода с терминала команды <code>CreateUser</code> от имени пользователя <em>Postgres</em>.</p>
+
+<pre><code>#su postgres
+#createuser firstuser
+#exit
+</code></pre>
+
+<p>В ходе выполнения команды <code>CreateUser</code> будет задан вопрос, если пользователь должен иметь возможность для создания баз данных или создания новых пользователей.</p>
+
+<p>Теперь у вас есть новый пользователь в базе данных, и вы должны иметь возможность подключиться от имени этого пользователя (назовем его <em>firstuser</em>) следующим образом:</p>
+
+<pre><code>#su - firstuser
+#firstuser@localhost:~$ psql -W template1
+#template1=# \q
+#exit
+</code></pre>
+
+<p><strong>-W</strong> параметр запрос на ввод пароля. Вы должны ввести пароль вашей системы.
+Так вот оно что, мы закончили первую часть этой установки. Теперь давайте приготовим это для Интернета.</p>
+
+<p>Если некоторые из ваших веб-скриптов понадобится подключение к базе данных, вам необходимо предоставить им доступ через некоторое нового пользователя, зарезервированных для этого веб-приложения.</p>
+
+<p>Давайте сначала создать нового пользователя (от имени пользователя <em>Postgres</em>). Назовем его <em>webuser</em>.</p>
+
+<pre><code>#su postgres
+#createuser webuser
+#exit 
+</code></pre>
+
+<p>Теперь дадим ему доступ к одному или нескольким базам данных (скажем, вы позволите ему получить доступ к базам данных, которые зовут <em>Web</em>). Чтобы сделать это, вам нужно отредактировать еще раз файл <em>pg_hba.conf</em>. Получение первой строке ниже и записи второй раз под первым.</p>
+
+<pre><code>host all all 127.0.0.1 255.255.255.255 md5
+host web webuser 127.0.0.1 255.255.255.255 md5
+</code></pre>
+
+<p>Если вы хотели бы вы предоставить доступ этому пользователю с любого компьютера в подсети 192.168.0.xxx, вам придется добавить следующую строку.</p>
+
+<pre><code>host web webuser 192.168.0.1 255.255.255.0 md5
+</code></pre>
+
+<p>Вы должны предоставить ему доступ к хосту, вероятно, вы будете использовать протокол <em>TCP/IP</em>, чтобы получить подключение к базе данных. Но, так как вы дали ему тип аутентификации MD5, вы должны дать ему пароль, а также. Для того, чтобы сделать это, вам необходимо подключиться к базе данных и выдает специальную команду, все как пользователь Postgres:</p>
+
+<pre><code>#su postgres
+#postgres@localhost:~$ psql template1
+#template1=# alter user webuser password 'some_password';
+#ALTER USER
+#template1=# \q
+#exit
+</code></pre>
+
+<p>Теперь пользователь должен задать хороший пароль <em>&lsquo;some_password&rsquo;</em>, которые можно использовать после перезапуска PostgreSQL, чтобы сахранить и запомнить изменения в <em>pg_hba.conf</em> нужно перезапустить сервер.</p>
+
+<pre><code>#/etc/init.d/postgresql restart
+</code></pre>
+
+<p>После этого вы должны быть в состоянии создать свою собственную базу данных, если вы дали ему на это разрешение.</p>
+
+<pre><code>#createdb -h localhost -U webuser -W web
+</code></pre>
+
+<p>Подключиться к этой вновь созданной базы данных можно с помощью следующей команды.</p>
+
+<pre><code>#psql -h localhost -U webuser -W web
+</code></pre>
+
+<p>Как вы могли заметить, мы используем параметр <em>-h localhost</em> здесь. Это должно заставить PostgreSQL клиента использовать <em>TCP/IP</em>, а не <em>UNIX</em> сокетов. Если вы не хотите есть, вам нужно добавить новую строку в <em>&ldquo;local&rdquo;</em> категории <em>pg_hba.conf</em> для пользователей <em>webuser</em> для подключения через <em>sockets</em>.</p>
+
+<pre><code>local web webuser md5
+</code></pre>
+
+<h2>Использование SQL</h2>
+
+<p>Важные команды которые вам может потребоваться знать,</p>
+
+<pre><code>#psql -h localhost -U webuser -W -l
+</code></pre>
+
+<p>Выдаст вам список доступных баз данных.</p>
+
+<p>Теперь подключитесь к базе данных <em>PostgreSQL</em> с помощью клиента <em>psql</em>, и давайте создадим небольшую таблицу, сразу после нескольких тестов.</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">version</span><span class="p">();</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">current_date</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">h</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">d</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">dt</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weather</span><span class="p">(</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">city</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_lo</span> <span class="nb">int</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">low</span> <span class="n">temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">temp_hi</span> <span class="nb">int</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">high</span> <span class="n">temperature</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="n">prcp</span> <span class="nb">real</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="n">precipitation</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="nb">date</span> <span class="nb">date</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">prcp</span><span class="p">,</span> <span class="nb">date</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">San</span> <span class="n">Francisco</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="mi">1994</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">29</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weather</span> <span class="p">(</span><span class="nb">date</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_hi</span><span class="p">,</span> <span class="n">temp_lo</span><span class="p">)</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">VALUES</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="mi">1994</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">29</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">Hayward</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">37</span><span class="p">);</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span><span class="p">,</span> <span class="n">temp_lo</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">Lowest</span> <span class="n">Temperature</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="n">temp_hi</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">Highest</span> <span class="n">Temperature</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="n">city</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">temp_lo</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">40</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="k">max</span><span class="p">(</span><span class="n">temp_lo</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">UPDATE</span> <span class="n">weather</span> <span class="k">SET</span> <span class="n">temp_lo</span> <span class="o">=</span> <span class="mi">41</span> <span class="k">WHERE</span> <span class="n">city</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">Hayward</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">weather</span> <span class="k">WHERE</span> <span class="n">prcp</span> <span class="k">IS</span> <span class="k">NULL</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">weather</span><span class="p">;</span>
+</span><span class='line'><span class="n">web</span><span class="o">=&gt;</span> <span class="err">\</span><span class="n">q</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Теперь у вас был хороший обзор из нескольких операторов <em>SQL</em> и как использовать их в <em>PostgreSQL</em>.<br/>
+<a href="http://www.debianhelp.co.uk/postgresql.htm">Оригинальная статья на англиском</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
