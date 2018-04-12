@@ -1,0 +1,187 @@
+#EXTM3U url-tvg="http://www.teleguide.info/download/new3/jtv.zip"
+#EXTINF:-1 tvg-name="fashion-one" group-title="UHD"  tvg-shift=0, Fasion One 4K
+http://176.102.192.23:8000/udp/238.100.100.65:1234
+#EXTINF:-1 tvg-name="Stingray Festival 4k" group-title="UHD"  tvg-shift=0, Stingray Festival 4k
+http://176.102.192.23:8000/udp/238.100.100.67:1234
+#EXTINF:-1 tvg-name="TV1000 Megahit HD" group-title="HD"  tvg-shift=0, TV1000 Megahit HD
+http://176.102.192.23:8000/udp/238.100.100.55:1234
+#EXTINF:-1 tvg-name="TV1000 Premium HD" group-title="HD"  tvg-shift=0, TV1000 Premium HD
+http://176.102.192.23:8000/udp/238.100.100.56:1234
+#EXTINF:-1 tvg-name="viasat-nature-history-hd" group-title="HD"  tvg-shift=0, Viasat Nature HD
+http://176.102.192.23:8000/udp/238.100.100.57:1234
+#EXTINF:-1 tvg-name="viasat-sport-hd" group-title="HD"  tvg-shift=0, Viasat Sport HD
+http://176.102.192.23:8000/udp/238.100.100.58:1234
+#EXTINF:-1 tvg-name="TV1000 Comedy HD" group-title="HD"  tvg-shift=0, TV1000 Comedy HD
+http://176.102.192.23:8000/udp/238.100.100.54:1234
+#EXTINF:-1 tvg-name="fox-hd" group-title="HD"  tvg-shift=0, FOX HD
+http://176.102.192.23:8000/udp/238.100.100.53:1234
+#EXTINF:-1 tvg-name="History HD" group-title="HD"  tvg-shift=0, History HD
+http://176.102.192.23:8000/udp/238.100.100.50:1234
+#EXTINF:-1 tvg-name="TLC HD" group-title="HD"  tvg-shift=0, TLC HD
+http://176.102.192.23:8000/udp/238.100.100.51:1234
+#EXTINF:-1 tvg-name="Travel Channel HD" group-title="HD"  tvg-shift=0, Travel Channel HD
+http://176.102.192.23:8000/udp/238.100.100.52:1234
+#EXTINF:-1 tvg-name="Eurosport 2 HD" group-title="HD"  tvg-shift=0, Eurosport 2 HD
+http://176.102.192.23:8000/udp/238.100.100.59:1234
+#EXTINF:-1 tvg-name="Кинопремьера HD" group-title="HD"  tvg-shift=0, Кинопремьера HD
+http://176.102.192.23:8000/udp/238.100.100.30:1234
+#EXTINF:-1 tvg-name="Bridge HD" group-title="HD"  tvg-shift=0, Bridge HD
+http://176.102.192.23:8000/udp/238.100.100.64:1234
+#EXTINF:-1 tvg-name="Animal Planet HD" group-title="HD"  tvg-shift=0, Animal Planet HD
+http://176.102.192.23:8000/udp/238.100.100.60:1234
+#EXTINF:-1 tvg-name="Конный Мир HD" group-title="HD"  tvg-shift=0, Конный Мир HD
+http://176.102.192.23:8000/udp/238.100.100.61:1234
+#EXTINF:-1 tvg-name="Матч! HD" group-title="HD"  tvg-shift=0, Матч! HD
+http://176.102.192.23:8000/udp/238.100.100.62:1234
+#EXTINF:-1 tvg-name="amedia-premium-hd" group-title="HD"  tvg-shift=0, Amedia HD
+http://176.102.192.23:8000/udp/238.100.100.49:1234
+#EXTINF:-1 tvg-name="domkino-premium-hd" group-title="HD"  tvg-shift=0, Дом Кино Премиум HD
+http://176.102.192.23:8000/udp/238.100.100.63:1234
+#EXTINF:-1 tvg-name="КХЛ HD" group-title="HD"  tvg-shift=0, КХЛ HD
+http://176.102.192.23:8000/udp/238.100.100.35:1234
+#EXTINF:-1 tvg-name="RTG HD" group-title="HD"  tvg-shift=0, RTG HD
+http://176.102.192.23:8000/udp/238.100.100.37:1234
+#EXTINF:-1 tvg-name="Mezzo Live HD" group-title="HD"  tvg-shift=0, Mezzo Live HD
+http://176.102.192.23:8000/udp/238.100.100.38:1234
+#EXTINF:-1 tvg-name="MGM HD" group-title="HD"  tvg-shift=0, MGM HD
+http://176.102.192.23:8000/udp/238.100.100.39:1234
+#EXTINF:-1 tvg-name="discovery-channel-hd" group-title="HD"  tvg-shift=0, Discovery HD
+http://176.102.192.23:8000/udp/238.100.100.34:1234
+#EXTINF:-1 tvg-name="Матч! Арена HD" group-title="HD"  tvg-shift=0, Матч! Арена HD
+http://176.102.192.23:8000/udp/238.100.100.33:1234
+#EXTINF:-1 tvg-name="Матч! Игра HD" group-title="HD"  tvg-shift=0, Матч! Игра HD
+http://176.102.192.23:8000/udp/238.100.100.31:1234
+#EXTINF:-1 tvg-name="National Geographic HD" group-title="HD"  tvg-shift=0, National Geographic HD
+http://176.102.192.23:8000/udp/238.100.100.48:1234
+#EXTINF:-1 tvg-name="HD Life" group-title="HD"  tvg-shift=0, HD Life
+http://176.102.192.23:8000/udp/238.100.100.32:1234
+#EXTINF:-1 tvg-name="Nat Geo Wild HD" group-title="HD"  tvg-shift=0, Nat Geo Wild HD
+http://176.102.192.23:8000/udp/238.100.100.36:1234
+#EXTINF:-1 tvg-name="MTV Live HD" group-title="HD"  tvg-shift=0, MTV Live HD
+http://176.102.192.23:8000/udp/238.100.100.44:1234
+#EXTINF:-1 tvg-name="Nickelodeon HD" group-title="HD"  tvg-shift=0, Nickelodeon HD
+http://176.102.192.23:8000/udp/238.100.100.46:1234
+#EXTINF:-1 tvg-name="Eurosport HD" group-title="HD"  tvg-shift=0, Eurosport HD
+http://176.102.192.23:8000/udp/238.100.100.47:1234
+#EXTINF:-1 tvg-name="Наш Футбол HD" group-title="HD"  tvg-shift=0, Наш Футбол HD
+http://176.102.192.23:8000/udp/238.100.100.43:1234
+#EXTINF:-1 tvg-name="Матч! Футбол 1 HD" group-title="HD"  tvg-shift=0, Матч! Футбол 1 HD
+http://176.102.192.23:8000/udp/238.100.100.45:1234
+#EXTINF:-1 tvg-name="Матч! Футбол 2 HD" group-title="HD"  tvg-shift=0, Матч! Футбол 2 HD
+http://176.102.192.23:8000/udp/238.100.100.41:1234
+#EXTINF:-1 tvg-name="1HD" group-title="HD"  tvg-shift=0, 1HD
+http://176.102.192.23:8000/udp/238.100.100.40:1234
+#EXTINF:-1 tvg-name="Матч! Футбол 3 HD" group-title="HD"  tvg-shift=0, Матч! Футбол 3 HD
+http://176.102.192.23:8000/udp/238.100.100.42:1234
+#EXTINF:-1 tvg-name="Niki Junior" group-title="Детские"  tvg-shift=0, Niki Junior
+http://176.102.192.23:8000/udp/239.100.101.58:1234
+#EXTINF:-1 tvg-name="Niki Kids" group-title="Детские"  tvg-shift=0, Niki Kids
+http://176.102.192.23:8000/udp/239.100.101.59:1234
+#EXTINF:-1 tvg-name="Піксель" group-title="Детские"  tvg-shift=0, Піксель
+http://176.102.192.23:8000/udp/239.100.100.43:1234
+#EXTINF:-1 tvg-name="Zoom" group-title="Детские"  tvg-shift=0, Zoom
+http://176.102.192.23:8000/udp/239.100.100.42:1234
+#EXTINF:-1 tvg-name="Плюс Плюс" group-title="Детские"  tvg-shift=0, Плюс Плюс
+http://176.102.192.23:8000/udp/239.100.100.29:1234
+#EXTINF:-1 tvg-name="FOX Life" group-title="Кино"  tvg-shift=0, FOX Life
+http://176.102.192.23:8000/udp/238.100.100.68:1234
+#EXTINF:-1 tvg-name="Enter Film" group-title="Кино"  tvg-shift=0, Enter Film
+http://176.102.192.23:8000/udp/239.100.100.44:1234
+#EXTINF:-1 tvg-name="FILM UA DRAMA" group-title="Кино"  tvg-shift=0, FILM UA DRAMA
+http://176.102.192.23:8000/udp/239.100.100.8:1234
+#EXTINF:-1 tvg-name="EU Music" group-title="Музыка"  tvg-shift=0, EU Music
+http://176.102.192.23:8000/udp/239.100.101.57:1234
+#EXTINF:-1 tvg-name="Music Box" group-title="Музыка"  tvg-shift=0, Music Box
+http://176.102.192.23:8000/udp/239.100.100.32:1234
+#EXTINF:-1 tvg-name="Music Box" group-title="Музыка"  tvg-shift=0, OTV
+http://176.102.192.23:8000/udp/239.100.100.34:1234
+#EXTINF:-1 tvg-name="VH1 classic" group-title="Музыка"  tvg-shift=0, VH1 classic
+http://176.102.192.23:8000/udp/238.100.100.73:1234
+#EXTINF:-1 tvg-name="MTV Hits" group-title="Музыка"  tvg-shift=0, MTV Hits
+http://176.102.192.23:8000/udp/238.100.100.71:1234
+#EXTINF:-1 tvg-name="MTV Dance" group-title="Музыка"  tvg-shift=0, MTV Dance
+http://176.102.192.23:8000/udp/238.100.100.70:1234
+#EXTINF:-1 tvg-name="VH1 Europe" group-title="Музыка"  tvg-shift=0, VH1 Europe
+http://176.102.192.23:8000/udp/238.100.100.74:1234
+#EXTINF:-1 tvg-name="MTV Rocks" group-title="Музыка"  tvg-shift=0, MTV Rocks
+http://176.102.192.23:8000/udp/238.100.100.72:1234
+#EXTINF:-1 tvg-name="Уніан" group-title="Новости"  tvg-shift=0, Уніан
+http://176.102.192.23:8000/udp/239.100.100.31:1234
+#EXTINF:-1 tvg-name="П'ятий Канал" group-title="Новости"  tvg-shift=0, П'ятий Канал
+http://176.102.192.23:8000/udp/239.100.100.15:1234
+#EXTINF:-1 tvg-name="Перший діловий" group-title="Новости"  tvg-shift=0, Перший діловий
+http://176.102.192.23:8000/udp/239.100.101.30:1234
+#EXTINF:-1 tvg-name="112 Україна HD" group-title="Новости"  tvg-shift=0, 112 Україна HD
+http://176.102.192.23:8000/udp/239.100.101.40:1234
+#EXTINF:-1 tvg-name="News Network" group-title="Новости"  tvg-shift=0, News Network
+http://176.102.192.23:8000/udp/239.100.100.12:1234
+#EXTINF:-1 tvg-name="Новини 24" group-title="Новости"  tvg-shift=0, Новини 24
+http://176.102.192.23:8000/udp/239.100.101.52:1234
+#EXTINF:-1 tvg-name="Мега" group-title="Познавательные"  tvg-shift=0, Мега
+http://176.102.192.23:8000/udp/239.100.100.39:1234
+#EXTINF:-1 tvg-name="Pro Все" group-title="Познавательные"  tvg-shift=0, Pro Все
+http://176.102.192.23:8000/udp/239.100.100.20:1234
+#EXTINF:-1 tvg-name="Фауна" group-title="Познавательные"  tvg-shift=0, Фауна
+http://176.102.192.23:8000/udp/239.100.100.7:1234
+#EXTINF:-1 tvg-name="Сонце" group-title="Познавательные"  tvg-shift=0, Сонце
+http://176.102.192.23:8000/udp/239.100.100.14:1234
+#EXTINF:-1 tvg-name="Дача" group-title="Познавательные"  tvg-shift=0, Дача
+http://176.102.192.23:8000/udp/239.100.100.3:1234
+#EXTINF:-1 tvg-name="Трофей" group-title="Познавательные"  tvg-shift=0, Трофей
+http://176.102.192.23:8000/udp/239.100.100.2:1234
+#EXTINF:-1 tvg-name="Discovery ID" group-title="Познавательные"  tvg-shift=0, Discovery ID
+http://176.102.192.23:8000/udp/238.100.100.69:1234
+#EXTINF:-1 tvg-name="Наука" group-title="Познавательные"  tvg-shift=0, Наука
+http://176.102.192.23:8000/udp/239.100.100.6:1234
+#EXTINF:-1 tvg-name="Epoque" group-title="Познавательные"  tvg-shift=0, Epoque
+http://176.102.192.23:8000/udp/239.100.100.4:1234
+#EXTINF:-1 tvg-name="Тера" group-title="Познавательные"  tvg-shift=0, Тера
+http://176.102.192.23:8000/udp/239.100.100.5:1234
+#EXTINF:-1 tvg-name="УР-1" group-title="Радио"  tvg-shift=0, УР-1
+http://176.102.192.23:8000/udp/239.100.101.41:1234
+#EXTINF:-1 tvg-name="УР-3 Радіо Культура" group-title="Радио"  tvg-shift=0, УР-3 Радіо Культура
+http://176.102.192.23:8000/udp/239.100.101.43:1234
+#EXTINF:-1 tvg-name="УР-2 Радіо Промінь" group-title="Радио"  tvg-shift=0, УР-2 Радіо Промінь
+http://176.102.192.23:8000/udp/239.100.101.42:1234
+#EXTINF:-1 tvg-name="Boomerang" group-title="Развлекательные"  tvg-shift=0, Boomerang
+http://176.102.192.23:8000/udp/238.100.100.75:1234
+#EXTINF:-1 tvg-name="Tonis HD" group-title="Разное"  tvg-shift=0, Tonis HD
+http://176.102.192.23:8000/udp/239.100.101.34:1234
+#EXTINF:-1 tvg-name="112 Україна" group-title="Разное"  tvg-shift=0, 112 Україна
+http://176.102.192.23:8000/udp/239.100.101.32:1234
+#EXTINF:-1 tvg-name="Eko TV" group-title="Разное"  tvg-shift=0, Eko TV
+http://176.102.192.23:8000/udp/239.100.101.53:1234
+#EXTINF:-1 tvg-name="Інтер" group-title="Разное"  tvg-shift=0, Інтер
+http://176.102.192.23:8000/udp/239.100.101.35:1234
+#EXTINF:-1 tvg-name="НТН" group-title="Разное"  tvg-shift=0, НТН
+http://176.102.192.23:8000/udp/239.100.101.36:1234
+#EXTINF:-1 tvg-name="MIlady" group-title="Разное"  tvg-shift=0, MIlady
+http://176.102.192.23:8000/udp/239.100.101.48:1234
+#EXTINF:-1 tvg-name="Культура" group-title="Разное"  tvg-shift=0, Культура
+http://176.102.192.23:8000/udp/239.100.101.37:1234
+#EXTINF:-1 tvg-name="Tonis" group-title="Разное"  tvg-shift=0, Tonis
+http://176.102.192.23:8000/udp/239.100.101.54:1234
+#EXTINF:-1 tvg-name="ATR" group-title="Разное"  tvg-shift=0, ATR
+http://176.102.192.23:8000/udp/239.100.100.19:1234
+#EXTINF:-1 tvg-name="Вінтаж" group-title="Разное"  tvg-shift=0, Вінтаж
+http://176.102.192.23:8000/udp/239.100.100.18:1234
+#EXTINF:-1 tvg-name="2+2" group-title="Разное"  tvg-shift=0, 2+2
+http://176.102.192.23:8000/udp/239.100.100.27:1234
+#EXTINF:-1 tvg-name="ТЕТ" group-title="Разное"  tvg-shift=0, ТЕТ
+http://176.102.192.23:8000/udp/239.100.100.26:1234
+#EXTINF:-1 tvg-name="1+1" group-title="Разное"  tvg-shift=0, 1+1
+http://176.102.192.23:8000/udp/239.100.100.25:1234
+#EXTINF:-1 tvg-name="Бігуді" group-title="Разное"  tvg-shift=0, Бігуді
+http://176.102.192.23:8000/udp/239.100.100.30:1234
+#EXTINF:-1 tvg-name="RTI" group-title="Разное"  tvg-shift=0, RTI
+http://176.102.192.23:8000/udp/239.100.100.16:1234
+#EXTINF:-1 tvg-name="К2" group-title="Разное"  tvg-shift=0, К2
+http://176.102.192.23:8000/udp/239.100.100.41:1234
+#EXTINF:-1 tvg-name="К1" group-title="Разное"  tvg-shift=0, К1
+http://176.102.192.23:8000/udp/239.100.100.40:1234
+#EXTINF:-1 tvg-name="Maxxi TV" group-title="Разное"  tvg-shift=0, Maxxi TV
+http://176.102.192.23:8000/udp/239.100.100.22:1234
+#EXTINF:-1 tvg-name="Правда тут" group-title="Разное"  tvg-shift=0, Правда тут
+http://176.102.192.23:8000/udp/239.100.100.10:1234
+#EXTINF:-1 tvg-name="Extreme Sports" group-title="Спорт"  tvg-shift=0, Extreme Sports
+http://176.102.192.23:8000/udp/238.100.100.67:1234
